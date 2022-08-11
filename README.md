@@ -9,4 +9,4 @@ use_math: true
 # gilearning.github.io
 github page for the account
 
-
+$ \sqrt{2} $
