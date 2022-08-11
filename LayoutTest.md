@@ -1,6 +1,7 @@
 ---
 title: "Layout Test"
 use_math: true
+layout: post
 ---
 
 # Just Test
