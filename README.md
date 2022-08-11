@@ -10,3 +10,5 @@ use_math: true
 github page for the account
 
 $ \sqrt{2} $
+
+$$ \sqrt{2} $$
