@@ -1,5 +1,4 @@
 ---
-layout: page
 title: "Layout Test"
 use_math: true
 ---
