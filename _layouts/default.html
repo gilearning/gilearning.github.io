@@ -1,33 +1,30 @@
 <!doctype html>
-
-<script type="text/javascript" async
-	      src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
-</script>
-
-
-<script type="text/x-mathjax-config">
- MathJax.Hub.Config({
-     extensions: ["tex2jax.js"],
-     jax: ["input/TeX", "output/HTML-CSS"],
-     tex2jax: {
-	 inlineMath: [ ['$','$'], ["\\(","\\)"] ],
-	 displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
-	 processEscapes: true
-     },
-     "HTML-CSS": { availableFonts: ["TeX"] }
- });
-</script> 
-
 <html>
     <head>
 	<meta charset="utf-8">
 	<title>{{ page.title }}</title>
-	{% if page.use_math %}
-	    {% include mathjax_support.html %}
-	{% endif %}
     </head>
     <body>
 	{{ content }}
+
+	<script type="text/javascript" async
+		src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+	</script>
+
+
+	<script type="text/x-mathjax-config">
+	 MathJax.Hub.Config({
+	     extensions: ["tex2jax.js"],
+	     jax: ["input/TeX", "output/HTML-CSS"],
+	     tex2jax: {
+		 inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+		 displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+		 processEscapes: true
+	     },
+	     "HTML-CSS": { availableFonts: ["TeX"] }
+	 });
+	</script> 
     </body>
 </html>
+<!doctype html>
 
