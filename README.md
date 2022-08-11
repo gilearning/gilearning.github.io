@@ -1,9 +1,7 @@
 ---
 layout: default
-author: Xiangxiang Xu
 category: misc
 title: "Test math"
-use_math: true
 ---
 
 # gilearning.github.io
