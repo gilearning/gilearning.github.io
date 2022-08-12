@@ -2,6 +2,9 @@
 title: "Playground"
 layout: post
 ---
+## this is a level 2 heading
+
+and this is a [link](https://lizhongzheng.mit.edu)
 
 This is a playground for testing. 
 
