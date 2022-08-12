@@ -9,6 +9,7 @@ A famous identity: $e^{i\pi} + 1 = 0$.
 
 
 Chain rule for mutual information:
+
 $$
  I(X; Y, S) = I(X; S) + I(X; Y | S)
 $$
