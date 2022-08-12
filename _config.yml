@@ -30,3 +30,6 @@ comments:
 
 plugins:
  - jekyll-feed
+
+# Mathjax
+mathjax: true
