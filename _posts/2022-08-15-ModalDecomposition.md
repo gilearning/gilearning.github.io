@@ -1,5 +1,6 @@
 ---
 title: "Modal Decomposition"
+mathjax: true
 layout: post
 ---
 ## Modal Decomposition of Statistical Dependence
