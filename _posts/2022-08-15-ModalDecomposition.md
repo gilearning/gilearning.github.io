@@ -109,6 +109,15 @@ For a pair of spaces $\mathcal {F_X}$, $\mathcal {F_Y}$, with corresponding refe
 * $\sigma_i > 0, \forall i$; 
 * $\sigma_1 \geq \sigma_2 \geq \ldots$ in descending order; 
 * $f_i \in \mathcal {F_X}, g_i \in \mathcal {F_Y}$ are valid feature functions (zero meaan unit variance w.r.t the corresponding references)
-* and $\langle f_i, f_j\rangle = \langle g_i, g_j \rangle = \delta_{ij}$. 
+* $\langle f_i, f_j\rangle = \langle g_i, g_j \rangle = \delta_{ij}$. 
+
+These modes satisfy that 
+
+$$
+\begin{align}
+a&=b\\
+c&=d
+\end{align}
+$$
 
 ---
