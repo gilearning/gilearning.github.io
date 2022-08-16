@@ -97,7 +97,8 @@ $$
 $$
 
 
-This optimization is in fact a well-studied one. For the case with finite alphabets, the target LLR function can be thought as a $|\mathcal X| \times |\mathcal Y|$ matrix, with the $(x,y)$ entry being the function value $\mathcal {LLR}(x,y)$; and the above optimization problem is solved by finding the singular value decomposition (SVD) of this matrix. The result is a decomposition is a diagonlization, turning LLR matrix into the sum of orthogonal rank-1 matrices, each corresponds to one mode in our definition. These optimal choice of modes must be orthogonal to each other as a result to avoiding repetition between modes. We will state here without proof that the same can be done in the functional space. With that we now give the definition of modal decomposition. 
+This optimization is in fact a well-studied one. For the case with finite alphabets, the target LLR function can be thought as a $|\mathcal X| \times |\mathcal Y|$ matrix, with the $(x,y)$ entry being the function value $\mathcal {LLR}(x,y)$; and the above optimization problem is solved by finding the singular value decomposition (SVD) of this matrix. 
+The result is a decomposition is a diagonlization, turning LLR matrix into the sum of orthogonal rank-1 matrices, each corresponds to one mode in our definition. These optimal choice of modes must be orthogonal to each other as a result to avoiding repetition between modes. We will state here without proof that the same can be done in the functional space. With that we now give the definition of modal decomposition. 
 
 
 
@@ -115,8 +116,8 @@ These modes satisfy that
 
 $$
 \begin{align}
-a&=b\\
-c&=d
+\lim_{n\to \infty} \left\Vert \log \frac{P_{\mathsf {xy}}{P_\mathsf x \cdot P_\mathsf y} - \sum_{i=1}^n \sigma_i f_i \otimes g_i\right\Vert^2 = 0\\
+(\sigma_i, f_i, g_i), i = 1, \ldots, k \; = \; \arg\min_{(\tilde{\sigma}_i, \tilde{f}_i \tilde{g}_i), i=1, \ldots, k} \, \left\Vert \log \frac{P_{\mathsf {xy}}{P_\mathsf x\cdot P_\mathsf y} - \sum_{i=1}^k \tilde{\sigma}_i \cdot \tilde{f}_i \otimes \tilde{g}_i \right\Vert^2
 \end{align}
 $$
 
