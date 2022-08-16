@@ -1,3 +1,8 @@
+---
+title: "Modal Decomposition"
+layout: post
+---
+
 ## Modal Decomposition of Statistical Dependence
 
 
