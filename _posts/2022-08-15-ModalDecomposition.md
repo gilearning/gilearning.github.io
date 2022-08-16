@@ -1,6 +1,5 @@
 ---
 title: "Modal Decomposition"
-mathjax: true
 layout: post
 ---
 ## Modal Decomposition of Statistical Dependence
@@ -67,10 +66,10 @@ $$
 
 This can be rewritten as $P_{\mathsf {y|x}}(y|x) = P_\mathsf y (y) \cdot \exp(f(x)\cdot g(y)), \forall x, y$. That is, the conditional distribution is on a 1-D exponential family with $g(\mathsf y)$ as the natural statistic. To make inference of $\mathsf y$, we only need to know the value $f(\mathsf x)$, which is a sufficient statistic. And in fact the only thing we can infer about $\mathsf y$ is the value of $g(\mathsf y)$. In general, we could extrapolate from this observation to state that if the LLR function is the sum of a limited number of product functions, then that correspondingly limits the scope of inference tasks we can hope to solve, while allowing us to only look at a limited set of statistics, or **_features_**, of the data. 
 
-This is a perfect time to give the definition of features. 
+This is a good time to give the definition of features. 
 
 ---
-**Definition**
+**Definition:**
 A feature function of data $x \in \mathcal X$ is $f \in \mathcal {F_X}$, with 
 
 $$
@@ -79,3 +78,6 @@ $$
 
 ---
 
+Notet that since these are the functions that we would like to evaluate with data, fixed shifting and scaling do not make any difference, so we included in the definition that feature functions must have zero mean and unit variance w.r.t. the given reference distribution. Because we normalize all feature functions from now on, when we write a product function, we need to explicitly write out the scaling factor. That is, instead of $f\otimes g$, we need to write $\sigma f\otimes g$, with $\sigma \geq 0$. We call this triple, $(\sigma, f, g)$, a single **_mode_**. 
+
+For a given data sample $x$, we think of the function value $f(x)$ a feature, which captures some partial information carried by the raw data, since in general we may not be able to recover the value of $x$ from the feature value $f(x)$. When we observe a sequence samples, $x_1, x_2, \ldots, x_n$, the corresponding feature is the empirical average $\frac{1}{n} (f(x_1) + \ldots + f(x_n))$. 
