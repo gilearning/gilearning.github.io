@@ -74,7 +74,7 @@ This can be rewritten as $P_{\mathsf {y|x}}(y|x) = P_\mathsf y (y) \cdot \exp(f(
 This is a good time to give the definition of features and modes. 
 
 ---
-**Definition:**
+**Definition: Feature Functions**
 A feature function of data $x \in \mathcal X$ is $f \in \mathcal {F_X}$, with 
 
 $$
@@ -96,4 +96,15 @@ $$
 \min_{ (\sigma_i, f_i, g_i), i=1, \ldots, k} \, \left \Vert \mathrm{LLR} - \sum_{i=1}^k \sigma_i f_i\otimes g_i\right\Vert^2
 $$
 
+This optimization is in fact a well-studied one. For the case with finite alphabets, the target LLR function can be thought as a $|\mathcal X| \times |\mathcal Y|$ matrix, with the $(x,y)$ entry being the function value $\mathcal {LLR}(x,y)$; and the above optimization problem is solved by finding the singular value decomposition (SVD) of this matrix. The result is a decomposition is a diagonlization, turning LLR matrix into the sum of orthogonal rank-1 matrices, each corresponds to one mode in our definition. These optimal choice of modes must be orthogonal to each other as a result to avoiding repetition between modes. We will state here without proof that the same can be done in the functional space. With that we now give the definition of modal decomposition. 
 
+---
+**Definition: Modal Decomposition $\zeta$ **
+
+For a pair of spaces $\mathcal {F_X}$, $\mathcal {F_Y}$, with corresponding reference distributions $R_\mathsf x, R_\mathsf y$, resp., the **modal decomposition operation** is a map $\zeta$ that maps a joint distribution $P_{\mathsf {xy}}$, satisfying the technical assumption above, to a sequence of modes $(\sigma_i, f_i, g_i), i = 1, 2, \ldots$, with 
+
+* $\sigma_i > 0, \forall i$; 
+* $\sigma_1 \geq \sigma_2 \geq \ldots$ in descending order; 
+* $f_i \in \mathcal {F_X}, g_i \in \mathcal {F_Y}$ are valid feature functions (zero meaan unit variance w.r.t the corresponding references)
+* and $\langle f_i, f_j\rangle = \langle g_i, g_j \rangle = \delta_{ij}$. 
+---
