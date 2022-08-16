@@ -66,7 +66,8 @@ $$
 
 
 
-This can be rewritten as 
+This can be rewritten as $P_{\mathsf {y|x}}(y|x) = P_\mathsf y (y) \cdot \exp(f(x)\cdot g(y)), \forall x, y$. That is, the conditional distribution is on a 1-D exponential family with $g(\mathsf y)$ as the natural statistic. To make inference of $\mathsf y$, we only need to know the value $f(\mathsf x)$, which is a sufficient statistic. And in fact the only thing we can infer about $\mathsf y$ is the value of $g(\mathsf y)$. In general, we could extrapolate from this observation to state that if the LLR function is the sum of a limited number of product functions, then that correspondingly limits the scope of inference tasks we can hope to solve, while allowing us to only look at a limited set of statistics, or **_features_**, of the data. 
+
 
 
 
