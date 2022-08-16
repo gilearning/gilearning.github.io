@@ -4,6 +4,12 @@ layout: default
 <head>
   <script type="text/x-mathjax-config">
   MathJax.Hub.Config({
+    
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+      processEscapes: true
+    }
   
     extensions: [
       "tex2jax.js",  // HERE
@@ -17,11 +23,7 @@ layout: default
     
     displayAlign: "left"
     
-    tex2jax: {
-      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
-      displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
-      processEscapes: true
-    }
+
   });
 </script>
     
