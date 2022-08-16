@@ -56,3 +56,23 @@ $$
 >In words, this assumption says that the LLR function can be approached, in L2 sense, by the sum of a countable collection of product functions, with L2 defined w.r.t. the given reference distribution. This assumption is always true for the cases that both $\mathcal X$ and $\mathcal Y$ are discrete alphabets. For more general cases, the assumption of a countable basis in L2 sense is a commonly used assumption, which is not restrictive at all in most practical applications, and convenient for us to rule out some of the "unpleasant" distributions. 
 
 ### A Single Mode
+Why we are so intersted in such product functions? In short, it represents a very simple kind of dependence. Imagine a joint distribution $P_{\mathsf {xy}}$ whose LLR function can be written as 
+
+$$
+\log \frac{P_{\mathsf {xy}}(x,y)}{P_\mathsf x(x) P_\mathsf y(y)} = f(x) \cdot g(y), \qquad \forall x, y
+$$
+
+This can be rewritten as $P_{\mathsf {y|x}}(y|x) = P_\mathsf y (y) \cdot \exp(f(x)\cdot g(y)), \forall x, y$. That is, the conditional distribution is on a 1-D exponential family with $g(\mathsf y)$ as the natural statistic. To make inference of $\mathsf y$, we only need to know the value $f(\mathsf x)$, which is a sufficient statistic. And in fact the only thing we can infer about $\mathsf y$ is the value of $g(\mathsf y)$. In general, we could extrapolate from this observation to state that if the LLR function is the sum of a limited number of product functions, then that correspondingly limits the scope of inference tasks we can hope to solve, while allowing us to only look at a limited set of statistics, or **_features_**, of the data. 
+
+This is a perfect time to give the definition of features. 
+
+---
+**Definition**
+A feature function of data $x \in \mathcal X$ is $f \in \mathcal {F_X}$, with 
+
+$$
+\mathbb E_{\mathsf x \sim R_\mathsf x} [f(\mathsf x)] = 0, \qquad \mathbb E_{\mathsf x \sim R_\mathsf x}[ f^2(\mathsf x)] = 1
+$$
+
+---
+
