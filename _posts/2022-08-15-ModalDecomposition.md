@@ -2,10 +2,9 @@
 title: "Modal Decomposition"
 layout: post
 ---
-
 ## Modal Decomposition of Statistical Dependence
 
-
+try $\exp(x)$
 
 > ### The key points
 > 
