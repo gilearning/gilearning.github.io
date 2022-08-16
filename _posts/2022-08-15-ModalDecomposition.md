@@ -84,7 +84,7 @@ $$
 ---
 
 
-Since these are the functions that we would like to evaluate with data, fixed shifting and scaling do not make any difference, so we included in the definition that feature functions must have zero mean and unit variance w.r.t. the given reference distribution. Because we normalize all feature functions from now on, when we write a product function, we need to explicitly write out the scaling factor. That is, instead of $f\otimes g$, we need to write $\sigma f\otimes g$, with $\sigma \geq 0$. We call this triple, $(\sigma, f, g)$, a single **_mode_**. That is, a mode consists of a strength $\sigma$, and a pair of feature functions in $\mathcal {F_X}$ and $\mathcal {F_Y}$. 
+Since these are the functions that we would like to evaluate with data, 
 
 For a given data sample $x$, we think of the function value $f(x)$ a feature, which captures some partial information carried by the raw data, since in general we may not be able to recover the value of $x$ from the feature value $f(x)$. When we observe a sequence samples, $x_1, x_2, \ldots, x_n$, the corresponding feature is the empirical average $\frac{1}{n} (f(x_1) + \ldots + f(x_n))$. 
 
