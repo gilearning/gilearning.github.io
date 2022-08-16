@@ -64,7 +64,12 @@ $$
 \log \frac{P_{\mathsf {xy}}(x,y)}{P_\mathsf x(x) P_\mathsf y(y)} = f(x) \cdot g(y), \qquad \forall x, y.
 $$
 
+
+
 This can be rewritten as $P_{\mathsf {y|x}}(y|x) = P_\mathsf y (y) \cdot \exp(f(x)\cdot g(y)), \forall x, y$. That is, the conditional distribution is on a 1-D exponential family with $g(\mathsf y)$ as the natural statistic. To make inference of $\mathsf y$, we only need to know the value $f(\mathsf x)$, which is a sufficient statistic. And in fact the only thing we can infer about $\mathsf y$ is the value of $g(\mathsf y)$. In general, we could extrapolate from this observation to state that if the LLR function is the sum of a limited number of product functions, then that correspondingly limits the scope of inference tasks we can hope to solve, while allowing us to only look at a limited set of statistics, or **_features_**, of the data. 
+
+
+
 
 This is a good time to give the definition of features and modes. 
 
@@ -77,6 +82,7 @@ $$
 $$
 
 ---
+
 
 Since these are the functions that we would like to evaluate with data, fixed shifting and scaling do not make any difference, so we included in the definition that feature functions must have zero mean and unit variance w.r.t. the given reference distribution. Because we normalize all feature functions from now on, when we write a product function, we need to explicitly write out the scaling factor. That is, instead of $f\otimes g$, we need to write $\sigma f\otimes g$, with $\sigma \geq 0$. We call this triple, $(\sigma, f, g)$, a single **_mode_**. That is, a mode consists of a strength $\sigma$, and a pair of feature functions in $\mathcal {F_X}$ and $\mathcal {F_Y}$. 
 
