@@ -27,10 +27,10 @@ $$
 \langle f_1, f_2\rangle \stackrel{\Delta}{=} \mathbb E_{\mathsf x \sim R_X}[f_1(\mathsf x) \cdot f_2(\mathsf x)]
 $$
 
----
-**Note:**
-In almost all cases we can without loss of generality restrict functions to have zero mean w.r.t. $R_\mathsf x$. Thus, the inner product is really the covariance of $f_1(\mathsf x)$ and $f_2(\mathsf x)$. Furthermore, in this page we would not change the reference distribution once chosen, so we could use the above notation for inner products. Otherwise we could put a subscript to indicate the reference, like $\langle f_1, f_2\rangle_{R_\mathsf x}$. 
----
+
+>**Note:**
+>In almost all cases we can without loss of generality restrict functions to have zero mean w.r.t. $R_\mathsf x$. Thus, the inner product is really the covariance of $f_1(\mathsf x)$ and $f_2(\mathsf x)$. Furthermore, in this page we would not change the reference distribution once chosen, so we could use the above notation for inner products. Otherwise we could put a subscript to indicate the reference, like $\langle f_1, f_2\rangle_{R_\mathsf x}$. 
+
 
 We can similarly define the inner product on the space of functions on a different alphabet $\mathcal Y$, with respect to a reference distribution $R_\mathsf y$. 
 
@@ -50,4 +50,5 @@ $$
 \lim_{n\to \infty} \left\Vert \mathrm{LLR} - \sum_{i=1}^n f_i \otimes g_i \right\Vert^2 = \lim_{n\to \infty} \mathbb E_{\mathsf {x,y} \sim R_\mathsf xR_\mathsf y}\left[ \left(\mathrm{LLR}(\mathsf {x, y}) - \sum_{i=1}^n f_i(\mathsf x) g_i(\mathsf y) \right)^2\right]  = 0
 $$
 
-
+>**Note:**
+>In words, this assumption says that the LLR function can be approached, in L2 sense, by the sum of a countable collection of product functions, with L2 defined w.r.t. the given reference distribution. This assumption is always true for the cases that both $\mathcal X$ and $\mathcal Y$ are discrete alphabets. For more general cases, the assumption of a countable basis in L2 sense is a commonly used assumption, which is not restrictive at all in most practical applications, and convenient for us to rule out some of the "unpleasant" distributions. 
