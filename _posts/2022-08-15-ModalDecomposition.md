@@ -139,19 +139,25 @@ It worth mentioning that the local assumption is indeed a fundamental concept. T
 
 ### Property 1: the Conditional Expectation Operator
 
-The first easy thing we can do with the local approximation is to apply the Taylor approximation $\log(x) \approx x-1$ when $x\approx 1$, to the LLR function
+The first easy thing we can do with the local approximation is to apply the Taylor approximation, $\log(x) \approx x-1$ when $x\approx 1$, to the LLR function
 
 $$
 \mathrm{LLR}(x,y) = \log \left( \frac{P_{\mathsf {xy}}(x,y)}{P_\mathsf x(x) P_\mathsf y(y)} \right)\approx \widetilde{\mathrm{LLR}}(x,y) = \frac{P_{\mathsf {xy}}(x,y) - P_\mathsf x(x) P_\mathsf y(y)}{P_\mathsf x(x) P_\mathsf y(y)}
 $$
 
-We could have defined the modal decomposition with the target function of $\widetilde{\mathrm{LLR}}$, which can also be reasonably read as "describing the dependence". There is an additional interesting property of this approximated version of LLR: when viewed as an operator on the functional space it is closely related to the conditional expectation operator. 
+We can also just take the reference $R_\mathsf x = P_\mathsf x, R_\mathsf y= P_\mathsf y$ to further simplify thins. We could have defined the modal decomposition with the target function of $\widetilde{\mathrm{LLR}}$, and choose this new reference, which can also be reasonably read as "describing the dependence". We view this as purly a choice of presentation style, and the difference happens to vanish under the local approximation. 
+
+There is an additional interesting property of this approximated version of LLR: when viewed as an operator on the functional space it is closely related to the conditional expectation operator. 
 
 > **Property 1:** 
 > Let $B : \mathcal {F_X} \mapsto \mathcal {F_Y}$ be defined as 
+> 
 > $$
 > B(f) \stackreled{\Delta}{=} \sum_x \widetilde{\mathrm{LLR}}(x,y)\cdot f(x) = \frac{P_{\mathsf {xy}}(x,y) - P_\mathsf x(x) P_\mathsf y(y)}{P_\mathsf x(x) P_\mathsf y(y)} \cdot f(x)
 > $$
+>
+
+
 
 
 
