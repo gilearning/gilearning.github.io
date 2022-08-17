@@ -147,5 +147,11 @@ $$
 
 We could have defined the modal decomposition with the target function of $\widetilde{\mathrm{LLR}}$, which can also be reasonably read as "describing the dependence". There is an additional interesting property of this approximated version of LLR: when viewed as an operator on the functional space it is closely related to the conditional expectation operator. 
 
+> **Property 1:** 
+> Let $B : \mathcal {F_X} \mapsto \mathcal {F_Y}$ be defined as 
+> $$
+> B(f) \stackreled{\Delta}{=} \sum_x \widetilde{\mathrm{LLR}}(x,y)\cdot f(x) = \frac{P_{\mathsf {xy}}(x,y) - P_\mathsf x(x) P_\mathsf y(y)}{P_\mathsf x(x) P_\mathsf y(y)} \cdot f(x)
+> $$
+
 
 
