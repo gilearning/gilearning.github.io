@@ -121,4 +121,15 @@ $$
 \end{align}
 $$
 
+We denote this as $\zeta(P_{\mathsf{xy}}) = [(\sigma_i, f_i, g_i), i=1, 2, \ldots]$. 
+
 ---
+
+A few remarks are in order. 
+
+1. Strictly speaking, equations (1) and (2) should be stated as a theorem, as it takes a proof to argue that such a sequence modes indeed exists and its partial sequences are the optimal solutions for the rank-$k$ approximation for different values of $k$. There is a similar statement about singular value decomposition, which is really the reason that SVD is so useful. The proof here follows the same general idea and is omitted. 
+2. We denote this decomposition as $\zeta(P_{\mathsf {xy}})$, which should be read as "the $\zeta$-operation for the $\mathsf{x-y}$ dependence defined by the joint distribution $P_{\mathsf{xy}}$". While we write the functional decomposition as an L2 approximation to the LLR function, the LLR is not the unique way to describe the dependence. Later we will have examples where it is convenient to use a slightly different target function, with the resulting choices of the feature functions also a bit different. We consider all such operations to decompose the dependence as the same general idea. 
+3. The definition says that for each model $P_{\mathsf {xy}}$ there is an ideal sequence of modes for the othogonal decomposition. In practice, we do not observe either the model or the mode. We will show later that learning algorithms often try to learn an approximate version of the modes. For example, it is common to only learn the first $k$ modes as defined in equation (2), or to learn the decomposition of an empirical distribution from a finite dataset, or to have extra restrictions of the learned features due to the limited expressive power of a network, etc. In more complex problems, sometimes it might not even be clear which dependence we are trying to decompose. The purpose of defining the $\zeta$ operation is to help us to clarify what type of compromises are taken in finding a computable approximate solution to the idealized decomposition problem. 
+
+
+### Nice Properties
