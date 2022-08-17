@@ -9,7 +9,7 @@ layout: post
 > 
 >_Statistical dependence_ is the reason that we can guess the value of one random variable based on the observation of another. The is the basis of most inference problems like decision making, estimation, prediction, classification, etc. 
 >
->It is, however, a somewhat ill-posed question to ask "how much does a random variable $\mathsf x$ depend on another random variable $\mathsf y$". 
+>It is, however, a somewhat ill-posed question to ask, "how much does a random variable $\mathsf x$ depend on another random variable $\mathsf y$". 
 >It turns out that in general statistical dependence should be understood and quantified as a high dimensional relation: two random variables are dependent through a number of **_orthogonal modes_**; and each mode can have a different "strength". 
 >
 >The goal of this page is to define these modes mathematically, explain why they are important in practice, and show by examples that many statistical concepts and learning algorithms are directly related to this modal decomposition idea. With that we will also build the mathematical foundation and notations for the more advanced processing using modal decomposition in the later pages. 
@@ -58,7 +58,7 @@ $$
 
 ### A Single Mode
 
-Why we are so intersted in such product functions? In short, it represents a very simple kind of dependence. Imagine a joint distribution $P_{\mathsf {xy}}$ whose LLR function can be written as 
+Why we are so interested in such product functions? In short, it represents a very simple kind of dependence. Imagine a joint distribution $P_{\mathsf {xy}}$ whose LLR function can be written as 
 
 $$
 \log \frac{P_{\mathsf {xy}}(x,y)}{P_\mathsf x(x) P_\mathsf y(y)} = f(x) \cdot g(y), \qquad \forall x, y.
@@ -98,7 +98,7 @@ $$
 
 
 This optimization is in fact a well-studied one. For the case with finite alphabets, the target LLR function can be thought as a $|\mathcal X| \times |\mathcal Y|$ matrix, with the $(x,y)$ entry being the function value $\mathrm {LLR}(x,y)$; and the above optimization problem is solved by finding the singular value decomposition (SVD) of this matrix. 
-The result is a decomposition is a diagonlization, turning LLR matrix into the sum of orthogonal rank-1 matrices, each corresponds to one mode in our definition. These optimal choice of modes must be orthogonal to each other as a result to avoiding repetition between modes. We will state here without proof that the same can be done in the functional space. With that we now give the definition of modal decomposition. 
+The result is a decomposition is a diagonalization, turning LLR matrix into the sum of orthogonal rank-1 matrices, each corresponds to one mode in our definition. These optimal choices of modes must be orthogonal to each other as a result to avoiding repetition between modes. We will state here without proof that the same can be done in the functional space. With that we now give the definition of modal decomposition. 
 
 
 
@@ -127,9 +127,15 @@ We denote this as $\zeta(P_{\mathsf{xy}}) = [(\sigma_i, f_i, g_i), i=1, 2, \ldot
 
 A few remarks are in order. 
 
-1. Strictly speaking, equations (1) and (2) should be stated as a theorem, as it takes a proof to argue that such a sequence modes indeed exists and its partial sequences are the optimal solutions for the rank-$k$ approximation for different values of $k$. There is a similar statement about singular value decomposition, which is really the reason that SVD is so useful. The proof here follows the same general idea and is omitted. 
+1. Strictly speaking, equations (1) and (2) should be stated as a theorem, as it takes a proof to argue that such a sequence of modes indeed exists and its partial sequences are the optimal solutions for the rank-$k$ approximation for different values of $k$. There is a similar statement about singular value decomposition, which is really the reason that SVD is so useful. The proof here follows the same general idea and is omitted. 
 2. We denote this decomposition as $\zeta(P_{\mathsf {xy}})$, which should be read as "the $\zeta$-operation for the $\mathsf{x-y}$ dependence defined by the joint distribution $P_{\mathsf{xy}}$". While we write the functional decomposition as an L2 approximation to the LLR function, the LLR is not the unique way to describe the dependence. Later we will have examples where it is convenient to use a slightly different target function, with the resulting choices of the feature functions also a bit different. We consider all such operations to decompose the dependence as the same general idea. 
-3. The definition says that for each model $P_{\mathsf {xy}}$ there is an ideal sequence of modes for the othogonal decomposition. In practice, we do not observe either the model or the mode. We will show later that learning algorithms often try to learn an approximate version of the modes. For example, it is common to only learn the first $k$ modes as defined in equation (2), or to learn the decomposition of an empirical distribution from a finite dataset, or to have extra restrictions of the learned features due to the limited expressive power of a network, etc. In more complex problems, sometimes it might not even be clear which dependence we are trying to decompose. The purpose of defining the $\zeta$ operation is to help us to clarify what type of compromises are taken in finding a computable approximate solution to the idealized decomposition problem. 
+3. The definition says that for each model $P_{\mathsf {xy}}$ there is an ideal sequence of modes for the orthogonal decomposition. In practice, we do not observe either the model or the mode. We will show later that learning algorithms often try to learn an approximate version of the modes. For example, it is common to only learn the first $k$ modes as defined in equation (2), or to learn the decomposition of an empirical distribution from a finite dataset, or to have extra restrictions of the learned features due to the limited expressive power of a network, etc. In more complex problems, sometimes it might not even be clear which dependence we are trying to decompose. The purpose of defining the $\zeta$ operation is to help us to clarify what type of compromises are taken in finding a computable approximate solution to the idealized decomposition problem. 
 
 
 ### Nice Properties
+
+There are many nice properties of this modal decomposition. The best way to see them is to go through a survey paper we wrote. On this page we will only state them as facts without any proof, and sometimes with intuitve but not-so-precise statements. The goal of stating these intuitve statements is to explain why the modal decomposition is indeed useful, so it is not surprising that some numerical procedures can be understood as solving or approximated solving it. 
+
+One particular issue is the **_local assumption_**. Many nice properties and connections for the modal decomposition are asymptotic statements, proved in the limiting regime 
+
+
