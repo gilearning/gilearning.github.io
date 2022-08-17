@@ -2,7 +2,7 @@
 title: "Modal Decomposition"
 layout: post
 ---
-## Modal Decomposition of Statistical Dependence
+# Modal Decomposition of Statistical Dependence
 
 
 > ### The key points
@@ -14,7 +14,7 @@ layout: post
 >
 >The goal of this page is to define these modes mathematically, explain why they are important in practice, and show by examples that many statistical concepts and learning algorithms are directly related to this modal decomposition idea. With that we will also build the mathematical foundation and notations for the more advanced processing using modal decomposition in the later pages. 
 
-### Inner Product
+## Inner Product
 
 We start by defining an _inner product_ in the functional space. Given an alphabet $\mathcal X$, the space of all real-valued functions, 
 
@@ -136,6 +136,10 @@ A few remarks are in order.
 
 There are many nice properties of this modal decomposition. The best way to see them is to go through a survey paper we wrote. On this page we will only state them as facts without any proof, and sometimes with intuitve but not-so-precise statements. The goal of stating these intuitve statements is to explain why the modal decomposition is indeed useful, so it is not surprising that some numerical procedures can be understood as solving or approximated solving it. 
 
-One particular issue is the **_local assumption_**. Many nice properties and connections for the modal decomposition are asymptotic statements, proved in the limiting regime 
+One particular issue is the **_local assumption_**. Many nice properties and connections for the modal decomposition are asymptotic statements, proved in the limiting regime where $P_{\mathsf {xy}}, P_\mathsf x \cdot P_\mathsf y$, and $R_\mathsf x\cdot R_\mathsf y$ are all "close" to each other. Different mathematical statements might require different strengths of such assumptions, and in some cases one can even circumvent such assumptions by making a slightly different statement. Since this page is not a paper, we will simply call all of such things the "local approximation", denoted as $\approx$. We will assume the local assumption is given for all statement regardless of what is needed, and try to limit such statements in this short section on the properties. 
+
+It worth mentioning that the local assumption is indeed a fundamental concept. The space of probability distributions is not a linear vector space, but a manifold. (Amari) The local assumption allows us to focus on a neighborhood which can be approximated by the tangent plane of the manifold, and hence get the geometry linearized. For the same reason, we often need iterative algorithms in learning probability model, as we only can compute and make local steps when finding our way on a complex manifold. In the first step of our development, the assumption of a reference distribution in defining the inner product, can be thought as associating the functional space to a neighborhood of probability distributions around the reference. 
+
+
 
 
