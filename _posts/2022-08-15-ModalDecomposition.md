@@ -35,7 +35,7 @@ $$
 
 We can similarly define the inner product on the space of functions on a different alphabet $\mathcal Y$, with respect to a reference distribution $R_\mathsf y$. 
 
-### The LLR Function
+## The LLR Function
 
 Now we are ready to address the joint distributions $P_{\mathsf {xy}}$ on $\mathcal {X\times Y}$. Again we need to choose a reference distribution $R_\mathsf {xy}$. For the purpose of this page, we use the product distribution $R_{\mathsf {xy}} = R_\mathsf x\cdot R_\mathsf y$, and take the resulting definition of inner product of functions in $\mathcal F_{\mathcal X\times \mathcal Y}$. 
 
@@ -56,7 +56,7 @@ $$
 >**Note:**
 >In words, this assumption says that the LLR function can be approached, in L2 sense, by the sum of a countable collection of product functions, with L2 defined w.r.t. the given reference distribution. This assumption is always true for the cases that both $\mathcal X$ and $\mathcal Y$ are discrete alphabets. For more general cases, the assumption of a countable basis in L2 sense is a commonly used assumption, which is not restrictive at all in most practical applications, and convenient for us to rule out some of the "unpleasant" distributions. 
 
-### A Single Mode
+## A Single Mode
 
 Why we are so interested in such product functions? In short, it represents a very simple kind of dependence. Imagine a joint distribution $P_{\mathsf {xy}}$ whose LLR function can be written as 
 
@@ -65,10 +65,7 @@ $$
 $$
 
 
-
 This can be rewritten as $P_{\mathsf {y|x}}(y|x) = P_\mathsf y (y) \cdot \exp(f(x)\cdot g(y)), \forall x, y$. That is, the conditional distribution is on a 1-D exponential family with $g(\mathsf y)$ as the natural statistic. To make inference of $\mathsf y$, we only need to know the value $f(\mathsf x)$, which is a sufficient statistic. And in fact the only thing we can infer about $\mathsf y$ is the value of $g(\mathsf y)$. In general, we could extrapolate from this observation to state that if the LLR function is the sum of a limited number of product functions, then that correspondingly limits the scope of inference tasks we can hope to solve, while allowing us to only look at a limited set of statistics, or **_features_**, of the data. 
-
-
 
 
 This is a good time to give the definition of features and modes. 
@@ -88,7 +85,7 @@ Since these are the functions that we would like to evaluate with data, fixed sh
 
 For a given data sample $x$, we think of the function value $f(x)$ a feature, which captures some partial information carried by the raw data, since in general we may not be able to recover the value of $x$ from the feature value $f(x)$. When we observe a sequence samples, $x_1, x_2, \ldots, x_n$, the corresponding feature is the empirical average $\frac{1}{n} (f(x_1) + \ldots + f(x_n))$. 
 
-### Modal Decomposition
+## Modal Decomposition
 
 Obviously, for a given LLR function, there are many ways to write it into sum of modes. We hope to have as few modes as possible. In some cases, we might even wish to compromise the precision of the sum and try to have a reasonable approximation of the given LLR with a sum of even fewer modes. That is, for a given finite $k$, we would like to solve the problem 
 
@@ -132,7 +129,7 @@ A few remarks are in order.
 3. The definition says that for each model $P_{\mathsf {xy}}$ there is an ideal sequence of modes for the orthogonal decomposition. In practice, we do not observe either the model or the mode. We will show later that learning algorithms often try to learn an approximate version of the modes. For example, it is common to only learn the first $k$ modes as defined in equation (2), or to learn the decomposition of an empirical distribution from a finite dataset, or to have extra restrictions of the learned features due to the limited expressive power of a network, etc. In more complex problems, sometimes it might not even be clear which dependence we are trying to decompose. The purpose of defining the $\zeta$ operation is to help us to clarify what type of compromises are taken in finding a computable approximate solution to the idealized decomposition problem. 
 
 
-### Nice Properties
+## Nice Properties
 
 There are many nice properties of this modal decomposition. The best way to see them is to go through a survey paper we wrote. On this page we will only state them as facts without any proof, and sometimes with intuitve but not-so-precise statements. The goal of stating these intuitve statements is to explain why the modal decomposition is indeed useful, so it is not surprising that some numerical procedures can be understood as solving or approximated solving it. 
 
@@ -140,6 +137,15 @@ One particular issue is the **_local assumption_**. Many nice properties and con
 
 It worth mentioning that the local assumption is indeed a fundamental concept. The space of probability distributions is not a linear vector space, but a manifold. (Amari) The local assumption allows us to focus on a neighborhood which can be approximated by the tangent plane of the manifold, and hence get the geometry linearized. For the same reason, we often need iterative algorithms in learning probability model, as we only can compute and make local steps when finding our way on a complex manifold. In the first step of our development, the assumption of a reference distribution in defining the inner product, can be thought as associating the functional space to a neighborhood of probability distributions around the reference. 
 
+### Property 1: the Conditional Expectation Operator
+
+The first easy thing we can do with the local approximation is to apply the Taylor approximation $\log(x) \approx x-1$ when $x\approx 1$, to the LLR function
+
+$$
+\mathrm{LLR}(x,y) = \log \left( \frac{P_{\mathsf {xy}}(x,y)}{P_\mathsf x(x) P_\mathsf y(y)} \right)\approx \widetilde{\mathrm{LLR}}(x,y) = \frac{P_{\mathsf {xy}}(x,y) - P_\mathsf x(x) P_\mathsf y(y)}{P_\mathsf x(x) P_\mathsf y(y)}
+$$
+
+We could have defined the modal decomposition with the target function of $\widetilde{\mathrm{LLR}}$, which can also be reasonably read as "describing the dependence". There is an additional interesting property of this approximated version of LLR: when viewed as an operator on the functional space it is closely related to the conditional expectation operator. 
 
 
 
