@@ -65,10 +65,14 @@ $$
 $$
 
 
-This can be rewritten as $P_{\mathsf {y|x}}(y|x) = P_\mathsf y (y) \cdot \exp(f(x)\cdot g(y)), \forall x, y$. That is, the conditional distribution is on a 1-D exponential family with $g(\mathsf y)$ as the natural statistic. To make inference of $\mathsf y$, we only need to know the value $f(\mathsf x)$, which is a sufficient statistic. And in fact the only thing we can infer about $\mathsf y$ is the value of $g(\mathsf y)$. In general, we could extrapolate from this observation to state that if the LLR function is the sum of a limited number of product functions, then that correspondingly limits the scope of inference tasks we can hope to solve, while allowing us to only look at a limited set of statistics, or **_features_**, of the data. 
+This can be rewritten as $P_{\mathsf {y|x}}(y|x) = P_\mathsf y (y) \cdot \exp(f(x)\cdot g(y)), \forall x, y$. 
+That is, the conditional distribution is on a 1-D exponential family with $g(\mathsf y)$ as the natural statistic. 
+To make inference of $\mathsf y$, we only need to know the value $f(\mathsf x)$, which is a sufficient statistic. 
+In fact the only thing we can infer about $\mathsf y$ is the value of $g(\mathsf y)$. 
+In general, we could extrapolate from this observation to state that if the LLR function is the sum of a limited number of product functions, then that correspondingly limits the scope of inference tasks we can hope to solve, while allowing us to only look at a limited set of statistics, or **_features_**, of the data. 
 
 
-This is a good time to give the definition of features and modes. 
+Now it is a good time to give the definition of features and modes. 
 
 ---
 **Definition: Feature Functions**
@@ -150,14 +154,40 @@ We can also just take the reference $R_\mathsf x = P_\mathsf x, R_\mathsf y= P_\
 There is an additional interesting property of this approximated version of LLR: when viewed as an operator on the functional space it is closely related to the conditional expectation operator. 
 
 > **Property 1:** 
-> Let $B : \mathcal {F_X} \mapsto \mathcal {F_Y}$ be defined as: for $f\in \mathcal {F_X}$, $B(f) \in \mathcal {F_Y}$ with 
+> Let $B : \mathcal {F_X} \mapsto \mathcal {F_Y}$ be defined as: for $a\in \mathcal {F_X}$, $B(a) \in \mathcal {F_Y}$ with 
 > 
 > $$
-> \left(B(f)\right) (y) \stackrel{\Delta}{=} \sum_{x\in \mathcal X} \widetilde{\mathrm{LLR}}(x,y)\cdot (P_\mathsf x (x) \cdot f(x)) = \sum_{x\in \mathcal X}\frac{P_{\mathsf {xy}}(x,y) - P_\mathsf x(x) P_\mathsf y(y)}{P_\mathsf x(x) P_\mathsf y(y)} \cdot  (P_\mathsf x(x) \cdot f(x)) = \mathbb E [f(\mathsf x) | \mathsf y = y ] 
+> \left(B(a)\right) (y) \stackrel{\Delta}{=} \sum_{x\in \mathcal X} \widetilde{\mathrm{LLR}}(x,y)\cdot (P_\mathsf x (x) \cdot a(x)) = \sum_{x\in \mathcal X}\frac{P_{\mathsf {xy}}(x,y) - P_\mathsf x(x) P_\mathsf y(y)}{P_\mathsf x(x) P_\mathsf y(y)} \cdot  (P_\mathsf x(x) \cdot a(x)) = \mathbb E [a(\mathsf x) | \mathsf y = y ] 
 > $$
 >
 
+We write sum over $x$ in the above which of course can be turned into integral when $x$ is continuous valued. The $\widetilde{\mathrm{LLR}}$ function does not directly act on the input $a(\cdot)$, but instead needs an extra $P_\mathsf x(x)$ multiplied. This can be thought as a summation weighted by the reference distribution. 
 
+One can also define a transpose operator $B^T: \mathcal {F_Y}\mapsto \mathcal {F_X}$, for $b \in \mathcal {F_Y}$, $\left(B^T(b)\right)(x) = \mathbb E[b(\mathsf y)|\mathsf x=x], \forall x$. 
 
+There are a number of consequences when this connection is established. 
 
+> **Property 2: Contraction**
+> 
+> The conditional expectation operator is known to be a contraction, i.e.
+>
+>$$ 
+>\Vert B(a) \Vert^2 \leq \Vert a \Vert^2, \qquad \forall a \in \mathcal {F_X}
+>$$
+>
+> Equivalently, if $b = B(a)$, i.e. $b(y) = \mathbb E[a(\mathsf x)|\mathsf y=y], \forall y$, then $\mathbb E_{\mathsf y\sim P_\mathsf y}[b(\mathsf y)^2] \leq \mathbb E_{\mathsf x\sim P_\mathsf x}[a(\mathsf x)^2]$. 
+>
 
+If we now look the modal decomposition $\zeta(P_\mathsf {xy}) = [(\sigma_i, f_i, g_i), i=1, 2, \ldots]$, then we have a nice orthogonal structure. 
+
+>**Property 3: Mode Correlation**
+>
+> $$
+> (B(f_j))(y) = \sum_x \left(\sum_i \sigma_i \cdot f_i(x) g_i(y)\right) \cdot \left(P_{\mathsf x}(x) \cdot f_j(x)\right) = \sigma_j g_j(y), \quad \forall y
+> $$
+>
+>since $\mathbb E[f_i(\mathsf x) f_j(\mathsf x)] = \delta_{ij}$. With the same math, we also have $B^T(g_j) = \sigma_j \cdot f_j$. 
+>This result says that each $g_j$ is the image of the $B(\cdot)$ operator acting on $f_j$, scaled by the corresponding $\sigma_i$, and vice versa. 
+>
+
+ 
