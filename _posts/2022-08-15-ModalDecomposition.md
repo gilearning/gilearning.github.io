@@ -150,10 +150,10 @@ We can also just take the reference $R_\mathsf x = P_\mathsf x, R_\mathsf y= P_\
 There is an additional interesting property of this approximated version of LLR: when viewed as an operator on the functional space it is closely related to the conditional expectation operator. 
 
 > **Property 1:** 
-> Let $B : \mathcal {F_X} \mapsto \mathcal {F_Y}$ be defined as 
+> Let $B : \mathcal {F_X} \mapsto \mathcal {F_Y}$ be defined as: for $f\in \mathcal {F_X}$, $B(f) \in \mathcal {F_Y}$ with 
 > 
 > $$
-> B(f) \stackreled{\Delta}{=} \sum_x \widetilde{\mathrm{LLR}}(x,y)\cdot f(x) = \frac{P_{\mathsf {xy}}(x,y) - P_\mathsf x(x) P_\mathsf y(y)}{P_\mathsf x(x) P_\mathsf y(y)} \cdot f(x)
+> \left(B(f)\right) (y) \stackrel{\Delta}{=} \sum_{x\in \mathcal X} \widetilde{\mathrm{LLR}}(x,y)\cdot (P_\mathsf x (x) \cdot f(x)) = \sum_{x\in \mathcal X}\frac{P_{\mathsf {xy}}(x,y) - P_\mathsf x(x) P_\mathsf y(y)}{P_\mathsf x(x) P_\mathsf y(y)} \cdot  (P_\mathsf x(x) \cdot f(x)) = \mathbb E [f(\mathsf x) | \mathsf y = y ] 
 > $$
 >
 
