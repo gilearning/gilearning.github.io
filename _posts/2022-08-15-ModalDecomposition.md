@@ -116,8 +116,8 @@ These modes satisfy that
 
 $$
 \begin{align}
-\lim_{n\to \infty} \left\Vert \log \frac{P_{\mathsf {xy}}{P_\mathsf x \cdot P_\mathsf y} - \sum_{i=1}^n \sigma_i f_i \otimes g_i\right\Vert^2 = 0\\
-(\sigma_i, f_i, g_i), i = 1, \ldots, k \; = \; \arg\min_{(\tilde{\sigma}_i, \tilde{f}_i \tilde{g}_i), i=1, \ldots, k} \, \left\Vert \log \frac{P_{\mathsf {xy}}{P_\mathsf x\cdot P_\mathsf y} - \sum_{i=1}^k \tilde{\sigma}_i \cdot \tilde{f}_i \otimes \tilde{g}_i \right\Vert^2
+&\lim_{n\to \infty} \left\Vert \log \left(\frac{P_{\mathsf {xy}}}{P_\mathsf x \cdot P_\mathsf y}\right) - \sum_{i=1}^n \sigma_i f_i \otimes g_i\right\Vert^2 = 0\\
+&[(\sigma_i, f_i, g_i), i = 1, \ldots, k] \; = \; \arg\min_{(\tilde{\sigma}_i, \tilde{f}_i \tilde{g}_i), i=1, \ldots, k} \, \left\Vert \log \left(\frac{P_{\mathsf {xy}}}{P_\mathsf x\cdot P_\mathsf y} \right)- \sum_{i=1}^k \tilde{\sigma}_i \cdot \tilde{f}_i \otimes \tilde{g}_i \right\Vert^2
 \end{align}
 $$
 
