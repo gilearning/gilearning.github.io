@@ -141,7 +141,7 @@ One particular issue is the **_local assumption_**. Many nice properties and con
 
 It worth mentioning that the local assumption is indeed a fundamental concept. The space of probability distributions is not a linear vector space, but a manifold. (Amari) The local assumption allows us to focus on a neighborhood which can be approximated by the tangent plane of the manifold, and hence get the geometry linearized. For the same reason, we often need iterative algorithms in learning probability model, as we only can compute and make local steps when finding our way on a complex manifold. In the first step of our development, the assumption of a reference distribution in defining the inner product, can be thought as associating the functional space to a neighborhood of probability distributions around the reference. 
 
-### Property 1: the Conditional Expectation Operator
+### The Conditional Expectation Operator
 
 The first easy thing we can do with the local approximation is to apply the Taylor approximation, $\log(x) \approx x-1$ when $x\approx 1$, to the LLR function
 
@@ -163,7 +163,11 @@ There is an additional interesting property of this approximated version of LLR:
 
 We write sum over $x$ in the above which of course can be turned into integral when $x$ is continuous valued. The $\widetilde{\mathrm{LLR}}$ function does not directly act on the input $a(\cdot)$, but instead needs an extra $P_\mathsf x(x)$ multiplied. This can be thought as a summation weighted by the reference distribution. 
 
-One can also define a transpose operator $B^T: \mathcal {F_Y}\mapsto \mathcal {F_X}$, for $b \in \mathcal {F_Y}$, $\left(B^T(b)\right)(x) = \mathbb E[b(\mathsf y)|\mathsf x=x], \forall x$. 
+One can also define a transpose operator $B^T: \mathcal {F_Y}\mapsto \mathcal {F_X}$, for $b \in \mathcal {F_Y}$, 
+
+$$
+\left(B^T(b)\right)(x) = \sum_{y\in \mathcal Y}\frac{P_{\mathsf {xy}}(x,y) - P_\mathsf x(x) P_\mathsf y(y)}{P_\mathsf x(x) P_\mathsf y(y)} \cdot  (P_\mathsf y(y) \cdot b(y))=  \mathbb E[b(\mathsf y)|\mathsf x=x], \forall x.
+$$
 
 There are a number of consequences when this connection is established. 
 
@@ -175,7 +179,8 @@ There are a number of consequences when this connection is established.
 >\Vert B(a) \Vert^2 \leq \Vert a \Vert^2, \qquad \forall a \in \mathcal {F_X}
 >$$
 >
-> Equivalently, if $b = B(a)$, i.e. $b(y) = \mathbb E[a(\mathsf x)|\mathsf y=y], \forall y$, then $\mathbb E_{\mathsf y\sim P_\mathsf y}[b(\mathsf y)^2] \leq \mathbb E_{\mathsf x\sim P_\mathsf x}[a(\mathsf x)^2]$. 
+>
+>  Equivalently, if $b = B(a)$, i.e. $b(y) = \mathbb E[a(\mathsf x)|\mathsf y=y], \forall y$, then $\mathbb E_{\mathsf y\sim P_\mathsf y}[b(\mathsf y)^2] \leq \mathbb E_{\mathsf x\sim P_\mathsf x}[a(\mathsf x)^2]$. 
 >
 
 If we now look the modal decomposition $\zeta(P_\mathsf {xy}) = [(\sigma_i, f_i, g_i), i=1, 2, \ldots]$, then we have a nice orthogonal structure. 
@@ -187,7 +192,16 @@ If we now look the modal decomposition $\zeta(P_\mathsf {xy}) = [(\sigma_i, f_i,
 > $$
 >
 >since $\mathbb E[f_i(\mathsf x) f_j(\mathsf x)] = \delta_{ij}$. With the same math, we also have $B^T(g_j) = \sigma_j \cdot f_j$. 
->This result says that each $g_j$ is the image of the $B(\cdot)$ operator acting on $f_j$, scaled by the corresponding $\sigma_i$, and vice versa. 
 >
+>That is, each $g_j$ is the image of the $B(\cdot)$ operator acting on $f_j$, scaled by the corresponding $\sigma_i$, and vice versa. 
+>
+>Now we have 
+>>
+>$$
+>\mathbb E_{\mathsf{x,y} \sim P_{\mathsf{x,y}}} [ f_i (\mathsf x) \cdot g_j(\mathsf y)] = \mathbb E_{\mathsf x\sim P_\mathsf x} [f_i (\mathsf x) \cdot \mathbb E[ g_j(\mathsf y)|\mathsf x]] = \mathbb E_{\mathsf x\sim P_\mathsf x} [f_i (\mathsf x) \cdot \sigma_j \cdot f_j(\mathsf x)] = \sigma_i\cdot \delta_{ij}
+>$$
+
+This result says that each feature $f_i(\mathsf x)$ is only correlated with the corresponding $g_i$ feature of $\mathsf y$, and uncorrelated with all other features. $\sigma_i$ is the correlation coefficient. Thus, the dependence between $\mathsf x$ and $\mathsf y$ is in fact written as a sequence of correlation between feature pairs, each with a strength quantified by the corresponding $\sigma_i$. 
+
 
  
