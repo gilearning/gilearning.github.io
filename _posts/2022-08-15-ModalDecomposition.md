@@ -254,7 +254,6 @@ Largely we will use the series of posts to demonstrate different ways of learnin
 
 To wrap up this introduction page, we will show one simple example, where we have a small synthesized dataset to run a neural network on. When the training procedure converges, we demonstrate that the learned features match with the result of the $\zeta$ operation. 
 
-### The Dataset
 
 The dataset we use is a $(x_i, y_i), i=1, \ldots, n$ drawn i.i.d. from a joint distribution $P_{\mathsf {xy}}$, where $\vert \mathcal X \vert = 8, \vert \mathcal Y \vert = 6$, and we simply randomly choose a joint distribution in this space. 
 
@@ -329,13 +328,13 @@ sgd = SGD(4, decay=1e-2, momentum=0.9, nesterov=True)
 model.compile(loss='categorical_crossentropy', optimizer=sgd, metrics=['accuracy'])
 model.fit(XLabels, YLabels, verbose=0, batch_size=nSamples, epochs=100) 
 
-weights = model.get_weights()
+weights = model.get_weights()       # pick out weights after training
 
 S = weights[0].reshape(1, xCard)
-S = expit(S + weights[1])
+S = expit(S + weights[1])           # this should be the f(x)'s
 S = regulate(S, Px)
-S = S*np.sign(sum(S*S_theory))    # make sure there is no (-1) factor
-v = weights[2]
+S = S*np.sign(sum(S*S_theory))      # make sure there is no (-1) factor
+v = weights[2]                      # output weights are the g(y)'s
 v = regulate(v, Py) 
 v = v*np.sign(sum(v*v_theory))
 
