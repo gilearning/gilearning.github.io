@@ -106,29 +106,29 @@ The result is a decomposition is a diagonalization, turning LLR matrix into the 
 ---
 **Definition: Modal Decomposition $\zeta$**
 
-For a pair of spaces $\mathcal {F_X}$, $\mathcal {F_Y}$, with corresponding reference distributions $R_\mathsf x, R_\mathsf y$, resp., the **modal decomposition operation** is a map $\zeta$ that maps a joint distribution $P_{\mathsf {xy}}$, satisfying the technical assumption above, to a sequence of modes $(\sigma_i, f_i, g_i), i = 1, 2, \ldots$, with 
+For a pair of spaces $\mathcal {F_X}$, $\mathcal {F_Y}$, with corresponding reference distributions $R_\mathsf x, R_\mathsf y$, resp., the **modal decomposition operation** is a map $\zeta$ that maps a joint distribution $P_{\mathsf {xy}}$, satisfying the technical assumption above, to a sequence of modes $(\sigma_i, f^\ast_i, g^\ast_i), i = 1, 2, \ldots$, with 
 
 * $\sigma_i > 0, \forall i$; 
 * $\sigma_1 \geq \sigma_2 \geq \ldots$ in descending order; 
-* $f_i \in \mathcal {F_X}, g_i \in \mathcal {F_Y}$ are valid feature functions (zero meaan unit variance w.r.t the corresponding references)
-* $\langle f_i, f_j\rangle = \langle g_i, g_j \rangle = \delta_{ij}$. 
+* $f^\ast_i \in \mathcal {F_X}, g^\ast_i \in \mathcal {F_Y}$ are valid feature functions (zero meaan unit variance w.r.t the corresponding references)
+* $\langle f^\ast_i, f^\ast_j\rangle = \langle g^\ast_i, g^\ast_j \rangle = \delta_{ij}$. 
 
 These modes satisfy that 
 
 $$
 \begin{align}
-&\lim_{n\to \infty} \left\Vert \log \left(\frac{P_{\mathsf {xy}}}{P_\mathsf x \cdot P_\mathsf y}\right) - \sum_{i=1}^n \sigma_i \cdot f_i \otimes g_i\right\Vert^2 = 0\\
-&[(\sigma_i, f_i, g_i), i = 1, \ldots, k] \; = \; \arg\min_{(\tilde{\sigma}_i, \tilde{f}_i, \tilde{g}_i), i=1, \ldots, k} \, \left\Vert \log \left(\frac{P_{\mathsf {xy}}}{P_\mathsf x\cdot P_\mathsf y} \right)- \sum_{i=1}^k \tilde{\sigma}_i \cdot \tilde{f}_i \otimes \tilde{g}_i \right\Vert^2
+&\lim_{n\to \infty} \left\Vert \log \left(\frac{P_{\mathsf {xy}}}{P_\mathsf x \cdot P_\mathsf y}\right) - \sum_{i=1}^n \sigma_i \cdot f^\ast_i \otimes g^\ast_i\right\Vert^2 = 0\\
+&[(\sigma_i, f^\ast_i, g^\ast_i), i = 1, \ldots, k] \; = \; \arg\min_{(\tilde{\sigma}_i, \tilde{f}_i, \tilde{g}_i), i=1, \ldots, k} \, \left\Vert \log \left(\frac{P_{\mathsf {xy}}}{P_\mathsf x\cdot P_\mathsf y} \right)- \sum_{i=1}^k \tilde{\sigma}_i \cdot \tilde{f}_i \otimes \tilde{g}_i \right\Vert^2
 \end{align}
 $$
 
-We denote this as $\zeta(P_{\mathsf{xy}}) = [(\sigma_i, f_i, g_i), i=1, 2, \ldots]$. 
+We denote this as $\zeta(P_{\mathsf{xy}}) = [(\sigma_i, f^\ast_i, g^\ast_i), i=1, 2, \ldots]$. 
 
 ---
 
 A few remarks are in order. 
 
-1. Strictly speaking, equations (1) and (2) should be stated as a theorem, as it takes a proof to argue that such a sequence of modes indeed exists and its partial sequences are the optimal solutions for the rank-$k$ approximation for different values of $k$. There is a similar statement about singular value decomposition, which is really the reason that SVD is so useful. The proof here follows the same general idea and is omitted. 
+1. Strictly speaking, equations (1) and (2) should be stated as a theorem, as it takes a proof to argue that such a sequence of modes indeed exists and its partial sequences are the optimal solutions for the rank- $k$ approximation for different values of $k$. There is a similar statement about singular value decomposition, which is really the reason that SVD is so useful. The proof here follows the same general idea and is omitted. 
 2. We denote this decomposition as $\zeta(P_{\mathsf {xy}})$, which should be read as "the $\zeta$-operation for the $\mathsf{x-y}$ dependence defined by the joint distribution $P_{\mathsf{xy}}$". While we write the functional decomposition as an L2 approximation to the LLR function, the LLR is not the unique way to describe the dependence. Later we will have examples where it is convenient to use a slightly different target function, with the resulting choices of the feature functions also a bit different. We consider all such operations to decompose the dependence as the same general idea. 
 3. The definition says that for each model $P_{\mathsf {xy}}$ there is an ideal sequence of modes for the orthogonal decomposition. In practice, we do not observe either the model or the mode. We will show later that learning algorithms often try to learn an approximate version of the modes. For example, it is common to only learn the first $k$ modes as defined in equation (2), or to learn the decomposition of an empirical distribution from a finite dataset, or to have extra restrictions of the learned features due to the limited expressive power of a network, etc. In more complex problems, sometimes it might not even be clear which dependence we are trying to decompose. The purpose of defining the $\zeta$ operation is to help us to clarify what type of compromises are taken in finding a computable approximate solution to the idealized decomposition problem. 
 
@@ -183,25 +183,25 @@ There are a number of consequences when this connection is established.
 >  $\mathbb E_{\mathsf y\sim P_\mathsf y}[b(\mathsf y)^2] \leq \mathbb E_{\mathsf x\sim P_\mathsf x}[a(\mathsf x)^2].$ 
 >
 
-If we now look the modal decomposition $\zeta(P_\mathsf {xy}) = [(\sigma_i, f_i, g_i), i=1, 2, \ldots]$, then we have a nice orthogonal structure. 
+If we now look the modal decomposition $\zeta(P_\mathsf {xy}) = [(\sigma_i, f^\ast_i, g^\ast_i), i=1, 2, \ldots]$, then we have a nice orthogonal structure. 
 
 >**Property 3: Mode Correlation**
 >
 > $$
-> (B(f_j))(y) = \sum_x \left(\sum_i \sigma_i \cdot f_i(x) g_i(y)\right) \cdot \left(P_{\mathsf x}(x) \cdot f_j(x)\right) = \sigma_j g_j(y), \quad \forall y
+> (B(f^\ast_j))(y) = \sum_x \left(\sum_i \sigma_i \cdot f^\ast_i(x) g^\ast_i(y)\right) \cdot \left(P_{\mathsf x}(x) \cdot f^\ast_j(x)\right) = \sigma_j g^\ast_j(y), \quad \forall y
 > $$
 >
->since $\mathbb E[f_i(\mathsf x) f_j(\mathsf x)] = \delta_{ij}$. With the same math, we also have $B^T(g_j) = \sigma_j \cdot f_j$. 
+>since $\mathbb E[f^\ast_i(\mathsf x) f^\ast_j(\mathsf x)] = \delta_{ij}$. With the same math, we also have $B^T(g^\ast_j) = \sigma_j \cdot f^\ast_j$. 
 >
->That is, each $g_j$ is the image of the $B(\cdot)$ operator acting on $f_j$, scaled by the corresponding $\sigma_i$, and vice versa. 
+>That is, each $g^\ast_j$ is the image of the $B(\cdot)$ operator acting on $f^\ast_j$, scaled by the corresponding $\sigma_i$, and vice versa. 
 >
 >Now we have 
 >>
 >$$
->\mathbb E_{\mathsf{x,y} \sim P_{\mathsf{x,y}}} [ f_i (\mathsf x) \cdot g_j(\mathsf y)] = \mathbb E_{\mathsf x\sim P_\mathsf x} [f_i (\mathsf x) \cdot \mathbb E[ g_j(\mathsf y)|\mathsf x]] = \mathbb E_{\mathsf x\sim P_\mathsf x} [f_i (\mathsf x) \cdot \sigma_j \cdot f_j(\mathsf x)] = \sigma_i\cdot \delta_{ij}
+>\mathbb E_{\mathsf{x,y} \sim P_{\mathsf{x,y}}} [ f^\ast_i (\mathsf x) \cdot g^\ast_j(\mathsf y)] = \mathbb E_{\mathsf x\sim P_\mathsf x} [f^\ast_i (\mathsf x) \cdot \mathbb E[ g^\ast_j(\mathsf y)|\mathsf x]] = \mathbb E_{\mathsf x\sim P_\mathsf x} [f^\ast_i (\mathsf x) \cdot \sigma_j \cdot f^\ast_j(\mathsf x)] = \sigma_i\cdot \delta_{ij}
 >$$
 
-This result says that each feature $f_i(\mathsf x)$ is only correlated with the corresponding $g_i$ feature of $\mathsf y$, and uncorrelated with all other features. $\sigma_i$ is the correlation coefficient. Thus, the dependence between $\mathsf x$ and $\mathsf y$ is in fact written as a sequence of correlation between feature pairs, each with a strength quantified by the corresponding $\sigma_i$. 
+This result says that each feature $f^\ast_i(\mathsf x)$ is only correlated with the corresponding $g^\ast_i$ feature of $\mathsf y$, and uncorrelated with all other features. $\sigma_i$ is the correlation coefficient. Thus, the dependence between $\mathsf x$ and $\mathsf y$ is in fact written as a sequence of correlation between feature pairs, each with a strength quantified by the corresponding $\sigma_i$. 
 
 In [HGR], the HGR maximal correlation is defined for a given joint distribution $P_{\mathsf {xy}}$ as
 
@@ -213,3 +213,4 @@ This maximal correlation coefficient $\rho$ is used as a measure of dependence b
 
 ### Divergence and Fisher Information
 
+$f^\ast_i$ and $f_i^\ast$, $f^\ast$, ${f_i}^\ast$
