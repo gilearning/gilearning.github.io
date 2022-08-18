@@ -216,7 +216,7 @@ This maximal correlation coefficient $\rho$ is used as a measure of dependence b
 As we stated with the [definition of modes](#a-single-mode), writing the LLR function as sum of product functions puts the model $P_{\mathsf {xy}}$ on an exponential family. Locally, the behavior of such exponential family is fully determined by the [Fisher information](https://en.wikipedia.org/wiki/Fisher_information). For example, if 
 $$\mathrm{LLR}= \log\frac{P_{\mathsf{xy}}}{P_\mathsf x P_\mathsf y} = \sum_{i=1}^k f_i \otimes g_i,$$
 
-then the conditional distribution $P_{\mathsf {x|y}}(\cdot | y)$, for different values of $y$, are on a $k$ - dimensional exponential family with $f_i(\cdot), i=1, \ldots, k$ as the natural statistics, and $g_i(y), i=1, \ldots k$ as the corresponding parameters. The Fisher information for this family is a $k\times k$ matrix $\mathcal I$, with entries
+then the conditional distribution $P_{\mathsf {x \vert y}}(\cdot \vert y)$, for different values of $y$, are on a $k$ - dimensional exponential family with $f_i(\cdot), i=1, \ldots, k$ as the natural statistics, and $g_i(y), i=1, \ldots k$ as the corresponding parameters. The Fisher information for this family is a $k\times k$ matrix $\mathcal I$, with entries
 
 $$
 [\mathcal I]_{ij} = \mathbb E_{\mathbb x \sim P_\mathsf x} \left[ \left(\frac{\partial}{\partial g_i} \mathrm {LLR}\right) \cdot \left(\frac{\partial}{\partial g_j} \mathrm {LLR}\right)\right] = \mathbb E_{\mathbb x \sim P_\mathsf x} [f_i(\mathsf x) f_j(\mathsf x)] = \langle f_i, f_j \rangle
@@ -228,15 +228,15 @@ There are some direct consequences of this connection.
 
 >**Property 4: K-L divergence**
 >
-> If two distribution on $\mathcal X$, $P_\mathsf x$ and $Q_\mathsf x$, are both in the neighborhood of the reference distribution $R_\mathsf x$, with $\log P_\mathsf x/Q_\mathsf x = f$, then $D(P_\mathsf x||Q_\mathsf x) \approx \frac{1}{2} \Vert f\Vert^2$
+> If two distribution on $\mathcal X$, $P_\mathsf x$ and $Q_\mathsf x$, are both in the neighborhood of the reference distribution $R_\mathsf x$, with $\log P_\mathsf x/Q_\mathsf x = f$, then $D(P_\mathsf x \Vert Q_\mathsf x) \approx \frac{1}{2} \Vert f\Vert^2$
 
-where $D(P||Q)$ is the [Kullback-Leibler divergence](https://en.wikipedia.org/wiki/Kullback%E2%80%93Leibler_divergence). The relation between the K-L divergence and the Fisher information can be found [here](https://en.wikipedia.org/wiki/Kullback%E2%80%93Leibler_divergence#Fisher_information_metric). 
+where $D(P \Vert Q)$ is the [Kullback-Leibler divergence](https://en.wikipedia.org/wiki/Kullback%E2%80%93Leibler_divergence). The relation between the K-L divergence and the Fisher information can be found [here](https://en.wikipedia.org/wiki/Kullback%E2%80%93Leibler_divergence#Fisher_information_metric). 
 
 Applying this fact to the LLR function, we have the following statement. 
 
 >**Property 5: Mutual Information**
 >
-> $\frac{1}{2} \Vert \mathrm{LLR} \Vert^2 \approx D(P_{\mathsf {xy}}||P_\mathsf x P_\mathsf y) = I(\mathsf x; \mathsf y)$
+> $\frac{1}{2} \Vert \mathrm{LLR} \Vert^2 \approx D(P_{\mathsf {xy}} \Vert P_\mathsf x P_\mathsf y) = I(\mathsf x; \mathsf y)$
 
 where $I(\mathsf x; \mathsf y)$ is the [mutual information](https://en.wikipedia.org/wiki/Mutual_information) between $\mathsf x$ and $\mathsf y$, which is another popular way to measure how much the two random variables depend on each other. 
 
