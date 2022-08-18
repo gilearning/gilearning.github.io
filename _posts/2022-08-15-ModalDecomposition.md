@@ -203,5 +203,11 @@ If we now look the modal decomposition $\zeta(P_\mathsf {xy}) = [(\sigma_i, f_i,
 
 This result says that each feature $f_i(\mathsf x)$ is only correlated with the corresponding $g_i$ feature of $\mathsf y$, and uncorrelated with all other features. $\sigma_i$ is the correlation coefficient. Thus, the dependence between $\mathsf x$ and $\mathsf y$ is in fact written as a sequence of correlation between feature pairs, each with a strength quantified by the corresponding $\sigma_i$. 
 
+In [HGR], the HGR maximal correlation is defined for a given joint distribution $P_{\mathsf {xy}}$ as
 
- 
+$$
+\rho \stackrel{\Delta}{=} \max_{f \in \mathcal {F_X}, g \in \mathcal {F_Y}} \; \frac{\mathrm{cov}[f(\mathsf x)g(\mathsf y)]}{\sqrt{\mathrm{var}[f(\mathsf x)] \mathrm{var}[g(\mathsf y)]} }
+$$
+
+This maximal correlation coefficient $\rho$ is used as a measure of dependence between the two random variables. At this point, it should be clear that the modal decomposition structure is a natural generalization. $\sigma_1$, the correlation between the strongest correlated feature pairs is exactly the HGR maximal correlation coefficient. Beyond that, there are indeed a sequence of correlated feature pairs in descending order of strengths.  
+
