@@ -247,3 +247,43 @@ Now if we have the modal decomposition $\zeta(P_\mathsf {xy}) = [(\sigma_i, f^\a
 > $I(\mathsf x; \mathsf y) = \frac{1}{2} \Vert \mathrm{LLR} \Vert^2 = \frac{1}{2} \sum_i \sigma_i^2$
 
 This is probably the cleanest way to understand the modal decomposition: it breaks the mutual information into the sum of a number of modes, as the (squared) strengths of these modes add up to the mutual information. As stated earlier, it is often difficult to learn or to store the LLR function in practice due to the high dimensionality of the data. In these cases, it is a good idea to approximate the LLR function with a truncated versition that only keeps the first $k$ strongest modes. This not only gives the best rank-limited approximation of the joint distribution, as stated in equation (2) in the [definition](#definition-modal-decomposition-zeta), but also captures the most significant dependence relation (the most strongly correlated feature pairs), and in that sense makes the approximation useful in inference tasks. 
+
+## An Example of Numerical Computation of Modal Decomposition
+
+Largely we will use the series of posts to demonstrate different ways of learning and computing the modal decomposition in a variety of cases: when we know certain structures of the model, when we want the learned features to satisfy certain constraints, when we need to use the features in a different problem, when the features are only one of multiple sources of information used in inference, etc. 
+
+To wrap up this introduction page, we will show one simple example, where we have a small synthesized dataset to run a neural network on. When the training procedure converges, we demonstrate that the learned features match with the result of the $\zeta$ operation. 
+
+### The Dataset
+
+The dataset we use is a $(x_i, y_i), i=1, \ldots, n$ drawn i.i.d. from a joint distribution $P_{\mathsf {xy}}$, where $\vert \mathcal X \vert = 8, \vert \mathcal Y \vert = 6$, and we simply randomly choose a joint distribution in this space. 
+
+{% highlight python %}
+def Generate2DSamples(xCard, yCard, nSamples):
+    
+    # randomly pick joint distribution, normalize
+    Pxy = np.random.random([xCard, yCard])
+    Pxy = Pxy / sum(sum(Pxy))
+
+    # compute marginals
+    Px = np.sum(Pxy, axis=1)
+    Py = np.sum(Pxy, axis=0)    
+    
+    lp = np.reshape(Pxy, xCard*yCard)
+        
+    data = np.random.choice(range(xCard*yCard), nSamples, p=lp)
+    
+    X = (data/yCard).astype(np.int) 
+    Y = data % yCard
+    
+    return([Pxy, Px, Py, X, Y])
+
+
+xCard = 8
+yCard = 6
+nSamples = 100000
+
+[Pxy, Px, Py, X, Y] = Generate2DSamples(xCard, yCard, nSamples)
+{% endhighlight %}
+
+
