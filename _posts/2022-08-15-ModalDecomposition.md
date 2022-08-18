@@ -341,3 +341,12 @@ v = v*np.sign(sum(v*v_theory))
 {% endhighlight %}
 
 Finally we plot the learning result from the neural network $[S, v]$ against the theoretic results. Unsurprisingly, they match very well. 
+
+## Going Forward
+
+The idea of modal decomposition is interesting in that it offers a clear view to the low-rank solutions to the learning and inference problems with high-dimensional data, which is clearly a central issue. It offers a clean geometric view of the problem as finding the "right" orthogonal basis for the functional space. 
+
+From a theoretical point-of-view, the geometry helps to quantify the usefulness of a selected feature in a certain inference task. In other words, it gives a measure of "relevance" so that we can distinguish and select among information snipts, or features, based on the contents they carry. Such a way of discriminate information pieces based on the semantics is largely not addressed in the conventional information theory, but needed in learning problems. 
+
+Operationally, the geometric operations defined in the functional space lead to a number of interesting design ideas for learning algorithms, to skip parts of the learning procedure and arrive at certain desired learning results more directly, to handle more complex learning applications involving  multiple models, constraints, or distributed learning agents. In the next a few pages in this series we will present some more aggressive and flexible designs of learning algorithms to solve some more complex problems. 
+
