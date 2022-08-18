@@ -104,7 +104,7 @@ The result is a decomposition is a diagonalization, turning LLR matrix into the 
 
 
 ---
-**Definition: Modal Decomposition $\zeta$**
+### Definition: Modal Decomposition $\zeta$
 
 For a pair of spaces $\mathcal {F_X}$, $\mathcal {F_Y}$, with corresponding reference distributions $R_\mathsf x, R_\mathsf y$, resp., the **modal decomposition operation** is a map $\zeta$ that maps a joint distribution $P_{\mathsf {xy}}$, satisfying the technical assumption above, to a sequence of modes $(\sigma_i, f^\ast_i, g^\ast_i), i = 1, 2, \ldots$, with 
 
@@ -233,3 +233,20 @@ There are some direct consequences of this connection.
 >
 > If two distribution on $\mathcal X$, $P_\mathsf x$ and $Q_\mathsf x$, are both in the neighborhood of the reference distribution $R_\mathsf x$, with $\log P_\mathsf x/Q_\mathsf x = f$, then $D(P_\mathsf x||Q_\mathsf x) \approx \frac{1}{2} \Vert f\Vert^2$
 
+where $D(P||Q)$ is the [Kullback-Leibler divergence](https://en.wikipedia.org/wiki/Kullback%E2%80%93Leibler_divergence). The relation between the K-L divergence and the Fisher information can be found [here](https://en.wikipedia.org/wiki/Kullback%E2%80%93Leibler_divergence#Fisher_information_metric). 
+
+Applying this fact to the LLR function, we have the following statement. 
+
+>**Property 5: Mutual Information**
+>
+> $\frac{1}{2} \Vert \mathrm{LLR} \Vert^2 \approx D(P_{\mathsf {xy}}||P_\mathsf x P_\mathsf y) = I(\mathsf x; \mathsf y)$
+
+where $I(\mathsf x; \mathsf y)$ is the [mutual information](https://en.wikipedia.org/wiki/Mutual_information) between $\mathsf x$ and $\mathsf y$, which is another popular way to measure how much the two random variables depend on each other. 
+
+Now if we have the modal decomposition $\zeta(P_\mathsf {xy}) = [(\sigma_i, f^\ast_i, g^\ast_i), i=1, 2, \ldots]$, we have the following result. 
+
+>**Property 6: Decomposition of the Mutual Information**
+>
+> $ I(\mathsf x; \mathsf y) = \frac{1}{2} \Vert \mathrm{LLR} \Vert^2 = \frac{1}{2} \sum_i \sigma_i^2$
+
+This is probably the cleanest way to understand the modal decomposition: it breaks the mutual information into the sum of a number of modes, as the (squared) strengths of these modes add up to the mutual information. As stated earlier, it is often difficult to learn or to store the LLR function in practice due to the high dimensionality of the data. In these cases, it is a good idea to approximate the LLR function with a truncated versition that only keeps the first $k$ strongest modes. This not only gives the best rank-limited approximation of the joint distribution, as stated in equation (2) in the [definition](#definition-modal-decomposition-zeta), but also captures the most significant dependence relation (the most strongly correlated feature pairs), and in that sense makes the approximation useful in inference tasks. 
