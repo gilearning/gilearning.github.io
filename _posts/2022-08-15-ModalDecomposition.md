@@ -157,7 +157,11 @@ There is an additional interesting property of this approximated version of LLR:
 > Let $B : \mathcal {F_X} \mapsto \mathcal {F_Y}$ be defined as: for $a\in \mathcal {F_X}$, $B(a) \in \mathcal {F_Y}$ with 
 > 
 > $$
-> \left(B(a)\right) (y) \stackrel{\Delta}{=} \sum_{x\in \mathcal X} \widetilde{\mathrm{LLR}}(x,y)\cdot (P_\mathsf x (x) \cdot a(x)) = \sum_{x\in \mathcal X}\frac{P_{\mathsf {xy}}(x,y) - P_\mathsf x(x) P_\mathsf y(y)}{P_\mathsf x(x) P_\mathsf y(y)} \cdot  (P_\mathsf x(x) \cdot a(x)) = \mathbb E [a(\mathsf x) | \mathsf y = y ] 
+> \begin{align*}
+> \left(B(a)\right) (y) &\stackrel{\Delta}{=} \sum_{x\in \mathcal X} \widetilde{\mathrm{LLR}}(x,y)\cdot (P_\mathsf x (x) \cdot a(x))\\
+> &= \sum_{x\in \mathcal X}\frac{P_{\mathsf {xy}}(x,y) - P_\mathsf x(x) P_\mathsf y(y)}{P_\mathsf x(x) P_\mathsf y(y)} \cdot  (P_\mathsf x(x) \cdot a(x))\\
+> &= \mathbb E [a(\mathsf x) | \mathsf y = y ] 
+> \end{align*}
 > $$
 >
 
@@ -180,7 +184,8 @@ There are a number of consequences when this connection is established.
 >$$
 >
 >
->  Equivalently, if $b = B(a)$, i.e. $b(y) = \mathbb E[a(\mathsf x)|\mathsf y=y], \forall y$, then $\mathbb E_{\mathsf y\sim P_\mathsf y}[b(\mathsf y)^2] \leq \mathbb E_{\mathsf x\sim P_\mathsf x}[a(\mathsf x)^2]$. 
+>  Equivalently, if $b = B(a)$, i.e. $b(y) = \mathbb E[a(\mathsf x)|\mathsf y=y], \forall y$, then 
+>  $\mathbb E_{\mathsf y\sim P_\mathsf y}[b(\mathsf y)^2] \leq \mathbb E_{\mathsf x\sim P_\mathsf x}[a(\mathsf x)^2].$ 
 >
 
 If we now look the modal decomposition $\zeta(P_\mathsf {xy}) = [(\sigma_i, f_i, g_i), i=1, 2, \ldots]$, then we have a nice orthogonal structure. 
