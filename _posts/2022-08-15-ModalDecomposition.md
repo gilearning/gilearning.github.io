@@ -14,6 +14,13 @@ layout: post
 >
 >The goal of this page is to define these modes mathematically, explain why they are important in practice, and show by examples that many statistical concepts and learning algorithms are directly related to this modal decomposition idea. With that we will also build the mathematical foundation and notations for the more advanced processing using modal decomposition in the later pages. 
 
+
+1. a
+2. b
+3. c
+* TOC
+{:toc}
+
 ## Inner Product
 
 We start by defining an _inner product_ in the functional space. Given an alphabet $\mathcal X$, the space of all real-valued functions, 
