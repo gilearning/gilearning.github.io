@@ -177,12 +177,7 @@ There are a number of consequences when this connection is established.
 
 > **Property 2: Contraction**
 > 
-> The conditional expectation operator is known to be a contraction, i.e.
->
->$$ 
->\Vert B(a) \Vert^2 \leq \Vert a \Vert^2, \qquad \forall a \in \mathcal {F_X}
->$$
->
+> The conditional expectation operator is known to be a contraction, i.e. $\Vert B(a) \Vert^2 \leq \Vert a \Vert^2, \qquad \forall a \in \mathcal {F_X}$.
 >
 >  Equivalently, if $b = B(a)$, i.e. $b(y) = \mathbb E[a(\mathsf x)|\mathsf y=y], \forall y$, then 
 >  $\mathbb E_{\mathsf y\sim P_\mathsf y}[b(\mathsf y)^2] \leq \mathbb E_{\mathsf x\sim P_\mathsf x}[a(\mathsf x)^2].$ 
@@ -215,4 +210,6 @@ $$
 $$
 
 This maximal correlation coefficient $\rho$ is used as a measure of dependence between the two random variables. At this point, it should be clear that the modal decomposition structure is a natural generalization. $\sigma_1$, the correlation between the strongest correlated feature pairs is exactly the HGR maximal correlation coefficient. Beyond that, there are indeed a sequence of correlated feature pairs in descending order of strengths.  
+
+### Divergence and Fisher Information
 
