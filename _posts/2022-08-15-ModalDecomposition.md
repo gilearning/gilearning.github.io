@@ -196,7 +196,7 @@ If we now look the modal decomposition $\zeta(P_\mathsf {xy}) = [(\sigma_i, f^\a
 >That is, each $g^\ast_j$ is the image of the $B(\cdot)$ operator acting on $f^\ast_j$, scaled by the corresponding $\sigma_i$, and vice versa. 
 >
 >Now we have 
->>
+>
 >$$
 >\mathbb E_{\mathsf{x,y} \sim P_{\mathsf{x,y}}} [ f^\ast_i (\mathsf x) \cdot g^\ast_j(\mathsf y)] = \mathbb E_{\mathsf x\sim P_\mathsf x} [f^\ast_i (\mathsf x) \cdot \mathbb E[ g^\ast_j(\mathsf y)|\mathsf x]] = \mathbb E_{\mathsf x\sim P_\mathsf x} [f^\ast_i (\mathsf x) \cdot \sigma_j \cdot f^\ast_j(\mathsf x)] = \sigma_i\cdot \delta_{ij}
 >$$
@@ -214,10 +214,7 @@ This maximal correlation coefficient $\rho$ is used as a measure of dependence b
 ### Divergence and Fisher Information
 
 As we stated with the [definition of modes](#a-single-mode), writing the LLR function as sum of product functions puts the model $P_{\mathsf {xy}}$ on an exponential family. Locally, the behavior of such exponential family is fully determined by the [Fisher information](https://en.wikipedia.org/wiki/Fisher_information). For example, if 
-
-$$
-\mathrm{LLR}= \log\frac{P_{\mathsf{xy}}}{P_\mathsf x P_\mathsf y} = \sum_{i=1}^k f_i \otimes g_i,
-$$
+$$\mathrm{LLR}= \log\frac{P_{\mathsf{xy}}}{P_\mathsf x P_\mathsf y} = \sum_{i=1}^k f_i \otimes g_i,$$
 
 then the conditional distribution $P_{\mathsf {x|y}}(\cdot | y)$, for different values of $y$, are on a $k$ - dimensional exponential family with $f_i(\cdot), i=1, \ldots, k$ as the natural statistics, and $g_i(y), i=1, \ldots k$ as the corresponding parameters. The Fisher information for this family is a $k\times k$ matrix $\mathcal I$, with entries
 
