@@ -247,6 +247,6 @@ Now if we have the modal decomposition $\zeta(P_\mathsf {xy}) = [(\sigma_i, f^\a
 
 >**Property 6: Decomposition of the Mutual Information**
 >
-> $ I(\mathsf x; \mathsf y) = \frac{1}{2} \Vert \mathrm{LLR} \Vert^2 = \frac{1}{2} \sum_i \sigma_i^2$
+> $I(\mathsf x; \mathsf y) = \frac{1}{2} \Vert \mathrm{LLR} \Vert^2 = \frac{1}{2} \sum_i \sigma_i^2$
 
 This is probably the cleanest way to understand the modal decomposition: it breaks the mutual information into the sum of a number of modes, as the (squared) strengths of these modes add up to the mutual information. As stated earlier, it is often difficult to learn or to store the LLR function in practice due to the high dimensionality of the data. In these cases, it is a good idea to approximate the LLR function with a truncated versition that only keeps the first $k$ strongest modes. This not only gives the best rank-limited approximation of the joint distribution, as stated in equation (2) in the [definition](#definition-modal-decomposition-zeta), but also captures the most significant dependence relation (the most strongly correlated feature pairs), and in that sense makes the approximation useful in inference tasks. 
