@@ -259,6 +259,7 @@ To wrap up this introduction page, we will show one simple example, where we hav
 The dataset we use is a $(x_i, y_i), i=1, \ldots, n$ drawn i.i.d. from a joint distribution $P_{\mathsf {xy}}$, where $\vert \mathcal X \vert = 8, \vert \mathcal Y \vert = 6$, and we simply randomly choose a joint distribution in this space. 
 
 {% highlight python %}
+
 def Generate2DSamples(xCard, yCard, nSamples):
     
     # randomly pick joint distribution, normalize
@@ -284,6 +285,60 @@ yCard = 6
 nSamples = 100000
 
 [Pxy, Px, Py, X, Y] = Generate2DSamples(xCard, yCard, nSamples)
+
 {% endhighlight %}
 
+Because we know the model perfectly here, we can directly compute the $\zeta$ operation with an SVD. We pick only the first pair of feature functions. Note in order to avoid the weights by the reference, we appropriately put some square roots in these code to make the SVD computation weight-free. 
 
+{% highlight python %}
+
+def WhatTheorySays(Pxy):
+    '''
+    Compute theoretical answers for f and g, corresponding to the 1st pair
+    of singular vectors
+    Return in normalized function form
+    '''
+    # compute marginals
+    [xCard, yCard] = Pxy.shape
+    Px = np.sum(Pxy, axis=1)
+    Py = np.sum(Pxy, axis=0) 
+    
+    T = np.tile(np.sqrt(Px).reshape(xCard,1), [1, yCard]) \
+        * np.tile(np.sqrt(Py), [xCard, 1])
+    B = Pxy / T
+    U, d, R = np.linalg.svd(B)
+    
+    S = U[:,1] / np.sqrt(Px)
+    v = R[1,:] / np.sqrt(Py)
+    
+    return([S, v])
+    
+[S_theory, v_theory] = WhatTheorySays(Pxy)
+
+{% endhighlight %}
+
+Now we train a neural network with a single layer of 1 hidden node. That is, we allow the neural network to choose one feature function of the input $\mathsf x$, and train with cross entropy loss. After training, we take out the appropriate weights of the trained neural network, and call the "regulate()" function to make sure they are centralized and normalized. 
+
+{% highlight python %}
+
+model = Sequential()
+model.add(Dense(1, activation='sigmoid', input_dim=xCard))
+model.add(Dense(yCard, activation='softmax', input_dim=1))
+
+sgd = SGD(4, decay=1e-2, momentum=0.9, nesterov=True)
+model.compile(loss='categorical_crossentropy', optimizer=sgd, metrics=['accuracy'])
+model.fit(XLabels, YLabels, verbose=0, batch_size=nSamples, epochs=100) 
+
+weights = model.get_weights()
+
+S = weights[0].reshape(1, xCard)
+S = expit(S + weights[1])
+S = regulate(S, Px)
+S = S*np.sign(sum(S*S_theory))    # make sure there is no (-1) factor
+v = weights[2]
+v = regulate(v, Py) 
+v = v*np.sign(sum(v*v_theory))
+
+{% endhighlight %}
+
+Finally we plot the learning result from the neural network $[S, v]$ against the theoretic results. Unsurprisingly, they match very well. 
