@@ -179,7 +179,7 @@ One can also define a transpose operator $B^T: \mathcal {F_Y}\mapsto \mathcal {F
 $$
 \left(B^T(b)\right)(x) = \sum_{y\in \mathcal Y}\frac{P_{\mathsf {xy}}(x,y) - P_\mathsf x(x) P_\mathsf y(y)}{P_\mathsf x(x) P_\mathsf y(y)} \cdot  (P_\mathsf y(y) \cdot b(y))=  \mathbb E[b(\mathsf y)|\mathsf x=x], \forall x.
 $$
-
+<!---
 There are a number of consequences when this connection is established. 
 
 > **Property 2: Contraction**
@@ -191,6 +191,7 @@ There are a number of consequences when this connection is established.
 >
 
 If we now look the modal decomposition $\zeta(P_\mathsf {xy}) = [(\sigma_i, f^\ast_i, g^\ast_i), i=1, 2, \ldots]$, then we have a nice orthogonal structure. 
+--->
 
 >**Property 3: Mode Correlation**
 >
