@@ -64,7 +64,7 @@ $$
 
 ## A Single Mode
 
-Why we are so interested in such product functions? In short, it represents a very simple kind of dependence. Imagine a joint distribution $P_{\mathsf {xy}}$ whose LLR function can be written as 
+Why we are so interested in such product functions? In short, it represents a very simple kind of dependence. Imagine a joint distribution $P_{\mathsf {xy}}$ whose PMI function can be written as 
 
 $$
 \log \frac{P_{\mathsf {xy}}(x,y)}{P_\mathsf x(x) P_\mathsf y(y)} = f(x) \cdot g(y), \qquad \forall x, y.
@@ -75,7 +75,7 @@ This can be rewritten as $P_{\mathsf {y\vert x}}(y\vert x) = P_\mathsf y (y) \cd
 That is, the conditional distribution is on a 1-D exponential family with $g(\mathsf y)$ as the natural statistic. 
 To make inference of $\mathsf y$, we only need to know the value $f(\mathsf x)$, which is a sufficient statistic. 
 In fact the only thing we can infer about $\mathsf y$ is the value of $g(\mathsf y)$. 
-In general, we could extrapolate from this observation to state that if the LLR function is the sum of a limited number of product functions, then that correspondingly limits the scope of inference tasks we can hope to solve, while allowing us to only look at a limited set of statistics, or **_features_**, of the data. 
+In general, we could extrapolate from this observation to state that if the PMI function is the sum of a limited number of product functions, then that correspondingly limits the scope of inference tasks we can hope to solve, while allowing us to only look at a limited set of statistics, or **_features_**, of the data. 
 
 Here, to clarify the terminology, we refer to _feature functions_ of a random variable as real-valued functions on the alphabet, such as $f: \mathcal X \to \mathbb R$. Feature functions are often evaluated with the observed data samples, and the function values, which we refer to as _features_, are used for further inference and learning tasks, instead of the raw data. Thus, these features are indeed the "information carrying device". Since any known shifting and scaling do not change the information contents that these features carry, for convenience, we sometimes require a standard form, that the feature functions satisfying $\mathbb E[f(\mathsf x)] = 0$ and $\mathbb E[f^2(\mathsf x)]=1$, where both expectations are takend w.r.t. the reference distribution $R_\mathsf x$. 
 
@@ -87,7 +87,7 @@ When we write a product function as above in this standard form, we need to expl
 Obviously, for a given PMI function, there are many ways to write it into sum of modes. We hope to have as few modes as possible. In some cases, we might even wish to compromise the precision of the sum and try to have a reasonable approximation of the given PMI with a sum of even fewer modes. That is, for a given finite $k$, we would like to solve the problem 
 
 $$
-\min_{ (\sigma_i, f_i, g_i), i=1, \ldots, k} \, \left \Vert \mathrm{LLR} - \sum_{i=1}^k \sigma_i f_i\otimes g_i\right\Vert^2
+\min_{ (\sigma_i, f_i, g_i), i=1, \ldots, k} \, \left \Vert \mathrm{PMI} - \sum_{i=1}^k \sigma_i f_i\otimes g_i\right\Vert^2
 $$
 
 
@@ -139,7 +139,7 @@ A few remarks are in order.
 - $\sigma_1 \geq \sigma_2 \geq \ldots$ in descending order
 - $\langle f^\ast_i, f^\ast_j \rangle = \langle g^\ast_i, g^\ast_j \rangle = \delta_{ij}$, i.e. the feature functions in different modes are orthogonal to each other. 
 
-2. We denote this decomposition as $\lbrace\zeta_i \rbrace (P_{\mathsf {xy}})$, which should be read as "the $\zeta$-operation for the $\mathsf{x-y}$ dependence defined by the joint distribution $P_{\mathsf{xy}}$". While we write the functional decomposition as an L2 approximation to the PMI function, the PMI is not the unique way to describe the dependence. Later we will have examples where it is convenient to use a slightly different target function, with the resulting choices of the feature functions also a bit different. We consider all such operations to decompose the dependence as the same general idea. 
+2. We denote this decomposition as $\lbrace\zeta_i \rbrace (P_{\mathsf {xy}})$, or simply $\zeta{P_{\mathsf {xy}})$, which should be read as "the $\zeta$-operation for the $\mathsf{x-y}$ dependence defined by the joint distribution $P_{\mathsf{xy}}$". While we write the functional decomposition as an L2 approximation to the PMI function, the PMI is not the unique way to describe the dependence. Later we will have examples where it is convenient to use a slightly different target function, with the resulting choices of the feature functions also a bit different. We consider all such operations to decompose the dependence as the same general idea. 
 3. The definition says that for each model $P_{\mathsf {xy}}$ there is an ideal sequence of modes for the orthogonal decomposition. In practice, we do not observe either the model or the mode. We will show later that learning algorithms often try to learn an approximate version of the modes. For example, it is common to only learn the first $k$ modes as defined in equation (2), or to learn the decomposition of an empirical distribution from a finite dataset, or to have extra restrictions of the learned features due to the limited expressive power of a network, etc. In more complex problems, sometimes it might not even be clear which dependence we are trying to decompose. The purpose of defining the $\zeta$ operation is to help us to clarify what type of compromises are taken in finding a computable approximate solution to the idealized decomposition problem. 
 
 
@@ -153,29 +153,29 @@ It worth mentioning that the local assumption is indeed a fundamental concept. T
 
 ### The Conditional Expectation Operator
 
-The first easy thing we can do with the local approximation is to apply the Taylor approximation, $\log(x) \approx x-1$ when $x\approx 1$, to the LLR function
+The first easy thing we can do with the local approximation is to apply the Taylor approximation, $\log(x) \approx x-1$ when $x\approx 1$, to the PMI function
 
 $$
-\mathrm{LLR}(x,y) = \log \left( \frac{P_{\mathsf {xy}}(x,y)}{P_\mathsf x(x) P_\mathsf y(y)} \right)\approx \widetilde{\mathrm{LLR}}(x,y) = \frac{P_{\mathsf {xy}}(x,y) - P_\mathsf x(x) P_\mathsf y(y)}{P_\mathsf x(x) P_\mathsf y(y)}
+\mathrm{PMI}(x,y) = \log \left( \frac{P_{\mathsf {xy}}(x,y)}{P_\mathsf x(x) P_\mathsf y(y)} \right)\approx \widetilde{\mathrm{PMI}}(x,y) = \frac{P_{\mathsf {xy}}(x,y) - P_\mathsf x(x) P_\mathsf y(y)}{P_\mathsf x(x) P_\mathsf y(y)}
 $$
 
-We can also just take the reference $R_\mathsf x = P_\mathsf x, R_\mathsf y= P_\mathsf y$ to further simplify thins. We could have defined the modal decomposition with the target function of $\widetilde{\mathrm{LLR}}$, and choose this new reference, which can also be reasonably read as "describing the dependence". We view this as purly a choice of presentation style, and the difference happens to vanish under the local approximation. 
+We can also just take the reference $R_\mathsf x = P_\mathsf x, R_\mathsf y= P_\mathsf y$ to further simplify thins. We could have defined the modal decomposition with the target function of $\widetilde{\mathrm{PMI}}$, and choose this new reference, which can also be reasonably read as "describing the dependence". We view this as purly a choice of presentation style, and the difference happens to vanish under the local approximation. 
 
-There is an additional interesting property of this approximated version of LLR: when viewed as an operator on the functional space it is closely related to the conditional expectation operator. 
+There is an additional interesting property of this approximated version of PMI: when viewed as an operator on the functional space it is closely related to the conditional expectation operator. 
 
 > **Property 1:** 
 > Let $B : \mathcal {F_X} \to \mathcal {F_Y}$ be defined as: for $a\in \mathcal {F_X}$, $B(a) \in \mathcal {F_Y}$ with 
 > 
 > $$
 > \begin{align*}
-> \left(B(a)\right) (y) &\stackrel{\Delta}{=} \sum_{x\in \mathcal X} \widetilde{\mathrm{LLR}}(x,y)\cdot (P_\mathsf x (x) \cdot a(x))\\
+> \left(B(a)\right) (y) &\stackrel{\Delta}{=} \sum_{x\in \mathcal X} \widetilde{\mathrm{PMI}}(x,y)\cdot (P_\mathsf x (x) \cdot a(x))\\
 > &= \sum_{x\in \mathcal X}\frac{P_{\mathsf {xy}}(x,y) - P_\mathsf x(x) P_\mathsf y(y)}{P_\mathsf x(x) P_\mathsf y(y)} \cdot  (P_\mathsf x(x) \cdot a(x))\\
 > &= \mathbb E [a(\mathsf x) | \mathsf y = y ] 
 > \end{align*}
 > $$
 >
 
-We write sum over $x$ in the above which of course can be turned into integral when $x$ is continuous valued. The $\widetilde{\mathrm{LLR}}$ function does not directly act on the input $a(\cdot)$, but instead needs an extra $P_\mathsf x(x)$ multiplied. This can be thought as a summation weighted by the reference distribution. 
+We write sum over $x$ in the above which of course can be turned into integral when $x$ is continuous valued. The $\widetilde{\mathrm{PMI}}$ function does not directly act on the input $a(\cdot)$, but instead needs an extra $P_\mathsf x(x)$ multiplied. This can be thought as a summation weighted by the reference distribution. 
 
 One can also define a transpose operator $B^T: \mathcal {F_Y}\to \mathcal {F_X}$, for $b \in \mathcal {F_Y}$, 
 
@@ -225,13 +225,13 @@ This maximal correlation coefficient $\rho_{\mathrm{HGR}}$ is used as a measure 
 
 ### Divergence and Fisher Information
 
-As we stated with the [definition of modes](#a-single-mode), writing the LLR function as sum of product functions puts the model $P_{\mathsf {xy}}$ on an exponential family. Locally, the behavior of such exponential family is fully determined by the [Fisher information](https://en.wikipedia.org/wiki/Fisher_information). For example, if 
-$$\mathrm{LLR}= \log\frac{P_{\mathsf{xy}}}{P_\mathsf x P_\mathsf y} = \sum_{i=1}^k f_i \otimes g_i,$$
+As we stated with the [definition of modes](#a-single-mode), writing the PMI function as sum of product functions puts the model $P_{\mathsf {xy}}$ on an exponential family. Locally, the behavior of such exponential family is fully determined by the [Fisher information](https://en.wikipedia.org/wiki/Fisher_information). For example, if 
+$$\mathrm{PMI}= \log\frac{P_{\mathsf{xy}}}{P_\mathsf x P_\mathsf y} = \sum_{i=1}^k f_i \otimes g_i,$$
 
 then the conditional distribution $P_{\mathsf {x \vert y}}(\cdot \vert y)$, for different values of $y$, are on a $k$ - dimensional exponential family with $f_i(\cdot), i=1, \ldots, k$ as the natural statistics, and $g_i(y), i=1, \ldots k$ as the corresponding parameters. The Fisher information for this family is a $k\times k$ matrix $\mathcal I$, with entries
 
 $$
-[\mathcal I]_{ij} = \mathbb E_{\mathbb x \sim P_\mathsf x} \left[ \left(\frac{\partial}{\partial g_i} \mathrm {LLR}\right) \cdot \left(\frac{\partial}{\partial g_j} \mathrm {LLR}\right)\right] = \mathbb E_{\mathbb x \sim P_\mathsf x} [f_i(\mathsf x) f_j(\mathsf x)] = \langle f_i, f_j \rangle
+[\mathcal I]_{ij} = \mathbb E_{\mathbb x \sim P_\mathsf x} \left[ \left(\frac{\partial}{\partial g_i} \mathrm {PMI}\right) \cdot \left(\frac{\partial}{\partial g_j} \mathrm {PMI}\right)\right] = \mathbb E_{\mathbb x \sim P_\mathsf x} [f_i(\mathsf x) f_j(\mathsf x)] = \langle f_i, f_j \rangle
 $$
 
 which is exactly the definition of the inner product we started with. In this context, we can also understand the [orthogonal modal decomposition](#modal-decomposition) as a special and nice case where the Fisher information matrix is diagonalized. 
@@ -244,11 +244,11 @@ There are some direct consequences of this connection.
 
 where $D(P \Vert Q)$ is the [Kullback-Leibler divergence](https://en.wikipedia.org/wiki/Kullback%E2%80%93Leibler_divergence). The relation between the K-L divergence and the Fisher information can be found [here](https://en.wikipedia.org/wiki/Kullback%E2%80%93Leibler_divergence#Fisher_information_metric). 
 
-Applying this fact to the LLR function, we have the following statement. 
+Applying this fact to the PMI function, we have the following statement. 
 
 >**Property 5: Mutual Information**
 >
-> $\frac{1}{2} \Vert \mathrm{LLR} \Vert^2 \approx D(P_{\mathsf {xy}} \Vert P_\mathsf x P_\mathsf y) = I(\mathsf x; \mathsf y)$
+> $\frac{1}{2} \Vert \mathrm{PMI} \Vert^2 \approx D(P_{\mathsf {xy}} \Vert P_\mathsf x P_\mathsf y) = I(\mathsf x; \mathsf y)$
 
 where $I(\mathsf x; \mathsf y)$ is the [mutual information](https://en.wikipedia.org/wiki/Mutual_information) between $\mathsf x$ and $\mathsf y$, which is another popular way to measure how much the two random variables depend on each other. 
 
@@ -256,9 +256,9 @@ Now if we have the modal decomposition $\zeta(P_\mathsf {xy}) = [(\sigma_i, f^\a
 
 >**Property 6: Decomposition of the Mutual Information**
 >
-> $I(\mathsf x; \mathsf y) = \frac{1}{2} \Vert \mathrm{LLR} \Vert^2 = \frac{1}{2} \sum_i \sigma_i^2$
+> $I(\mathsf x; \mathsf y) = \frac{1}{2} \Vert \mathrm{PMI} \Vert^2 = \frac{1}{2} \sum_i \sigma_i^2$
 
-This is probably the cleanest way to understand the modal decomposition: it breaks the mutual information into the sum of a number of modes, as the (squared) strengths of these modes add up to the mutual information. As stated earlier, it is often difficult to learn or to store the LLR function in practice due to the high dimensionality of the data. In these cases, it is a good idea to approximate the LLR function with a truncated versition that only keeps the first $k$ strongest modes. This not only gives the best rank-limited approximation of the joint distribution, as stated in equation (2) in the [definition](#definition-modal-decomposition-zeta), but also captures the most significant dependence relation (the most strongly correlated feature pairs), and in that sense makes the approximation useful in inference tasks. 
+This is probably the cleanest way to understand the modal decomposition: it breaks the mutual information into the sum of a number of modes, as the (squared) strengths of these modes add up to the mutual information. As stated earlier, it is often difficult to learn or to store the PMI function in practice due to the high dimensionality of the data. In these cases, it is a good idea to approximate the PMI function with a truncated versition that only keeps the first $k$ strongest modes. This not only gives the best rank-limited approximation of the joint distribution, as stated in equation (2) in the [definition](#definition-modal-decomposition-zeta), but also captures the most significant dependence relation (the most strongly correlated feature pairs), and in that sense makes the approximation useful in inference tasks. 
 
 ## An Example of Numerical Computation of Modal Decomposition
 
