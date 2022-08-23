@@ -92,12 +92,12 @@ $$
 $$
 
 
-This optimization is in fact a well-studied one. For the case with finite alphabets, the target PMI function can be thought as a $|\mathcal X| \times |\mathcal Y|$ matrix, with the $(x,y)$ entry being the function value $\mathrm {PMI}(x,y)$; and the above optimization problem is solved by finding the [singular value decomposition (SVD)](https://en.wikipedia.org/wiki/Singular_value_decomposition) of this matrix. The result is a decomposition is a diagonalization, turning the PMI matrix into the sum of orthogonal rank-1 matrices, each corresponds to one mode in our definition. Here, we will define the modal decomposition with a sequential construction, which is indeed a standard way to define SVD.   
+This optimization is in fact a well-studied one. For the case with finite alphabets, the target PMI function can be thought as a $\vert\mathcal X\vert \times \vert\mathcal Y\vert$ matrix, with the $(x,y)$ entry being the function value $\mathrm {PMI}(x,y)$; and the above optimization problem is solved by finding the [singular value decomposition (SVD)](https://en.wikipedia.org/wiki/Singular_value_decomposition) of this matrix. The result is a decomposition is a diagonalization, turning the PMI matrix into the sum of orthogonal rank-1 matrices, each corresponds to one mode in our definition. Here, we will define the modal decomposition with a sequential construction, which is indeed a standard way to define SVD.   
 
 ---
 **Definition: Rank-1 Approximation**
 
-For a function $B \in \mathcal {F_{X\times Y}}$, and a given reference distribution $R_{\mathsf {xy}} = R_\mathsf x R_\mathsf y$, the rank-1 approximation of $B$ is written as an operator $\Gamma: B \mapsto (\sigma, f^*, g^*)$, where $\sigma \geq 0$, $f^* \in \mathcal {F_X}, g^*\in \mathcal {F_Y}$, are standard feature functions with $\mathbb E_{\mathsf x \sim R_\mathsf x}[f^*(\mathsf x)] = \mathbb E_{\mathsf y\sim R_\mathsf y} [g^*(\mathsf y)] = 0$, and $\mathrm{var}_{\mathsf x \sim R_\mathsf x}[f^*(\mathsf x)] = \mathrm{var}_{\mathsf y\sim R_\mathsf y} [g^*(\mathsf y)] = 1$: 
+For a function $B \in \mathcal {F_{X\times Y}}$, and a given reference distribution $R_{\mathsf {xy}} = R_\mathsf x R_\mathsf y$, the rank-1 approximation of $B$ is written as an operator $\Gamma: B \mapsto (\sigma, f^\ast, g^\ast)$, where $\sigma \geq 0$, $f^* \in \mathcal {F_X}, g^*\in \mathcal {F_Y}$, are standard feature functions with $\mathbb E_{\mathsf x \sim R_\mathsf x}[f^*(\mathsf x)] = \mathbb E_{\mathsf y\sim R_\mathsf y} [g^*(\mathsf y)] = 0$, and $\mathrm{var}_{\mathsf x \sim R_\mathsf x}[f^*(\mathsf x)] = \mathrm{var}_{\mathsf y\sim R_\mathsf y} [g^*(\mathsf y)] = 1$: 
 
 $$
 \Gamma(B) \stackrel{\Delta}{=} \arg\min_{\sigma, f, g} \; \Vert B - \sigma\cdot f\otimes g\Vert^2
