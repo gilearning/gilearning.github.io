@@ -96,7 +96,7 @@ This optimization is in fact a well-studied one. For the case with finite alphab
 ---
 **Definition: Rank-1 Approximation**
 
-For a function $B \in \mathcal {F_{X\times Y}}$, and a given reference distribution $R_{\mathsf {xy}} = R_\mathsf x R_\mathsf y$, the rank-1 approximation of $B$ is written as an operator $\Gamma: B \mapsto (\sigma, f^\ast, g^\ast)$, where $\sigma \geq 0$, $f^* \in \mathcal {F_X}, g^*\in \mathcal {F_Y}$, are standard feature functions with $\mathbb E_{\mathsf x \sim R_\mathsf x}[f^*(\mathsf x)] = \mathbb E_{\mathsf y\sim R_\mathsf y} [g^*(\mathsf y)] = 0$, and $\mathrm{var}_{\mathsf x \sim R_\mathsf x}[f^*(\mathsf x)] = \mathrm{var}_{\mathsf y\sim R_\mathsf y} [g^*(\mathsf y)] = 1$: 
+For a function $B \in \mathcal {F_{X\times Y}}$, and a given reference distribution $R_{\mathsf {xy}} = R_\mathsf x R_\mathsf y$, the rank-1 approximation of $B$ is written as an operator $\Gamma: B \mapsto (\sigma, f^\ast, g^\ast)$, where $\sigma \geq 0$, $f^\ast \in \mathcal {F_X}, g^\ast\in \mathcal {F_Y}$, are standard feature functions with $\mathbb E_{\mathsf x \sim R_\mathsf x}[f^\ast(\mathsf x)] = \mathbb E_{\mathsf y\sim R_\mathsf y} [g^\ast (\mathsf y)] = 0$, and $\mathrm{var}_{\mathsf x \sim R_\mathsf x}[f^\ast (\mathsf x)] = \mathrm{var}_{\mathsf y\sim R_\mathsf y} [g^\ast (\mathsf y)] = 1$: 
 
 $$
 \Gamma(B) \stackrel{\Delta}{=} \arg\min_{\sigma, f, g} \; \Vert B - \sigma\cdot f\otimes g\Vert^2
@@ -107,8 +107,8 @@ We will state here without proof an intuitive property of this approximation, wh
 
 $$ 
 \begin{align}
-&\sum_{x\in \mathcal X} \; R_{\mathsf x}(x) \cdot \left[ \left(B(x,y) - \sigma\cdot f^* (x) g^* (y)\right) \cdot f^* (x) \right] = 0 , \qquad \forall y\\ 
-&\sum_{y\in \mathcal Y} \; R_{\mathsf y}(y) \cdot \left[ \left(B(x,y) - \sigma\cdot f^* (x) g^* (y)\right) \cdot g^* (y) \right] = 0 , \qquad \forall x
+&\sum_{x\in \mathcal X} \; R_{\mathsf x}(x) \cdot \left[ \left(B(x,y) - \sigma\cdot f^\ast (x) g^\ast (y)\right) \cdot f^\ast (x) \right] = 0 , \qquad \forall y\\ 
+&\sum_{y\in \mathcal Y} \; R_{\mathsf y}(y) \cdot \left[ \left(B(x,y) - \sigma\cdot f^\ast (x) g^\ast (y)\right) \cdot g^\ast (y) \right] = 0 , \qquad \forall x
 \end{align}
 $$
 
@@ -120,42 +120,26 @@ Based on this we have the following definition of modal decomposition.
 For a given joint distribution $P_{\mathsf {xy}}$ on $\mathcal {X \times Y}$ and a reference distribution $R_{\mathsf {xy}} = R_\mathsf x R_\mathsf y$. We denote the rank-1 approximation of the PMI as 
 
 $$
-\zeta_1(P_{\mathsf {xy}}) = (\sigma_1, f_1^*, g_1^*) \stackrel{\Delta}{=} \Gamma (\mathrm {PMI}) = \Gamma \left(\log \frac{P_{\mathsf {xy}}}{P_\mathsf xP_\mathsf y}\right)
+\zeta_1(P_{\mathsf {xy}}) = (\sigma_1, f_1^\ast, g_1^\ast) \stackrel{\Delta}{=} \Gamma (\mathrm {PMI}) = \Gamma \left(\log \frac{P_{\mathsf {xy}}}{P_\mathsf xP_\mathsf y}\right)
 $$
 
 and for $i=2, 3, \ldots$, $\zeta_i$ as the the rank-1 approximation of the approximation error of all the previous steps:
 
 $$
-\zeta_i(P_{\mathsf{xy}}) = (\sigma_i, f_i^*, g_i^* ) \stackrel{\Delta}{=} \Gamma \left(\mathrm{PMI} - \sum_{j=1}^{i-1} \sigma_j \cdot f_j^*\otimes g_j^* \right)
+\zeta_i(P_{\mathsf{xy}}) = (\sigma_i, f_i^\ast, g_i^\ast ) \stackrel{\Delta}{=} \Gamma \left(\mathrm{PMI} - \sum_{j=1}^{i-1} \sigma_j \cdot f_j^\ast \otimes g_j^\ast \right)
 $$
 
-Collectively, $\{ \zeta_i \} : P_{\mathsf {xy}} \mapsto [(\sigma_i, f^\ast_i, g^\ast_i), i=1, 2, \ldots]$ is called the **modal decomposition operation**
+Collectively, $[ \zeta_i ] : P_{\mathsf {xy}} \mapsto [(\sigma_i, f^\ast_i, g^\ast_i), i=1, 2, \ldots]$ is called the **modal decomposition operation**
 
 ---
 
-For a pair of spaces $\mathcal {F_X}$, $\mathcal {F_Y}$, with corresponding reference distributions $R_\mathsf x, R_\mathsf y$, resp., the **modal decomposition operation** is a map $\zeta$ that maps a joint distribution $P_{\mathsf {xy}}$, satisfying the technical assumption above, to a sequence of modes $(\sigma_i, f^\ast_i, g^\ast_i), i = 1, 2, \ldots$, with 
-
-* $\sigma_i > 0, \forall i$; 
-* $\sigma_1 \geq \sigma_2 \geq \ldots$ in descending order; 
-* $f^\ast_i \in \mathcal {F_X}, g^\ast_i \in \mathcal {F_Y}$ are valid feature functions (zero meaan unit variance w.r.t the corresponding references)
-* $\langle f^\ast_i, f^\ast_j\rangle = \langle g^\ast_i, g^\ast_j \rangle = \delta_{ij}$. 
-
-These modes satisfy that 
-
-$$
-\begin{align}
-&\lim_{n\to \infty} \left\Vert \log \left(\frac{P_{\mathsf {xy}}}{P_\mathsf x \cdot P_\mathsf y}\right) - \sum_{i=1}^n \sigma_i \cdot f^\ast_i \otimes g^\ast_i\right\Vert^2 = 0\\
-&[(\sigma_i, f^\ast_i, g^\ast_i), i = 1, \ldots, k] \; = \; \arg\min_{(\tilde{\sigma}_i, \tilde{f}_i, \tilde{g}_i), i=1, \ldots, k} \, \left\Vert \log \left(\frac{P_{\mathsf {xy}}}{P_\mathsf x\cdot P_\mathsf y} \right)- \sum_{i=1}^k \tilde{\sigma}_i \cdot \tilde{f}_i \otimes \tilde{g}_i \right\Vert^2
-\end{align}
-$$
-
-We denote this as $\zeta(P_{\mathsf{xy}}) = [(\sigma_i, f^\ast_i, g^\ast_i), i=1, 2, \ldots]$. 
-
-
 A few remarks are in order. 
 
-1. Strictly speaking, equations (1) and (2) should be stated as a theorem, as it takes a proof to argue that such a sequence of modes indeed exists and its partial sequences are the optimal solutions for the rank- $k$ approximation for different values of $k$. There is a similar statement about singular value decomposition, which is really the reason that SVD is so useful. The proof here follows the same general idea and is omitted. 
-2. We denote this decomposition as $\zeta(P_{\mathsf {xy}})$, which should be read as "the $\zeta$-operation for the $\mathsf{x-y}$ dependence defined by the joint distribution $P_{\mathsf{xy}}$". While we write the functional decomposition as an L2 approximation to the LLR function, the LLR is not the unique way to describe the dependence. Later we will have examples where it is convenient to use a slightly different target function, with the resulting choices of the feature functions also a bit different. We consider all such operations to decompose the dependence as the same general idea. 
+1. The following facts are similar to those of SVD, following similar proof, which we omit:
+- $\sigma_1 \geq \sigma_2 \geq \ldots$ in descending order
+- $\langle f^\ast_i, f^\ast_j \rangle = \langle g^\ast_i, g^\ast_j \rangle = \delta_{ij}$, i.e. the feature functions in different modes are orthogonal to each other. 
+
+2. We denote this decomposition as $[\zeta_i](P_{\mathsf {xy}})$, which should be read as "the $\zeta$-operation for the $\mathsf{x-y}$ dependence defined by the joint distribution $P_{\mathsf{xy}}$". While we write the functional decomposition as an L2 approximation to the PMI function, the PMI is not the unique way to describe the dependence. Later we will have examples where it is convenient to use a slightly different target function, with the resulting choices of the feature functions also a bit different. We consider all such operations to decompose the dependence as the same general idea. 
 3. The definition says that for each model $P_{\mathsf {xy}}$ there is an ideal sequence of modes for the orthogonal decomposition. In practice, we do not observe either the model or the mode. We will show later that learning algorithms often try to learn an approximate version of the modes. For example, it is common to only learn the first $k$ modes as defined in equation (2), or to learn the decomposition of an empirical distribution from a finite dataset, or to have extra restrictions of the learned features due to the limited expressive power of a network, etc. In more complex problems, sometimes it might not even be clear which dependence we are trying to decompose. The purpose of defining the $\zeta$ operation is to help us to clarify what type of compromises are taken in finding a computable approximate solution to the idealized decomposition problem. 
 
 
