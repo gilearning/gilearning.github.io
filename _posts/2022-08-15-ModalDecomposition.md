@@ -9,8 +9,6 @@ layout: post
 {:toc}
 
 
-
-
 > ### The key points
 > 
 >_Statistical dependence_ is the reason that we can guess the value of one random variable based on the observation of another. The is the basis of most inference problems like decision making, estimation, prediction, classification, etc. 
@@ -22,6 +20,8 @@ layout: post
 
 ## Modal Decomposition of Statistical Dependence
 ### Inner Product
+
+$e^{ix}$
 
 We start by defining an _inner product_ in the functional space. Given an alphabet $\mathcal X$, the space of all real-valued functions, 
 
