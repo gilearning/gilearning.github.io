@@ -262,9 +262,10 @@ This is probably the cleanest way to understand the modal decomposition: it brea
 
 ## An Example of Numerical Computation of Modal Decomposition
 
-Largely we will use the series of posts to demonstrate different ways of learning and computing the modal decomposition in a variety of cases: when we know certain structures of the model, when we want the learned features to satisfy certain constraints, when we need to use the features in a different problem, when the features are only one of multiple sources of information used in inference, etc. 
+To wrap up this introduction page, we will show one simple example, where we have a small synthesized dataset to train a small neural network. When the training procedure converges, we demonstrate that the learned features match with the result of the $\zeta$ operation. The purpose of this numerical example is to show that in some extreme cases, with a simple dataset and a carefully chosen neural network, the learning in the neural network is indeed finding a low rank approximation to the true model, which is consistent with the modal decomposition operation defined in this page. 
 
-To wrap up this introduction page, we will show one simple example, where we have a small synthesized dataset to run a neural network on. When the training procedure converges, we demonstrate that the learned features match with the result of the $\zeta$ operation. 
+>**Note:**
+>It should be noted that by this example we are simply pointing out the connection between learning in neural networks and the modal decomposition. We use that as an evidence that modal decomposition is a relevant concept in practical problems: good for inference tasks with a reasonable cost to learn from data. It is _not_ our intention to suggest that neural networks are the "recommended" numerical procedure to compute modal decomposition. In fact, the purpose of this series of pages is to show that under different sceniaros, guided by the geometric understanding of modal decomposition, we can intellegently choose different numerical methods, make adjustment or even develop new algorithms, for this purpose.  
 
 
 The dataset we use is a $(x_i, y_i), i=1, \ldots, n$ drawn i.i.d. from a joint distribution $P_{\mathsf {xy}}$, where $\vert \mathcal X \vert = 8, \vert \mathcal Y \vert = 6$, and we simply randomly choose a joint distribution in this space. 
