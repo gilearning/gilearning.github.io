@@ -8,7 +8,7 @@ layout: post
 * TOC
 {:toc}
 
-# Modal Decomposition of Statistical Dependence
+
 
 
 > ### The key points
@@ -20,13 +20,13 @@ layout: post
 >
 >The goal of this page is to define these modes mathematically, explain why they are important in practice, and show by examples that many statistical concepts and learning algorithms are directly related to this modal decomposition idea. With that we will also build the mathematical foundation and notations for the more advanced processing using modal decomposition in the later pages. 
 
-
-## Inner Product
+## Modal Decomposition of Statistical Dependence
+### Inner Product
 
 We start by defining an _inner product_ in the functional space. Given an alphabet $\mathcal X$, the space of all real-valued functions, 
 
 $$
-\mathcal {F_X} = \{f: \mathcal X \mapsto \mathbb R \},
+\mathcal {F_X} = \{f: \mathcal X \to \mathbb R \},
 $$
 
 can be viewed as a vector space. Here, we need to fix a distribution $R_\mathsf x$ on $\mathcal X$, which we call the _reference distribution_. Based on that we can define the inner product: for any $f_1, f_2 \in \mathcal F_\mathcal X$, 
@@ -42,22 +42,22 @@ $$
 
 We can similarly define the inner product on the space of functions on a different alphabet $\mathcal Y$, with respect to a reference distribution $R_\mathsf y$. 
 
-## The LLR Function
+## The PMI Function
 
 Now we are ready to address the joint distributions $P_{\mathsf {xy}}$ on $\mathcal {X\times Y}$. Again we need to choose a reference distribution $R_\mathsf {xy}$. For the purpose of this page, we use the product distribution $R_{\mathsf {xy}} = R_\mathsf x\cdot R_\mathsf y$, and take the resulting definition of inner product of functions in $\mathcal F_{\mathcal X\times \mathcal Y}$. 
 
-A particular function of interest in $\mathcal {F_{X\times Y}}$ is the log likelihood ratio
+A particular function of interest in $\mathcal {F_{X\times Y}}$ is the [Point-wise Mutual Information (PMI)](https://en.wikipedia.org/wiki/Pointwise_mutual_information)
 
 $$ 
-\mathrm{LLR}(x,y) \stackrel{\Delta}{=}\log \frac{P_{\mathsf {xy}}(x,y)}{P_{\mathsf x}(x) \cdot P_{\mathsf y}(y)}, \quad x\in \mathcal X, y \in \mathcal Y
+\mathrm{PMI}(x,y) \stackrel{\Delta}{=}\log \frac{P_{\mathsf {xy}}(x,y)}{P_{\mathsf x}(x) \cdot P_{\mathsf y}(y)}, \quad x\in \mathcal X, y \in \mathcal Y
 $$
 
-where $P_\mathsf x$ and $P_\mathsf y$ are the $\mathsf x$ and $\mathsf y$ marginal distributions of $P_\mathsf {xy}$. It is clear from the definition that $\mathrm{LLR}(x,y) = 0, \forall x$ if and only if the two random variables $\mathsf{x, y}$ are independent; and in general this function gives a complete description of how the two are dependent to each other. Consequently, the LLR function, or in some equivalent or reduced forms, is the target of almost all learning problems. The main difficulty in practice is that the alphabets $\mathcal {X, Y}$ are often very big, causing the LLR function to be very high dimensional, which makes these learning tasks difficult. 
+where $P_\mathsf x$ and $P_\mathsf y$ are the $\mathsf x$ and $\mathsf y$ marginal distributions of $P_\mathsf {xy}$. It is clear from the definition that $\mathrm{PMI}(x,y) = 0, \forall x$ if and only if the two random variables $\mathsf{x, y}$ are independent; and in general this function gives a complete description of how the two are dependent to each other. Consequently, the PMI function, or in some equivalent or reduced forms, is the target of almost all learning problems. The main difficulty in practice is that the alphabets $\mathcal {X, Y}$ are often very big, causing the PMI function to be very high dimensional, which makes these learning tasks difficult. 
 
 Here, we need to make a technical assumption. For a pair of functions $f \in \mathcal {F_X}$ and $g \in \mathcal {F_Y}$, we denote $f\otimes g \in \mathcal {F_{X\times Y}}$ as the "tensor product function" or simply the product function, with $f\otimes g(x,y) \stackrel{\Delta}{=} f(x) g(y), \forall x, y$. Now we assume that the joint distribution $P_{\mathsf {xy}}$ satisfies there exists a possibly infinite sequence of pairs of functions $(f_i, g_i), f_i \in \mathcal {F_X}, g_i \in \mathcal {F_Y}, i=1, 2, \ldots$, such that 
 
 $$
-\lim_{n\to \infty} \left\Vert \mathrm{LLR} - \sum_{i=1}^n f_i \otimes g_i \right\Vert^2 = \lim_{n\to \infty} \mathbb E_{\mathsf {x,y} \sim R_\mathsf xR_\mathsf y}\left[ \left(\mathrm{LLR}(\mathsf {x, y}) - \sum_{i=1}^n f_i(\mathsf x) g_i(\mathsf y) \right)^2\right]  = 0
+\lim_{n\to \infty} \left\Vert \mathrm{PMI} - \sum_{i=1}^n f_i \otimes g_i \right\Vert^2 = \lim_{n\to \infty} \mathbb E_{\mathsf {x,y} \sim R_\mathsf xR_\mathsf y}\left[ \left(\mathrm{PMI}(\mathsf {x, y}) - \sum_{i=1}^n f_i(\mathsf x) g_i(\mathsf y) \right)^2\right]  = 0
 $$
 
 >**Note:**
@@ -161,7 +161,7 @@ We can also just take the reference $R_\mathsf x = P_\mathsf x, R_\mathsf y= P_\
 There is an additional interesting property of this approximated version of LLR: when viewed as an operator on the functional space it is closely related to the conditional expectation operator. 
 
 > **Property 1:** 
-> Let $B : \mathcal {F_X} \mapsto \mathcal {F_Y}$ be defined as: for $a\in \mathcal {F_X}$, $B(a) \in \mathcal {F_Y}$ with 
+> Let $B : \mathcal {F_X} \to \mathcal {F_Y}$ be defined as: for $a\in \mathcal {F_X}$, $B(a) \in \mathcal {F_Y}$ with 
 > 
 > $$
 > \begin{align*}
@@ -174,7 +174,7 @@ There is an additional interesting property of this approximated version of LLR:
 
 We write sum over $x$ in the above which of course can be turned into integral when $x$ is continuous valued. The $\widetilde{\mathrm{LLR}}$ function does not directly act on the input $a(\cdot)$, but instead needs an extra $P_\mathsf x(x)$ multiplied. This can be thought as a summation weighted by the reference distribution. 
 
-One can also define a transpose operator $B^T: \mathcal {F_Y}\mapsto \mathcal {F_X}$, for $b \in \mathcal {F_Y}$, 
+One can also define a transpose operator $B^T: \mathcal {F_Y}\to \mathcal {F_X}$, for $b \in \mathcal {F_Y}$, 
 
 $$
 \left(B^T(b)\right)(x) = \sum_{y\in \mathcal Y}\frac{P_{\mathsf {xy}}(x,y) - P_\mathsf x(x) P_\mathsf y(y)}{P_\mathsf x(x) P_\mathsf y(y)} \cdot  (P_\mathsf y(y) \cdot b(y))=  \mathbb E[b(\mathsf y)|\mathsf x=x], \forall x.
