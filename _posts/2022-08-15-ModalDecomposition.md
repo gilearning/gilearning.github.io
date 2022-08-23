@@ -72,7 +72,7 @@ $$
 $$
 
 
-This can be rewritten as $P_{\mathsf {y|x}}(y|x) = P_\mathsf y (y) \cdot \exp(f(x)\cdot g(y)), \forall x, y$. 
+This can be rewritten as $P_{\mathsf {y\vert x}}(y\vert x) = P_\mathsf y (y) \cdot \exp(f(x)\cdot g(y)), \forall x, y$. 
 That is, the conditional distribution is on a 1-D exponential family with $g(\mathsf y)$ as the natural statistic. 
 To make inference of $\mathsf y$, we only need to know the value $f(\mathsf x)$, which is a sufficient statistic. 
 In fact the only thing we can infer about $\mathsf y$ is the value of $g(\mathsf y)$. 
@@ -97,20 +97,26 @@ This optimization is in fact a well-studied one. For the case with finite alphab
 ---
 **Definition: Rank-1 Approximation**
 
-For a function $B \in \mathcal {F_{X\times Y}}$, and a given reference distribution $R_{\mathsf {xy}} = R_\mathsf x R_\mathsf y$, the rank-1 approximation of $B$ is written as an operator $\Gamma: B \mapsto (\sigma, f, g)$, where $\sigma \geq 0$, $f \in \mathcal {F_X}, g\in \mathcal {F_Y}$, are standard feature functions with $\mathbb E_{\mathsf x \sim R_\mathsf x}[f(\mathsf x)] = \mathbb E_{\mathsf y\sim R_\mathsf y} [g(\mathsf y)] = 0$, and $\mathbb E_{\mathsf x \sim R_\mathsf x}[f^2(\mathsf x)] = \mathbb E_{\mathsf y\sim R_\mathsf y} [g^2(\mathsf y)] = 1$: 
+For a function $B \in \mathcal {F_{X\times Y}}$, and a given reference distribution $R_{\mathsf {xy}} = R_\mathsf x R_\mathsf y$, the rank-1 approximation of $B$ is written as an operator $\Gamma: B \mapsto (\sigma, f^*, g^*)$, where $\sigma \geq 0$, $f^* \in \mathcal {F_X}, g^*\in \mathcal {F_Y}$, are standard feature functions with $\mathbb E_{\mathsf x \sim R_\mathsf x}[f^*(\mathsf x)] = \mathbb E_{\mathsf y\sim R_\mathsf y} [g^*(\mathsf y)] = 0$, and $\mathrm{var}_{\mathsf x \sim R_\mathsf x}[f^*(\mathsf x)] = \mathrm{var}_{\mathsf y\sim R_\mathsf y} [g^*(\mathsf y)] = 1$: 
 
 $$
 \Gamma(B) \stackrel{\Delta}{=} \arg\min_{\sigma, f, g} \; \Vert B - \sigma\cdot f\otimes g\Vert^2
 $$
 
+---
+We will state here without proof an intuitive property of this approximation, which we will use rather frequently: the approximation error is orthogonal to the optimal feature functions, i.e. 
+
+$$ 
+\begin{align}
+&\sum_{x\in \mathcal X} \; R_{\mathsf x}(x) \cdot \left[ \left(B(x,y) - \sigma\cdot f^* (x) g^* (y)\right) \cdot f^* (x) \right] = 0 , \qquad \forall y\\ 
+&\sum_{y\in \mathcal Y} \; R_{\mathsf y}(y) \cdot \left[ \left(B(x,y) - \sigma\cdot f^* (x) g^* (y)\right) \cdot g^* (y) \right] = 0 , \qquad \forall x
+\end{align}
+$$
+
+Based on this we have the following definition of modal decomposition. 
 
 ---
-
-
-
-
----
-### Definition: Modal Decomposition $\zeta$
+**Definition: Modal Decomposition $\zeta$**
 
 For a pair of spaces $\mathcal {F_X}$, $\mathcal {F_Y}$, with corresponding reference distributions $R_\mathsf x, R_\mathsf y$, resp., the **modal decomposition operation** is a map $\zeta$ that maps a joint distribution $P_{\mathsf {xy}}$, satisfying the technical assumption above, to a sequence of modes $(\sigma_i, f^\ast_i, g^\ast_i), i = 1, 2, \ldots$, with 
 
