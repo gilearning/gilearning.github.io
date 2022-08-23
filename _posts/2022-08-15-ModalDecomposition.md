@@ -21,7 +21,6 @@ layout: post
 ## Modal Decomposition of Statistical Dependence
 ### Inner Product
 
-$e^{ix}$
 
 We start by defining an _inner product_ in the functional space. Given an alphabet $\mathcal X$, the space of all real-valued functions, 
 
@@ -121,16 +120,16 @@ Based on this we have the following definition of modal decomposition.
 For a given joint distribution $P_{\mathsf {xy}}$ on $\mathcal {X \times Y}$ and a reference distribution $R_{\mathsf {xy}} = R_\mathsf x R_\mathsf y$. We denote the rank-1 approximation of the PMI as 
 
 $$
-\zeta_1(P_{\mathsf {xy}}) = (\sigma_1, f_1^*, g_1^*) \stackrel{\Delta}{=} \Gamma (\mathrm {PMI}) = \Gamma \left(\frac{P_{\mathsf {xy}}}{P_\mathsf xP_\mathsf y}\right)
+\zeta_1(P_{\mathsf {xy}}) = (\sigma_1, f_1^*, g_1^*) \stackrel{\Delta}{=} \Gamma (\mathrm {PMI}) = \Gamma \left(\log \frac{P_{\mathsf {xy}}}{P_\mathsf xP_\mathsf y}\right)
 $$
 
-and for $i=2, 3, \ldots$, 
+and for $i=2, 3, \ldots$, $\zeta_i$ as the the rank-1 approximation of the approximation error of all the previous steps:
 
 $$
 \zeta_i(P_{\mathsf{xy}}) = (\sigma_i, f_i^*, g_i^* ) \stackrel{\Delta}{=} \Gamma \left(\mathrm{PMI} - \sum_{j=1}^{i-1} \sigma_j \cdot f_j^*\otimes g_j^* \right)
 $$
 
-Collectively, $\{\zeta_i\} : P_{\mathsf {xy}} \mapsto [(\sigma_i, f^\ast_i, g^\ast_i), i=1, 2, \ldots]$ is called the **modal decomposition operation**
+Collectively, $\{ \zeta_i \} : P_{\mathsf {xy}} \mapsto [(\sigma_i, f^\ast_i, g^\ast_i), i=1, 2, \ldots]$ is called the **modal decomposition operation**
 
 ---
 
