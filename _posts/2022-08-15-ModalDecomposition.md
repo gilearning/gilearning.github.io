@@ -42,7 +42,7 @@ $$
 
 We can similarly define the inner product on the space of functions on a different alphabet $\mathcal Y$, with respect to a reference distribution $R_\mathsf y$. 
 
-## The PMI Function
+### The PMI Function
 
 Now we are ready to address the joint distributions $P_{\mathsf {xy}}$ on $\mathcal {X\times Y}$. Again we need to choose a reference distribution $R_\mathsf {xy}$. For the purpose of this page, we use the product distribution $R_{\mathsf {xy}} = R_\mathsf x\cdot R_\mathsf y$, and take the resulting definition of inner product of functions in $\mathcal F_{\mathcal X\times \mathcal Y}$. 
 
@@ -61,7 +61,7 @@ $$
 $$
 
 >**Note:**
->In words, this assumption says that the LLR function can be approached, in L2 sense, by the sum of a countable collection of product functions, with L2 defined w.r.t. the given reference distribution. This assumption is always true for the cases that both $\mathcal X$ and $\mathcal Y$ are discrete alphabets. For more general cases, the assumption of a countable basis in L2 sense is a commonly used assumption, which is not restrictive at all in most practical applications, and convenient for us to rule out some of the "unpleasant" distributions. 
+>In words, this assumption says that the PMI function can be approached, in L2 sense, by the sum of a countable collection of product functions, with L2 defined w.r.t. the given reference distribution. This assumption is always true for the cases that both $\mathcal X$ and $\mathcal Y$ are discrete alphabets. For more general cases, the assumption of a countable basis in L2 sense is a commonly used assumption, which is not restrictive at all in most practical applications, and convenient for us to rule out some of the "unpleasant" distributions. 
 
 ## A Single Mode
 
@@ -78,35 +78,34 @@ To make inference of $\mathsf y$, we only need to know the value $f(\mathsf x)$,
 In fact the only thing we can infer about $\mathsf y$ is the value of $g(\mathsf y)$. 
 In general, we could extrapolate from this observation to state that if the LLR function is the sum of a limited number of product functions, then that correspondingly limits the scope of inference tasks we can hope to solve, while allowing us to only look at a limited set of statistics, or **_features_**, of the data. 
 
+Here, to clarify the terminology, we refer to _feature functions_ of a random variable as real-valued functions on the alphabet, such as $f: \mathcal X \to \mathbb R$. Feature functions are often evaluated with the observed data samples, and the function values, which we refer to as _features_, are used for further inference and learning tasks, instead of the raw data. Thus, these features are indeed the "information carrying device". Since any known shifting and scaling do not change the information contents that these features carry, for convenience, we sometimes require a standard form, that the feature functions satisfying $\mathbb E[f(\mathsf x)] = 0$ and $\mathbb E[f^2(\mathsf x)]=1$, where both expectations are takend w.r.t. the reference distribution $R_\mathsf x$. 
 
-Now it is a good time to give the definition of features and modes. 
-
----
-**Definition: Feature Functions**
-A feature function of data $x \in \mathcal X$ is $f \in \mathcal {F_X}$, with 
-
-$$
-\mathbb E_{\mathsf x \sim R_\mathsf x} [f(\mathsf x)] = 0, \qquad \mathbb E_{\mathsf x \sim R_\mathsf x}[ f^2(\mathsf x)] = 1
-$$
-
----
+When we write a product function as above in this standard form, we need to explicitly write out the scaling factor. That is, instead of $f\otimes g$, we need to write $\sigma f\otimes g$, with $\sigma \geq 0$. We call this triple, $(\sigma, f, g)$, a single **_mode_**. That is, a mode consists of a strength $\sigma$, and a pair of feature functions in $\mathcal {F_X}$ and $\mathcal {F_Y}$. 
 
 
-Since these are the functions that we would like to evaluate with data, fixed shifting and scaling do not make any difference, so we included in the definition that feature functions must have zero mean and unit variance w.r.t. the given reference distribution. Because we normalize all feature functions from now on, when we write a product function, we need to explicitly write out the scaling factor. That is, instead of $f\otimes g$, we need to write $\sigma f\otimes g$, with $\sigma \geq 0$. We call this triple, $(\sigma, f, g)$, a single **_mode_**. That is, a mode consists of a strength $\sigma$, and a pair of feature functions in $\mathcal {F_X}$ and $\mathcal {F_Y}$. 
+### Modal Decomposition
 
-For a given data sample $x$, we think of the function value $f(x)$ a feature, which captures some partial information carried by the raw data, since in general we may not be able to recover the value of $x$ from the feature value $f(x)$. 
-
-## Modal Decomposition
-
-Obviously, for a given LLR function, there are many ways to write it into sum of modes. We hope to have as few modes as possible. In some cases, we might even wish to compromise the precision of the sum and try to have a reasonable approximation of the given LLR with a sum of even fewer modes. That is, for a given finite $k$, we would like to solve the problem 
+Obviously, for a given PMI function, there are many ways to write it into sum of modes. We hope to have as few modes as possible. In some cases, we might even wish to compromise the precision of the sum and try to have a reasonable approximation of the given PMI with a sum of even fewer modes. That is, for a given finite $k$, we would like to solve the problem 
 
 $$
 \min_{ (\sigma_i, f_i, g_i), i=1, \ldots, k} \, \left \Vert \mathrm{LLR} - \sum_{i=1}^k \sigma_i f_i\otimes g_i\right\Vert^2
 $$
 
 
-This optimization is in fact a well-studied one. For the case with finite alphabets, the target LLR function can be thought as a $|\mathcal X| \times |\mathcal Y|$ matrix, with the $(x,y)$ entry being the function value $\mathrm {LLR}(x,y)$; and the above optimization problem is solved by finding the singular value decomposition (SVD) of this matrix. 
-The result is a decomposition is a diagonalization, turning LLR matrix into the sum of orthogonal rank-1 matrices, each corresponds to one mode in our definition. These optimal choices of modes must be orthogonal to each other as a result to avoiding repetition between modes. We will state here without proof that the same can be done in the functional space. With that we now give the definition of modal decomposition. 
+This optimization is in fact a well-studied one. For the case with finite alphabets, the target PMI function can be thought as a $|\mathcal X| \times |\mathcal Y|$ matrix, with the $(x,y)$ entry being the function value $\mathrm {PMI}(x,y)$; and the above optimization problem is solved by finding the [singular value decomposition (SVD)](https://en.wikipedia.org/wiki/Singular_value_decomposition) of this matrix. The result is a decomposition is a diagonalization, turning the PMI matrix into the sum of orthogonal rank-1 matrices, each corresponds to one mode in our definition. Here, we will define the modal decomposition with a sequential construction, which is indeed a standard way to define SVD.   
+
+---
+**Definition: Rank-1 Approximation**
+
+For a function $B \in \mathcal {F_{X\times Y}}$, and a given reference distribution $R_{\mathsf {xy}} = R_\mathsf x R_\mathsf y$, the rank-1 approximation of $B$ is written as an operator $\Gamma: B \mapsto (\sigma, f, g)$, where $\sigma \geq 0$, $f \in \mathcal {F_X}, g\in \mathcal {F_Y}$, are standard feature functions with $\mathbb E_{\mathsf x \sim R_\mathsf x}[f(\mathsf x)] = \mathbb E_{\mathsf y\sim R_\mathsf y} [g(\mathsf y)] = 0$, and $\mathbb E_{\mathsf x \sim R_\mathsf x}[f^2(\mathsf x)] = \mathbb E_{\mathsf y\sim R_\mathsf y} [g^2(\mathsf y)] = 1$: 
+
+$$
+\Gamma(B) \stackrel{\Delta}{=} \arg\min_{\sigma, f, g} \; \Vert B - \sigma\cdot f\otimes g\Vert^2
+$$
+
+
+---
+
 
 
 
