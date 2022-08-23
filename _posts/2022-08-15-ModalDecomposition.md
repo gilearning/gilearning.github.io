@@ -118,6 +118,22 @@ Based on this we have the following definition of modal decomposition.
 ---
 **Definition: Modal Decomposition $\zeta$**
 
+For a given joint distribution $P_{\mathsf {xy}}$ on $\mathcal {X \times Y}$ and a reference distribution $R_{\mathsf {xy}} = R_\mathsf x R_\mathsf y$. We denote the rank-1 approximation of the PMI as 
+
+$$
+\zeta_1(P_{\mathsf {xy}}) = (\sigma_1, f_1^*, g_1^*) \stackrel{\Delta}{=} \Gamma (\mathrm {PMI}) = \Gamma \left(\frac{P_{\mathsf {xy}}}{P_\mathsf xP_\mathsf y}\right)
+$$
+
+and for $i=2, 3, \ldots$, 
+
+$$
+\zeta_i(P_{\mathsf{xy}}) = (\sigma_i, f_i^*, g_i^* ) \stackrel{\Delta}{=} \Gamma \left(\mathrm{PMI} - \sum_{j=1}^{i-1} \sigma_j \cdot f_j^*\otimes g_j^* \right)
+$$
+
+Collectively, $\{\zeta_i\} : P_{\mathsf {xy}} \mapsto [(\sigma_i, f^\ast_i, g^\ast_i), i=1, 2, \ldots]$ is called the **modal decomposition operation**
+
+---
+
 For a pair of spaces $\mathcal {F_X}$, $\mathcal {F_Y}$, with corresponding reference distributions $R_\mathsf x, R_\mathsf y$, resp., the **modal decomposition operation** is a map $\zeta$ that maps a joint distribution $P_{\mathsf {xy}}$, satisfying the technical assumption above, to a sequence of modes $(\sigma_i, f^\ast_i, g^\ast_i), i = 1, 2, \ldots$, with 
 
 * $\sigma_i > 0, \forall i$; 
@@ -136,7 +152,6 @@ $$
 
 We denote this as $\zeta(P_{\mathsf{xy}}) = [(\sigma_i, f^\ast_i, g^\ast_i), i=1, 2, \ldots]$. 
 
----
 
 A few remarks are in order. 
 
