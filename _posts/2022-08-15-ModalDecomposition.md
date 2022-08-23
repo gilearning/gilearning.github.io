@@ -129,7 +129,7 @@ $$
 \zeta_i(P_{\mathsf{xy}}) = (\sigma_i, f_i^\ast, g_i^\ast ) \stackrel{\Delta}{=} \Gamma \left(\mathrm{PMI} - \sum_{j=1}^{i-1} \sigma_j \cdot f_j^\ast \otimes g_j^\ast \right)
 $$
 
-Collectively, $\{ \zeta_i \} : P_{\mathsf {xy}} \mapsto [(\sigma_i, f^\ast_i, g^\ast_i), i=1, 2, \ldots]$ is called the **modal decomposition operation**
+Collectively, $\left\{ \zeta_i \right\} : P_{\mathsf {xy}} \mapsto [(\sigma_i, f^\ast_i, g^\ast_i), i=1, 2, \ldots]$ is called the **modal decomposition operation**
 
 ---
 
@@ -139,7 +139,7 @@ A few remarks are in order.
 - $\sigma_1 \geq \sigma_2 \geq \ldots$ in descending order
 - $\langle f^\ast_i, f^\ast_j \rangle = \langle g^\ast_i, g^\ast_j \rangle = \delta_{ij}$, i.e. the feature functions in different modes are orthogonal to each other. 
 
-2. We denote this decomposition as $\{\zeta_i\}(P_{\mathsf {xy}})$, which should be read as "the $\zeta$-operation for the $\mathsf{x-y}$ dependence defined by the joint distribution $P_{\mathsf{xy}}$". While we write the functional decomposition as an L2 approximation to the PMI function, the PMI is not the unique way to describe the dependence. Later we will have examples where it is convenient to use a slightly different target function, with the resulting choices of the feature functions also a bit different. We consider all such operations to decompose the dependence as the same general idea. 
+2. We denote this decomposition as $\left\{\zeta_i \right\}(P_{\mathsf {xy}})$, which should be read as "the $\zeta$-operation for the $\mathsf{x-y}$ dependence defined by the joint distribution $P_{\mathsf{xy}}$". While we write the functional decomposition as an L2 approximation to the PMI function, the PMI is not the unique way to describe the dependence. Later we will have examples where it is convenient to use a slightly different target function, with the resulting choices of the feature functions also a bit different. We consider all such operations to decompose the dependence as the same general idea. 
 3. The definition says that for each model $P_{\mathsf {xy}}$ there is an ideal sequence of modes for the orthogonal decomposition. In practice, we do not observe either the model or the mode. We will show later that learning algorithms often try to learn an approximate version of the modes. For example, it is common to only learn the first $k$ modes as defined in equation (2), or to learn the decomposition of an empirical distribution from a finite dataset, or to have extra restrictions of the learned features due to the limited expressive power of a network, etc. In more complex problems, sometimes it might not even be clear which dependence we are trying to decompose. The purpose of defining the $\zeta$ operation is to help us to clarify what type of compromises are taken in finding a computable approximate solution to the idealized decomposition problem. 
 
 
