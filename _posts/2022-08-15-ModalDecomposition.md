@@ -8,8 +8,6 @@ layout: post
 * TOC
 {:toc}
 
-test macbook
-
 > ### The key points
 > 
 >_Statistical dependence_ is the reason that we can guess the value of one random variable based on the observation of another. The is the basis of most inference problems like decision making, estimation, prediction, classification, etc. 
@@ -63,7 +61,7 @@ $$
 >**Note:**
 >In words, this assumption says that the PMI function can be approached, in L2 sense, by the sum of a countable collection of product functions, with L2 defined w.r.t. the given reference distribution. This assumption is always true for the cases that both $\mathcal X$ and $\mathcal Y$ are discrete alphabets. For more general cases, the assumption of a countable basis in L2 sense is a commonly used assumption, which is not restrictive at all in most practical applications, and convenient for us to rule out some of the "unpleasant" distributions. 
 
-## A Single Mode
+### A Single Mode
 
 Why we are so interested in such product functions? In short, it represents a very simple kind of dependence. Imagine a joint distribution $P_{\mathsf {xy}}$ whose PMI function can be written as 
 
@@ -97,20 +95,22 @@ This optimization is in fact a well-studied one. For the case with finite alphab
 ---
 **Definition: Rank-1 Approximation**
 
-For a function $B \in \mathcal {F_{X\times Y}}$, and a given reference distribution $R_{\mathsf {xy}} = R_\mathsf x R_\mathsf y$, the rank-1 approximation of $B$ is written as an operator $\Gamma: B \mapsto (\sigma, f^\ast, g^\ast)$, where $\sigma \geq 0$, $f^\ast \in \mathcal {F_X}, g^\ast\in \mathcal {F_Y}$, are standard feature functions with $\mathbb E_{\mathsf x \sim R_\mathsf x}[f^\ast(\mathsf x)] = \mathbb E_{\mathsf y\sim R_\mathsf y} [g^\ast (\mathsf y)] = 0$, and $\mathrm{var}_{\mathsf x \sim R_\mathsf x}[f^\ast (\mathsf x)] = \mathrm{var}_{\mathsf y\sim R_\mathsf y} [g^\ast (\mathsf y)] = 1$: 
+For a function $B \in \mathcal {F_{X\times Y}}$, and a given reference distribution $R_{\mathsf {xy}} = R_\mathsf x R_\mathsf y$, the rank-1 approximation of $B$ is written as an operator $\Gamma: B \mapsto (\sigma, f^\ast, g^\ast)$,  
 
 $$
 \Gamma(B) \stackrel{\Delta}{=} \arg\min_{\sigma, f, g} \; \Vert B - \sigma\cdot f\otimes g\Vert^2
 $$
 
+where the optimization has the constraints: $\sigma \geq 0$, $f^\ast \in \mathcal {F_X}, g^\ast\in \mathcal {F_Y}$, are standard feature functions, i.e., $f^\ast, g^\ast$ both have zero mean and unit variance w.r.t. $R_\mathsf{x}, R_\mathsf{y}$, respectively.
+
 ---
 We will state here without proof an intuitive property of this approximation, which we will use rather frequently: the approximation error is orthogonal to the optimal feature functions, i.e. 
 
 $$ 
-\begin{align}
+\begin{align*}
 &\sum_{x\in \mathcal X} \; R_{\mathsf x}(x) \cdot \left[ \left(B(x,y) - \sigma\cdot f^\ast (x) g^\ast (y)\right) \cdot f^\ast (x) \right] = 0 , \qquad \forall y\\ 
 &\sum_{y\in \mathcal Y} \; R_{\mathsf y}(y) \cdot \left[ \left(B(x,y) - \sigma\cdot f^\ast (x) g^\ast (y)\right) \cdot g^\ast (y) \right] = 0 , \qquad \forall x
-\end{align}
+\end{align*}
 $$
 
 Based on this we have the following definition of modal decomposition. 
@@ -144,15 +144,27 @@ A few remarks are in order.
 3. The definition says that for each model $P_{\mathsf {xy}}$ there is an ideal sequence of modes for the orthogonal decomposition. In practice, we do not observe either the model or the mode. We will show later that learning algorithms often try to learn an approximate version of the modes. For example, it is common to only learn the first $k$ modes, or to learn the decomposition of an empirical distribution from a finite dataset, or to have extra restrictions of the learned features due to the limited expressive power of a network, etc. In more complex problems, sometimes it might not even be clear which dependence we are trying to decompose. The purpose of defining the $\zeta$ operation is to help us to clarify what type of compromises are taken in finding a computable approximate solution to the idealized decomposition problem. 
 
 
-## Nice Properties
+## Properties of Modal Decomposition
 
-There are many nice properties of this modal decomposition. The best way to see them is to go through a survey paper we wrote. On this page we will only state them as facts without any proof, and sometimes with intuitve but not-so-precise statements. The goal of stating these intuitve statements is to explain why the modal decomposition is indeed useful, so it is not surprising that some numerical procedures can be understood as solving or approximated solving it. 
+There are many nice properties of this modal decomposition. The best way to see them is to go through our [survey paper](http://lizhongzheng.mit.edu/sites/default/files/documents/mace_final.pdf). On this page we will only state some of them as facts without any proof, and sometimes with intuitve but not-so-precise statements. The central point of this is to make the following statement
 
-One particular issue is the **_local assumption_**. Many nice properties and connections for the modal decomposition are asymptotic statements, proved in the limiting regime where $P_{\mathsf {xy}}, P_\mathsf x \cdot P_\mathsf y$, and $R_\mathsf x\cdot R_\mathsf y$ are all "close" to each other. Different mathematical statements might require different strengths of such assumptions, and in some cases one can even circumvent such assumptions by making a slightly different statement. Since this page is not a paper, we will simply call all of such things the "local approximation", denoted as $\approx$. We will assume the local assumption is given for all statement regardless of what is needed, and try to limit such statements in this short section on the properties. 
+>Modal decomposition, the $\zeta$ operation of a model $P_{\mathsf {xy}}$, decomposes the dependence between two random variables $\mathsf x$ and $\mathsf y$ into a sequence of pairwise correlation between  features $f^\ast_i(\mathsf x)$ and $g^\ast_i(\mathsf y)$, with correlation coefficient $\sigma_i$, for $i=1, 2, \ldots$. 
 
-It worth mentioning that the local assumption is indeed a fundamental concept. The space of probability distributions is not a linear vector space, but a manifold. (Amari) The local assumption allows us to focus on a neighborhood which can be approximated by the tangent plane of the manifold, and hence get the geometry linearized. For the same reason, we often need iterative algorithms in learning probability model, as we only can compute and make local steps when finding our way on a complex manifold. In the first step of our development, the assumption of a reference distribution in defining the inner product, can be thought as associating the functional space to a neighborhood of probability distributions around the reference. 
+This statement is important since in both learning of the model $P_{\mathsf {xy}}$ and using it for inference tasks, we no longer have to carry the entire model which is often far to complex. Instead, we can learn and use only a subset of modes. Because we have $\sigma_i$'s to quantify the strengths of these modes, we would know exactly how to choose the more important modes and how good is the resulting approximate model. 
 
-### The Conditional Expectation Operator
+One technical issue is the **_local assumption_**. Many nice properties and connections for the modal decomposition are asymptotic statements, proved in the limiting regime where $P_{\mathsf {xy}}, P_\mathsf x \cdot P_\mathsf y$, and $R_\mathsf x\cdot R_\mathsf y$ are all "close" to each other. Such local assumptions are indeed a fundamental concept: The space of probability distributions is not a linear vector space, but a manifold. The local assumption allows us to focus on a neighborhood which can be approximated by the tangent plane of the manifold, and hence get the geometry linearized. Details of this can be found in the literature of [information geometry](https://www.amazon.com/Information-Translations-Mathematical-Monographs-Tanslations/dp/0821843028) and [correspondence analysis](https://en.wikipedia.org/wiki/Correspondence_analysis). A quick example is that the following approximation to the PMI function is often used in our development with the assumption that the precision is acceptable. 
+
+$$
+\mathrm{PMI}(x,y) = \log \left( \frac{P_{\mathsf {xy}}(x,y)}{P_\mathsf x(x) P_\mathsf y(y)} \right)\approx \widetilde{\mathrm{PMI}}(x,y) = \frac{P_{\mathsf {xy}}(x,y) - P_\mathsf x(x) P_\mathsf y(y)}{P_\mathsf x(x) P_\mathsf y(y)}
+$$
+
+This inevitably leads to some technical details in making the mathematical statements. Different statements might require different strengths of the local assumptions, and in some cases one can even circumvent such assumptions by making a slightly different statement. To avoid leading our readers into such discussions, we will simply call all of such things the "local approximation" and assume they are given for all statement regardless of what is needed. Furthermore, we will hide the rest of these statements in a toggled block. If the reader is comfortable with our main message about decomposing the dependence, then it might be better to skip the mathematical statements and move on to the later developments faster. 
+
+<details>
+<summary>Click to read the mathematical statements </summary>
+
+
+**The Conditional Expectation Operator**
 
 The first easy thing we can do with the local approximation is to apply the Taylor approximation, $\log(x) \approx x-1$ when $x\approx 1$, to the PMI function
 
@@ -160,7 +172,7 @@ $$
 \mathrm{PMI}(x,y) = \log \left( \frac{P_{\mathsf {xy}}(x,y)}{P_\mathsf x(x) P_\mathsf y(y)} \right)\approx \widetilde{\mathrm{PMI}}(x,y) = \frac{P_{\mathsf {xy}}(x,y) - P_\mathsf x(x) P_\mathsf y(y)}{P_\mathsf x(x) P_\mathsf y(y)}
 $$
 
-We can also just take the reference $R_\mathsf x = P_\mathsf x, R_\mathsf y= P_\mathsf y$ to further simplify thins. We could have defined the modal decomposition with the target function of $\widetilde{\mathrm{PMI}}$, and choose this new reference, which can also be reasonably read as "describing the dependence". We view this as purly a choice of presentation style, and the difference happens to vanish under the local approximation. 
+We can also just take the reference $R_\mathsf x = P_\mathsf x, R_\mathsf y= P_\mathsf y$ to further simplify things. We could have defined the modal decomposition with the target function of $\widetilde{\mathrm{PMI}}$, and choose this new reference, which can also be reasonably read as "describing the dependence". We view this as purly a choice of presentation style, and the difference happens to vanish under the local approximation. 
 
 There is an additional interesting property of this approximated version of PMI: when viewed as an operator on the functional space it is closely related to the conditional expectation operator. 
 
@@ -260,6 +272,9 @@ Now if we have the modal decomposition $\zeta(P_\mathsf {xy}) = [(\sigma_i, f^\a
 > $I(\mathsf x; \mathsf y) = \frac{1}{2} \Vert \mathrm{PMI} \Vert^2 = \frac{1}{2} \sum_i \sigma_i^2$
 
 This is probably the cleanest way to understand the modal decomposition: it breaks the mutual information into the sum of a number of modes, as the (squared) strengths of these modes add up to the mutual information. As stated earlier, it is often difficult to learn or to store the PMI function in practice due to the high dimensionality of the data. In these cases, it is a good idea to approximate the PMI function with a truncated versition that only keeps the first $k$ strongest modes. This not only gives the best rank-limited approximation of the joint distribution, as stated in equation (2) in the [definition](#definition-modal-decomposition-zeta), but also captures the most significant dependence relation (the most strongly correlated feature pairs), and in that sense makes the approximation useful in inference tasks. 
+
+
+</details>
 
 ## An Example of Numerical Computation of Modal Decomposition
 
