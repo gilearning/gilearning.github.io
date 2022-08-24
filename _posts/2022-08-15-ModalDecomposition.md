@@ -8,7 +8,7 @@ layout: post
 * TOC
 {:toc}
 
-> ### The key points
+> ### The Key Points
 > 
 >_Statistical dependence_ is the reason that we can guess the value of one random variable based on the observation of another. The is the basis of most inference problems like decision making, estimation, prediction, classification, etc. 
 >
@@ -130,7 +130,7 @@ $$
 \zeta_i(P_{\mathsf{xy}}) = (\sigma_i, f_i^\ast, g_i^\ast ) \stackrel{\Delta}{=} \Gamma \left(\mathrm{PMI} - \sum_{j=1}^{i-1} \sigma_j \cdot f_j^\ast \otimes g_j^\ast \right)
 $$
 
-Collectively, $\lbrace \zeta_i \rbrace : P_{\mathsf {xy}} \mapsto [(\sigma_i, f^\ast_i, g^\ast_i), i=1, 2, \ldots]$ is called the **modal decomposition operation**
+Collectively, $\lbrace \zeta_i \rbrace : P_{\mathsf {xy}} \mapsto \lbrace(\sigma_i, f^\ast_i, g^\ast_i), i=1, 2, \ldots\rbrace$ is called the **modal decomposition operation**
 
 ---
 
@@ -158,23 +158,14 @@ $$
 \mathrm{PMI}(x,y) = \log \left( \frac{P_{\mathsf {xy}}(x,y)}{P_\mathsf x(x) P_\mathsf y(y)} \right)\approx \widetilde{\mathrm{PMI}}(x,y) = \frac{P_{\mathsf {xy}}(x,y) - P_\mathsf x(x) P_\mathsf y(y)}{P_\mathsf x(x) P_\mathsf y(y)}
 $$
 
-This inevitably leads to some technical details in making the mathematical statements. Different statements might require different strengths of the local assumptions, and in some cases one can even circumvent such assumptions by making a slightly different statement. To avoid leading our readers into such discussions, we will simply call all of such things the "local approximation" and assume they are given for all statement regardless of what is needed. Furthermore, we will hide the rest of these statements in a toggled block. If the reader is comfortable with our main message about decomposing the dependence, then it might be better to skip the mathematical statements and move on to the later developments faster. 
-
-<details>
-<summary>Click to read the mathematical statements </summary>
+This inevitably leads to some technical details in making the mathematical statements. Different statements might require different strengths of the local assumptions, and in some cases one can even circumvent such assumptions by making a slightly different statement. To avoid leading our readers into such discussions, we will simply call all of such things the "local approximation" and assume they are given for all statement regardless of what is needed. Furthermore, we will hide the rest of these statements in a toggled block. If the reader is comfortable with our main message about decomposing the dependence and not interested in the mathematical steps, this [link](#an-example-of-numerical-computation-of-modal-decomposition) can be used to skip to the algorithm part of our story. 
 
 
-**The Conditional Expectation Operator**
+### The Conditional Expectation Operator
 
-The first easy thing we can do with the local approximation is to apply the Taylor approximation, $\log(x) \approx x-1$ when $x\approx 1$, to the PMI function
+Now we enter the regime with the local assumptions. That is, the $\mathrm{PMI}$ and $\widetilde{\mathrm{PMI}}$ are now considered the same function. For convenience, we will just take the reference $R_\mathsf x = P_\mathsf x, R_\mathsf y= P_\mathsf y$ to further simplify things. 
 
-$$
-\mathrm{PMI}(x,y) = \log \left( \frac{P_{\mathsf {xy}}(x,y)}{P_\mathsf x(x) P_\mathsf y(y)} \right)\approx \widetilde{\mathrm{PMI}}(x,y) = \frac{P_{\mathsf {xy}}(x,y) - P_\mathsf x(x) P_\mathsf y(y)}{P_\mathsf x(x) P_\mathsf y(y)}
-$$
-
-We can also just take the reference $R_\mathsf x = P_\mathsf x, R_\mathsf y= P_\mathsf y$ to further simplify things. We could have defined the modal decomposition with the target function of $\widetilde{\mathrm{PMI}}$, and choose this new reference, which can also be reasonably read as "describing the dependence". We view this as purly a choice of presentation style, and the difference happens to vanish under the local approximation. 
-
-There is an additional interesting property of this approximated version of PMI: when viewed as an operator on the functional space it is closely related to the conditional expectation operator. 
+We start with the interesting fact about $\widetilde{\mathrm{PMI}}$: when viewed as an operator on the functional space it is closely related to the conditional expectation operator. 
 
 > **Property 1:** 
 > Let $B : \mathcal {F_X} \to \mathcal {F_Y}$ be defined as: for $a\in \mathcal {F_X}$, $B(a) \in \mathcal {F_Y}$ with 
@@ -188,28 +179,17 @@ There is an additional interesting property of this approximated version of PMI:
 > $$
 >
 
-We write sum over $x$ in the above which of course can be turned into integral when $x$ is continuous valued. The $\widetilde{\mathrm{PMI}}$ function does not directly act on the input $a(\cdot)$, but instead needs an extra $P_\mathsf x(x)$ multiplied. This can be thought as a summation weighted by the reference distribution. 
+We write sum over $x$ in the above which of course can be turned into integral when $x$ is continuous valued. The $\widetilde{\mathrm{PMI}}$ function does not directly act on the input $a(\cdot)$, but instead needs an extra $P_\mathsf x(x)$ multiplied. This is "natural" if we think of integrals under the measure specified by the reference. 
 
 One can also define a transpose operator $B^T: \mathcal {F_Y}\to \mathcal {F_X}$, for $b \in \mathcal {F_Y}$, 
 
 $$
 \left(B^T(b)\right)(x) = \sum_{y\in \mathcal Y}\frac{P_{\mathsf {xy}}(x,y) - P_\mathsf x(x) P_\mathsf y(y)}{P_\mathsf x(x) P_\mathsf y(y)} \cdot  (P_\mathsf y(y) \cdot b(y))=  \mathbb E[b(\mathsf y)|\mathsf x=x], \forall x.
 $$
-<!---
-There are a number of consequences when this connection is established. 
 
-> **Property 2: Contraction**
-> 
-> The conditional expectation operator is known to be a contraction, i.e. $\Vert B(a) \Vert^2 \leq \Vert a \Vert^2, \qquad \forall a \in \mathcal {F_X}$.
->
->  Equivalently, if $b = B(a)$, i.e. $b(y) = \mathbb E[a(\mathsf x)|\mathsf y=y], \forall y$, then 
->  $\mathbb E_{\mathsf y\sim P_\mathsf y}[b(\mathsf y)^2] \leq \mathbb E_{\mathsf x\sim P_\mathsf x}[a(\mathsf x)^2].$ 
->
+Now if we have the modal decomposition $\lbrace \zeta_i \rbrace$ of $P_{\mathsf {xy}}$ as $\lbrace(\sigma_i, f_i^\ast, g_i^\ast), i=1, 2, \ldots\rbrace$ as defined, we have the following facts. 
 
-If we now look the modal decomposition $\zeta(P_\mathsf {xy}) = [(\sigma_i, f^\ast_i, g^\ast_i), i=1, 2, \ldots]$, then we have a nice orthogonal structure. 
---->
-
->**Property 3: Mode Correlation**
+>**Property 2: Mode Correlation**
 >
 > $$
 > (B(f^\ast_j))(y) = \sum_x \left(\sum_i \sigma_i \cdot f^\ast_i(x) g^\ast_i(y)\right) \cdot \left(P_{\mathsf x}(x) \cdot f^\ast_j(x)\right) = \sigma_j g^\ast_j(y), \quad \forall y
@@ -227,7 +207,7 @@ If we now look the modal decomposition $\zeta(P_\mathsf {xy}) = [(\sigma_i, f^\a
 
 This result says that each feature $f^\ast_i(\mathsf x)$ is only correlated with the corresponding $g^\ast_i$ feature of $\mathsf y$, and uncorrelated with all other features. $\sigma_i$ is the correlation coefficient. Thus, the dependence between $\mathsf x$ and $\mathsf y$ is in fact written as a sequence of correlation between feature pairs, each with a strength quantified by the corresponding $\sigma_i$. 
 
-In [HGR], the HGR maximal correlation is defined for a given joint distribution $P_{\mathsf {xy}}$ as
+In this [1959 paper](https://static.renyi.hu/renyi_cikkek/1959_on_measures_of_dependence.pdf), the HGR maximal correlation is defined for a given joint distribution $P_{\mathsf {xy}}$ as
 
 $$
 \rho_{\mathrm{HGR}} \stackrel{\Delta}{=} \max_{f \in \mathcal {F_X}, g \in \mathcal {F_Y}} \; \rho (f(\mathsf x), g(\mathsf y)),
@@ -251,7 +231,7 @@ which is exactly the definition of the inner product we started with. In this co
 
 There are some direct consequences of this connection. 
 
->**Property 4: K-L divergence**
+>**Property 3: K-L divergence**
 >
 > If two distribution on $\mathcal X$, $P_\mathsf x$ and $Q_\mathsf x$, are both in the neighborhood of the reference distribution $R_\mathsf x$, with $\log P_\mathsf x/Q_\mathsf x = f$, then $D(P_\mathsf x \Vert Q_\mathsf x) \approx \frac{1}{2} \Vert f\Vert^2$
 
@@ -259,7 +239,7 @@ where $D(P \Vert Q)$ is the [Kullback-Leibler divergence](https://en.wikipedia.o
 
 Applying this fact to the PMI function, we have the following statement. 
 
->**Property 5: Mutual Information**
+>**Property 4: Mutual Information**
 >
 > $\frac{1}{2} \Vert \mathrm{PMI} \Vert^2 \approx D(P_{\mathsf {xy}} \Vert P_\mathsf x P_\mathsf y) = I(\mathsf x; \mathsf y)$
 
@@ -267,14 +247,12 @@ where $I(\mathsf x; \mathsf y)$ is the [mutual information](https://en.wikipedia
 
 Now if we have the modal decomposition $\zeta(P_\mathsf {xy}) = [(\sigma_i, f^\ast_i, g^\ast_i), i=1, 2, \ldots]$, we have the following result. 
 
->**Property 6: Decomposition of the Mutual Information**
+>**Property 5: Decomposition of the Mutual Information**
 >
 > $I(\mathsf x; \mathsf y) = \frac{1}{2} \Vert \mathrm{PMI} \Vert^2 = \frac{1}{2} \sum_i \sigma_i^2$
 
 This is probably the cleanest way to understand the modal decomposition: it breaks the mutual information into the sum of a number of modes, as the (squared) strengths of these modes add up to the mutual information. As stated earlier, it is often difficult to learn or to store the PMI function in practice due to the high dimensionality of the data. In these cases, it is a good idea to approximate the PMI function with a truncated versition that only keeps the first $k$ strongest modes. This not only gives the best rank-limited approximation of the joint distribution, as stated in equation (2) in the [definition](#definition-modal-decomposition-zeta), but also captures the most significant dependence relation (the most strongly correlated feature pairs), and in that sense makes the approximation useful in inference tasks. 
 
-
-</details>
 
 ## An Example of Numerical Computation of Modal Decomposition
 
@@ -379,3 +357,7 @@ From a theoretical point-of-view, the geometry helps to quantify the usefulness 
 
 Operationally, the geometric operations defined in the functional space lead to a number of interesting design ideas for learning algorithms, to skip parts of the learning procedure and arrive at certain desired learning results more directly, to handle more complex learning applications involving  multiple models, constraints, or distributed learning agents. In the next a few pages in this series we will present some more aggressive and flexible designs of learning algorithms to solve some more complex problems. 
 
+<details>
+<summary>Click here for references and codes </summary>
+no codes yet, but we can toggle. 
+</details>
