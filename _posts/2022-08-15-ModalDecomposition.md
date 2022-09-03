@@ -95,10 +95,10 @@ This optimization is in fact a well-studied one. For the case with finite alphab
 ---
 **Definition: Rank-1 Approximation**
 
-For a function $B \in \mathcal {F_{X\times Y}}$, and a given reference distribution $R_{\mathsf {xy}} = R_\mathsf x R_\mathsf y$, the rank-1 approximation of $B$ is written as an operator $\Gamma: B \mapsto (\sigma, f^\ast, g^\ast)$,  
+For a function $B \in \mathcal {F_{X\times Y}}$, and a given reference distribution $R_{\mathsf {xy}} = R_\mathsf x R_\mathsf y$, the rank-1 approximation of $B$ is a map: $B \mapsto (\sigma, f^\ast, g^\ast)$,  
 
 $$
-\Gamma(B) \stackrel{\Delta}{=} \arg\min_{\sigma, f, g} \; \Vert B - \sigma\cdot f\otimes g\Vert^2
+(\sigma, f^\ast, g^\ast)\stackrel{\Delta}{=} \arg\min_{\sigma, f, g} \; \Vert B - \sigma\cdot f\otimes g\Vert^2
 $$
 
 where the optimization has the constraints: $\sigma \geq 0$, $f^\ast \in \mathcal {F_X}, g^\ast\in \mathcal {F_Y}$, are standard feature functions, i.e., $f^\ast, g^\ast$ both have zero mean and unit variance w.r.t. $R_\mathsf{x}, R_\mathsf{y}$, respectively.
@@ -121,13 +121,13 @@ Based on this we have the following definition of modal decomposition.
 For a given joint distribution $P_{\mathsf {xy}}$ on $\mathcal {X \times Y}$ and a reference distribution $R_{\mathsf {xy}} = R_\mathsf x R_\mathsf y$. We denote the rank-1 approximation of the PMI as 
 
 $$
-\zeta_1(P_{\mathsf {xy}}) = (\sigma_1, f_1^\ast, g_1^\ast) \stackrel{\Delta}{=} \Gamma (\mathrm {PMI}) = \Gamma \left(\log \frac{P_{\mathsf {xy}}}{P_\mathsf xP_\mathsf y}\right)
+\zeta_1(P_{\mathsf {xy}}) = (\sigma_1, f_1^\ast, g_1^\ast) \stackrel{\Delta}{=} \arg \min_{\sigma, f, g}\;\left\Vert \left(\log \frac{P_{\mathsf {xy}}}{P_\mathsf xP_\mathsf y}\right) - \sigma\cdot f\otimes g\right\Vert^2
 $$
 
 and for $i=2, 3, \ldots$, $\zeta_i$ as the the rank-1 approximation of the approximation error of all the previous steps:
 
 $$
-\zeta_i(P_{\mathsf{xy}}) = (\sigma_i, f_i^\ast, g_i^\ast ) \stackrel{\Delta}{=} \Gamma \left(\mathrm{PMI} - \sum_{j=1}^{i-1} \sigma_j \cdot f_j^\ast \otimes g_j^\ast \right)
+\zeta_i(P_{\mathsf{xy}}) = (\sigma_i, f_i^\ast, g_i^\ast ) \stackrel{\Delta}{=} \arg\min_{\sigma, f, g} \left\Vert\left(\mathrm{PMI} - \sum_{j=1}^{i-1} \sigma_j \cdot f_j^\ast \otimes g_j^\ast \right) - \sigma\cdot f\otimes g\right\Vert^2
 $$
 
 Collectively, $\lbrace \zeta_i \rbrace : P_{\mathsf {xy}} \mapsto \lbrace(\sigma_i, f^\ast_i, g^\ast_i), i=1, 2, \ldots\rbrace$ is called the **modal decomposition operation**
