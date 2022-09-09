@@ -49,7 +49,7 @@ That is, any linear combination of the $k$ feature functions in $\underline{f}$ 
 
 The idea of viewing the subspace spanned by a collection of features as the carrier of information is itself worth some discussions. In this page, however, we will focus on how to modify the H-Score network to enforce some of these constraints. It turns out that the key is to have a new operation to make **projections** of feature functions. 
 
-## Nested H-Score
+## Nested H-Score Network
 
 We start by consider the following problem to extract a single mode from a given model $P_{\mathsf {xy}}$, but with a simple constraint: for a given function $\bar{f} : \mathcal X \to \mathbb R$, we would like to find a mode, i.e. a pair of features $f(\cdot), g(\cdot)$, as the optimal rank-$1$ approximation as before, but under the constraint that $f \perp \bar{f}$, i.e. $\mathbb E_{\mathsf x \sim P_\mathsf x}[f(\mathsf x) \cdot \bar{f}(\mathsf x)] = 0$:
 
@@ -57,8 +57,28 @@ $$
 (f^\ast, g^\ast) = \arg\min_{\small{\begin{array}{l}(f, g): f\in \mathcal {F_X}, g \in \mathcal {F_Y}, \\ \qquad \quad \mathbb E[f(\mathsf x)\cdot \bar{f}(\mathsf x)]=0\end{array}}} \; \left\Vert \mathrm{PMI} - f \otimes g \right\Vert^2
 $$
 
+where $\mathrm{PMI}$ is the pointwise mutual information function with $\mathrm{PMI} (x,y) = \log (P_{\mathsf {xy}}(x,y) / P_\mathsf x(x)P_\mathsf y(y))$, for $x\in \mathcal X, y \in \mathcal Y$. 
+
 |![test image](/assets/nested H2.png){: width="450" }|
 |<b> Nested H-Score Network to find features orthogonal to a given $\bar{f}$ </b>|
+
+While there are many different ways to solve optimization problems with constraints, the figure shows the **nested H-Score network** we use, which is based on simultaneously training a few connected neural networks. 
+
+In the figure, the blue box $\bar{f}$ is assumed to be the given function. The three red sub-networks are used to generate $1$-dimensional feature functions $\bar{g}, f$ and  $g$. (As we will see soon, that $f$ and $g$ can in fact be higher dimensional, hence drawn slightly bigger in the figure.) The output $\bar{f}(\mathsf x), \bar{g}(\mathsf y)$ are used together to evaluate the H-score for $1$-D feature pairs shown on the top box. The two pairs of features $[\bar{f}, f]$ and $[\bar{g}, g]$ are used to evaluate a 2-D H-score shown in the lower box. When training with data samples, the gradients to maximize both the H-scores are back propagated through the networks. In particular, the sum of the gradients from the two H-scores are used to train $\bar{g}$; only the gradients from the bottom H-score are used to train $f$ and $g$ networks.  
+
+To see how this achieves the goal we can first consider the optimization of the top H-Score on the top, which we write as 
+
+$$
+\bar{g}^\ast = \arg \min_{\bar{g}} \; \left\Vert\mathrm{PMI} - \bar{f} \otimes \bar{g}\right\Vert^2
+$$
+
+The minimum error, $\mathrm{PMI} - \bar{f} \otimes \bar{g}^\ast$ must be orthogonal to $\bar{f}$ in the sense that for every $y$, $\mathrm{PMI}(\cdot, y)$ as a function over $\mathcal X$ is orthogonal to $\bar{f}$, since otherwise the L2 error can be further reduced. 
+
+Now suppose we initialize the $\bar{g}$ block in the nested H-Score network to be at this chosen $\bar{g}^\ast$, the bottom H-Score maximization is 
+
+$$
+(f^\ast, g^\ast) = \arg\max_{f, g} \; \left\Vert \mathrm{PMI} - (\bar{f}\otimes \bar{g}^\ast + f\otimes g) \right\Vert^2
+$$
 
 
 ## Going Forward
