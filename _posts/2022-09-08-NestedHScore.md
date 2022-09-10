@@ -69,7 +69,9 @@ In the figure, the blue box $\bar{f}$ is assumed to be the given function. The t
 To see how this achieves the goal we can first consider the optimization of the top H-Score on the top, which we write as 
 
 $$
+\begin{align}
 \bar{g}^\ast = \arg \min_{\bar{g}} \; \left\Vert\mathrm{PMI} - \bar{f} \otimes \bar{g}\right\Vert^2
+\end{align}
 $$
 
 The minimum error, $\mathrm{PMI} - \bar{f} \otimes \bar{g}^\ast$ must be orthogonal to $\bar{f}$ in the sense that for every $y$, $\mathrm{PMI}(\cdot, y)$ as a function over $\mathcal X$ is orthogonal to $\bar{f}$, since otherwise the L2 error can be further reduced. 
@@ -77,8 +79,25 @@ The minimum error, $\mathrm{PMI} - \bar{f} \otimes \bar{g}^\ast$ must be orthogo
 Now suppose we initialize the $\bar{g}$ block in the nested H-Score network to be at this chosen $\bar{g}^\ast$, the bottom H-Score maximization is 
 
 $$
-(f^\ast, g^\ast) = \arg\max_{f, g} \; \left\Vert \mathrm{PMI} - (\bar{f}\otimes \bar{g}^\ast + f\otimes g) \right\Vert^2
+\begin{align}
+(f^\ast, g^\ast) = \arg\min_{f, g} \; \left\Vert \mathrm{PMI} - (\bar{f}\otimes \bar{g}^\ast + f\otimes g) \right\Vert^2
+\end{align}
 $$
+
+This can be read as the rank-$1$ approximation to $(\mathrm{PMI}- \bar{f}\otimes \bar{g}^\ast)$, which is orthogonal to $\bar{f}$. So the resulting the optimal choice of $f^\ast$ must also be orthogonal to $\bar{f}$ as we hoped.  
+
+A few remarks are in order now. 
+
+1. The above argument suggests a **sequential training** method for the nested H-Score network: we first train only $\bar{g}$ to get the optimal choice of $\bar{g}^\ast$ in (1), and then we freeze that choice and train $f,g$ with the bottom H-Score. This makes the problem conceptually more clear, but in practice we would often wish to train then entire network simultaneously. 
+
+2. For **simultaneous training**, the optimization of the bottom H-Score in the figure is over the choices of $f, g, \bar{g}$. Equation (2) can be viewed as that if we plug in $\bar{g} = \bar{g}^\ast$ chosen from (2), we get optimal choices as $(f^\ast, g^\ast)$. We also need to observe that if we plug in the $f^\ast, g^\ast$ and allow $\bar{g}$ to change in (2), $\bar{g}^\ast$ is still the optimal choice. With this we can see that the collection $f^\ast, g^\ast, \bar{g}^\ast$ is a local optimum when we use both H-scores to update all three neural networks. That is, for this specific case, simultaneous training and sequential training give the same results. 
+
+3. For more general cases, some we will see in the next post, we might need extra assumptions to guarantee that simultaneous training can get the same results as sequential training. 
+
+## Example: Ordered Modal Decomposition
+
+We now go back to the problem that we started this page with: we would like to use the nested H-Score network to compute the modal decomposition, but wish the resulting modes to be in the standard form. That is, we want the selected feature functions to be orthonormal, and the modes to be in a descending order of strengths. 
+
 
 
 ## Going Forward
