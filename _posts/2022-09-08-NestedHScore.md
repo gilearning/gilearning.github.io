@@ -57,7 +57,7 @@ $$
 (f^\ast, g^\ast) = \arg\min_{\small{\begin{array}{l}(f, g): f\in \mathcal {F_X}, g \in \mathcal {F_Y}, \\ \qquad \quad \mathbb E[f(\mathsf x)\cdot \bar{f}(\mathsf x)]=0\end{array}}} \; \left\Vert \mathrm{PMI} - f \otimes g \right\Vert^2
 $$
 
-where $\mathrm{PMI}$ is the pointwise mutual information function with $\mathrm{PMI} (x,y) = \log (P_{\mathsf {xy}}(x,y) / P_\mathsf x(x)P_\mathsf y(y))$, for $x\in \mathcal X, y \in \mathcal Y$. 
+where $\mathrm{PMI}$ is the pointwise mutual information function with $\mathrm{PMI} (x,y) = \log \frac{P_{\mathsf {xy}}(x,y)}{ P_\mathsf x(x)P_\mathsf y(y)}$, for $x\in \mathcal X, y \in \mathcal Y$. 
 
 |![test image](/assets/nested H2.png){: width="450" }|
 |<b> Nested H-Score Network to find features orthogonal to a given $\bar{f}$ </b>|
@@ -66,7 +66,7 @@ While there are many different ways to solve optimization problems with constrai
 
 In the figure, the blue box $\bar{f}$ is assumed to be the given function. The three red sub-networks are used to generate $1$-dimensional feature functions $\bar{g}, f$ and  $g$. (As we will see soon, that $f$ and $g$ can in fact be higher dimensional, hence drawn slightly bigger in the figure.) The output $\bar{f}(\mathsf x), \bar{g}(\mathsf y)$ are used together to evaluate the H-score for $1$-D feature pairs shown on the top box. The two pairs of features $[\bar{f}, f]$ and $[\bar{g}, g]$ are used to evaluate a 2-D H-score shown in the lower box. When training with data samples, the gradients to maximize both the H-scores are back propagated through the networks. In particular, the sum of the gradients from the two H-scores are used to train $\bar{g}$; only the gradients from the bottom H-score are used to train $f$ and $g$ networks.  
 
-To see how this achieves the goal we can first consider the optimization of the top H-Score on the top, which we write as 
+To see how this achieves the goal it might be easier to look at a slightly different way to train the network, namely the **sequential training**. Here, we first only use the top H-Score to train the feature function $\bar{g}$ only. From the definition of the [H-Score](https://gilearning.github.io/HScore/), we know this finds $\bar{g}^\ast$ by solving the following optimization. 
 
 $$
 \begin{align}
@@ -74,9 +74,7 @@ $$
 \end{align}
 $$
 
-The minimum error, $\mathrm{PMI} - \bar{f} \otimes \bar{g}^\ast$ must be orthogonal to $\bar{f}$ in the sense that for every $y$, $\mathrm{PMI}(\cdot, y)$ as a function over $\mathcal X$ is orthogonal to $\bar{f}$, since otherwise the L2 error can be further reduced. 
-
-Now suppose we initialize the $\bar{g}$ block in the nested H-Score network to be at this chosen $\bar{g}^\ast$, the bottom H-Score maximization is 
+After that, we freeze $\bar{g}^\ast$, and use the bottom H-Score to train both $f$ and $g$. With this choice of $\bar{g}^\ast$, we have that the minimum error, $\mathrm{PMI} - \bar{f} \otimes \bar{g}^\ast$ must be orthogonal to $\bar{f}$ in the sense that for every $y$, $\mathrm{PMI}(\cdot, y)$ as a function over $\mathcal X$ is orthogonal to $\bar{f}$, since otherwise the L2 error can be further reduced. The maximization of the bottom H-Score is now the following optimzation problem:
 
 $$
 \begin{align}
@@ -85,6 +83,13 @@ $$
 $$
 
 This can be read as the rank-$1$ approximation to $(\mathrm{PMI}- \bar{f}\otimes \bar{g}^\ast)$, which is orthogonal to $\bar{f}$. So the resulting the optimal choice of $f^\ast$ must also be orthogonal to $\bar{f}$ as we hoped.  
+
+
+
+
+
+
+
 
 A few remarks are in order now. 
 
