@@ -64,7 +64,21 @@ where $\mathrm{PMI}$ is the pointwise mutual information function with $\mathrm{
 
 While there are many different ways to solve optimization problems with constraints, the figure shows the **nested H-Score network** we use, which is based on simultaneously training a few connected neural networks. 
 
-In the figure, the blue box $\bar{f}$ is assumed to be the given function. The three red sub-networks are used to generate $1$-dimensional feature functions $\bar{g}, f$ and  $g$. (As we will see soon, that $f$ and $g$ can in fact be higher dimensional, hence drawn slightly bigger in the figure.) The output $\bar{f}(\mathsf x), \bar{g}(\mathsf y)$ are used together to evaluate the H-score for $1$-D feature pairs shown on the top box. The two pairs of features $[\bar{f}, f]$ and $[\bar{g}, g]$ are used to evaluate a 2-D H-score shown in the lower box. When training with data samples, the gradients to maximize both the H-scores are back propagated through the networks. In particular, the sum of the gradients from the two H-scores are used to train $\bar{g}$; only the gradients from the bottom H-score are used to train $f$ and $g$ networks.  
+In the figure, the blue box $\bar{f}$ is assumed to be the given function. The three red sub-networks are used to generate $1$-dimensional feature functions $\bar{g}, f$ and  $g$. (As we will see soon, that $f$ and $g$ can in fact be higher dimensional, hence drawn slightly bigger in the figure.) 
+
+With a batch of samples $(x_i, y_i), i=1, \ldots, n$, the network is trained with the following procedure. 
+
+> **Training for Nested H-Score Networks**
+>
+>1. Each sample pair $(x_i, y_i)$ is used to compute $\bar{f}(x_i)$, and forward pass through the neural networks to evaluate $f(x_i), \bar{g}(y_i), g(y_i)$; 
+>
+>2. The output $\bar{f}(\mathsf x_i), \bar{g}(\mathsf y_i), i=1, \ldots, n$ are used together to evaluate the H-score for $1$-D feature pairs shown on the top box; the two pairs of features $[\bar{f}, f]$ and $[\bar{g}, g]$ are used to evaluate a 2-D H-score in the lower box. In both cases the expectations are replaced by the empirical means over the batch; 
+>
+>3. The gradients to maximize both the H-scores are back propagated through the networks to update weights. In particular, the sum of the gradients from the two H-scores are used to train $\bar{g}$; only the gradients from the bottom H-score are used to train $f$ and $g$ networks.  
+>
+>4. Iterate the above procedure until convergence. 
+
+
 
 To see how this achieves the goal it might be easier to look at a slightly different way to train the network, namely the **sequential training**. Here, we first only use the top H-Score to train the feature function $\bar{g}$ only. From the definition of the [H-Score](https://gilearning.github.io/HScore/), we know this finds $\bar{g}^\ast$ by solving the following optimization. 
 
@@ -82,27 +96,27 @@ $$
 \end{align}
 $$
 
-This can be read as the rank-$1$ approximation to $(\mathrm{PMI}- \bar{f}\otimes \bar{g}^\ast)$, which is orthogonal to $\bar{f}$. So the resulting the optimal choice of $f^\ast$ must also be orthogonal to $\bar{f}$ as we hoped.  
-
-
-
-
-
-
+This can be read as the rank-$1$ approximation to $(\mathrm{PMI}- \bar{f}\otimes \bar{g}^\ast)$, which is orthogonal to $\bar{f}$. So the resulting the optimal choice of $f^\ast$ must also be orthogonal to $\bar{f}$ as we hoped. 
 
 
 A few remarks are in order now. 
 
-1. The above argument suggests a **sequential training** method for the nested H-Score network: we first train only $\bar{g}$ to get the optimal choice of $\bar{g}^\ast$ in (1), and then we freeze that choice and train $f,g$ with the bottom H-Score. This makes the problem conceptually more clear, but in practice we would often wish to train then entire network simultaneously. 
+1. One should check that at this point if we freeze the choicec $f^\ast, g^\ast$ and allow $\bar{g}$ to update, $\bar{g}^\ast$ defined in (1) actually maximizes both H-Scores. Thus if we turn the sequential training into iteratively optimize $\bar{g}$ and $f, g$, we get the same results. 
 
-2. For **simultaneous training**, the optimization of the bottom H-Score in the figure is over the choices of $f, g, \bar{g}$. Equation (2) can be viewed as that if we plug in $\bar{g} = \bar{g}^\ast$ chosen from (2), we get optimal choices as $(f^\ast, g^\ast)$. We also need to observe that if we plug in the $f^\ast, g^\ast$ and allow $\bar{g}$ to change in (2), $\bar{g}^\ast$ is still the optimal choice. With this we can see that the collection $f^\ast, g^\ast, \bar{g}^\ast$ is a local optimum when we use both H-scores to update all three neural networks. That is, for this specific case, simultaneous training and sequential training give the same results. 
+2. In practice, we would not wait for the convergence of one step before starting the next, and thus the proposed training procedure is what we call 
+**simultaneous training**, where all neural networks are updated simultaneously. It can be shown that in this setup the results are the same as those from the sequential training. However, in our later examples of using the nested H-Score architectures, often with subtle variations, we need to discuss in each case whether this still holds. 
 
-3. For more general cases, some we will see in the next post, we might need extra assumptions to guarantee that simultaneous training can get the same results as sequential training. 
 
 ## Example: Ordered Modal Decomposition
 
 We now go back to the problem that we started this page with: we would like to use the nested H-Score network to compute the modal decomposition, but wish the resulting modes to be in the standard form. That is, we want the selected feature functions to be orthonormal, and the modes to be in a descending order of strengths. 
 
+As we will use the nested structure repeatedly, to avoid having too many lines in our figures, we will adopt a new _concatenation_ symbol, "$+\!\!\!+$", where simply takes all the inputs to form a vector output. In some drawings such an operation to merge data is simply denoted by a dot in the graph, but here we use the special symbol to emphasize the change of dimensionality. For example, the concatenation operation in the nest H-Score network is replaced with a new figure as follows. 
+
+|![test image](/assets/concatenation.png){: width="250" }|
+|<b> The Concatenation Symbol </b>|
+
+Now the nested H-Score network that would generate orthogonal modes in descending order is as follows. 
 
 
 ## Going Forward
