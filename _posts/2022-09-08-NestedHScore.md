@@ -106,6 +106,7 @@ A few remarks are in order now.
 2. In practice, we would not wait for the convergence of one step before starting the next, and thus the proposed training procedure is what we call 
 **simultaneous training**, where all neural networks are updated simultaneously. It can be shown that in this setup the results are the same as those from the sequential training. However, in our later examples of using the nested H-Score architectures, often with subtle variations, we need to discuss in each case whether this still holds. 
 
+3. There are of course other ways to make sure the learned feature function to be orthogonal to the given $\bar{f}$. For example one could directly project the learned feature function against $\bar{f}$. Here, the projection operation is separated from the training of the neural network, rasing the issue that the objective function used in training may not be perfectly aligned with that in the space after the projection. In nested H-Score networks, the orthogonality constraint is naturally included in the training of the neural networks. There is also some additional flexibility with this design. For example in several followup cases using nested H-Score we would learn $\bar{f}$ from data at the same time. 
 
 ## Example: Ordered Modal Decomposition
 
@@ -118,8 +119,16 @@ As we will use the nested structure repeatedly, to avoid having too many lines i
 
 Now the nested H-Score network that would generate orthogonal modes in descending order is as follows. 
 
+|![test image](/assets/H_nest.png){: width="500" } |
+|<b> Nested H-Score Network for Ordered Modal Decomposition </b>|
+
+In the figure, we used the notation $f_[k] = [f_1, \ldots, f_k]$. Again, it is easier to understand the operation from sequential training. We can first train the $f_1, g_1$ block with the top H-Score box, and this finds the first mode $f^\ast_1, g^\ast_1 = \zeta_1(P_{\mathsf {xy}})$. After that, we train $f_2, g_2$ with the first mode freezed. The nested network ensures that the resulting mode to be orthogonal to the first mode, which by definition is the second mode $\zeta_2(P_{\mathsf {xy}})$. Following this sequence we can get the $k^{th}$ mode that is orthogonal to all the previous $k-1$ ones. It takes a proof to state that we can indeed simultaneously train all sub-networks, which we omit from this page. Her is the link to the code for this experiment. 
+
+<details>
+<summary>code </summary>
+</details>
 
 ## Going Forward
-
+Nested H-Score Networks is our way to make projections in the space of feature functions, using interconnected neural networks. This is a fundamental operation in the functional space. In fact, in many learning problems, especially when the problem is more complex, such as with multi-modal data, multiple tasks, distributed learning constraints, time-varying models, privacy/security/fairness requirements, or when there is external knowledge that needs to be incorporated in the learning, such projection operations become critical. In our next post, we will give one of such examples with a multi-terminal learning problem. 
  
 

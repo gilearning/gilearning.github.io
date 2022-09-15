@@ -1,0 +1,123 @@
+\documentclass[crop,tikz]{standalone}
+\usepackage{mathrsfs} % for mathscr to work
+\usetikzlibrary{shapes,arrows}
+\usetikzlibrary{calc}
+\newcommand{\ds}{\displaystyle}
+\newcommand{\Hs}{\mathscr{H}} % Hscore
+\newcommand{\Hnest}{\Hs^{\perp}}
+\newcommand{\pplus}{\mathbin{+\mkern-10mu+}} % concatenate
+\newcommand{\con}{\Large $\pplus$}
+
+\tikzset{%
+  bullet/.style={scale = .8}, % yshift = -.7mm, 1.5
+  extfill/.style={fill = red!30, fill opacity = .2}, % color
+  frozenfill/.style={fill = gray, fill opacity = .2}, % gray
+  ext/.style={trapezium, trapezium angle=67.5, draw, % extractor
+  inner ysep=5pt, outer sep=0pt, extfill,
+  minimum height=1.2cm, minimum width=0pt},
+  extl/.style={isosceles triangle,
+    isosceles triangle apex angle=60, minimum height=1.2cm,
+    draw, extfill, minimum height=1.2cm, minimum width=0pt}, % linear ext
+  block/.style    = {draw, thick, rectangle, minimum height = 3em, minimum width = 5em},
+  sum/.style      = {draw, circle, node distance = 2cm}, % Adder
+  con/.style      = {draw, circle, node distance = 2cm}, % concatenate
+  input/.style    = {coordinate}, % Input
+  int/.style    = {coordinate}, % intersection
+  missing/.style={
+    draw=none,
+    fill=none,
+    yshift = 0.1cm,
+    scale = 1.5,
+%    scale=1,
+%    text height=0.333cm,
+    execute at begin node={\color{black}{$\vdots$}}
+  },
+  output/.style   = {coordinate}, % Output
+  exts/.style={ext, 
+  minimum height=1cm},
+}
+
+\begin{document}
+% Modified from: %https://texample.net/tikz/examples/noise-shaper/
+\def\dy{2}
+\def\dx{.5}
+\begin{tikzpicture}[auto, thick, node distance=2cm, >=latex'%stealth% >=triangle 45
+  ]
+  % draw H-score's
+  \foreach \i/\text [count = \y] in {1/{$\Hs(f^{[1]},g^{[1]})$}, 2/{$\Hs(f^{[2]},g^{[2]})$}, 3/{$\Hs(f^{[3]},g^{[3]})$}, missing/, 4/{$\Hs(f^{[k]},g^{[k]})$}}
+  {
+    \draw node [block/.try, \i/.try] (H-\i) at (8, -\dy * \y cm) {};
+}
+
+  % draw f_i's and g_i's
+  \foreach \i/\sub in {1/1, 2/2, 3/3, 4/k}
+  {
+    \draw node at (H-\i) [] {\Large $\Hs$};
+    \draw node [exts, left of = H-\i, node distance=6cm, rotate = -90] (f-\i)  {} node at (f-\i) {\large $f_\sub$};
+    \draw node [exts, right of = H-\i, node distance=6cm, rotate = 90] (g-\i)  {} node at (g-\i) {\large $g_\sub$};   
+}
+  \draw node [missing] at (f-1|-H-missing) {}
+       node [missing] at (g-1 |- H-missing) {};
+
+       \draw [->] (f-1) -- node {$f_{[1]}$}(H-1);
+       \draw [->] (g-1) -- node [above] {$g_{[1]}$} (H-1);
+
+  % connect     
+  \foreach \i/\sub [count = \c] in {2/2, 3/3, 4/k}
+  {
+    \draw node [con, right of = f-\i, node distance=.4cm, xshift= \c cm] (conl-\c)  {\con};
+    \draw node [con, left of = g-\i, node distance=.4cm, xshift = -\c cm] (conr-\c)  {\con};
+    \draw [->] (f-\i) -- (conl-\c);
+    \draw [->] (conl-\c) -- node [pos = .4] {$f_{[\sub]}$} (H-\i);
+    \draw [->] (g-\i) -- (conr-\c);
+    \draw [->] (conr-\c) -- node [above, pos = .4] {$g_{[\sub]}$} (H-\i);
+}
+
+
+\draw [->] (f-1) -| (conl-1);
+\draw [->] (g-1) -| (conr-1);
+\draw [->] (conl-1) -| (conl-2);
+\draw [->] (conr-1) -| (conr-2);
+\draw [->] ($(conl-3) + (0, 1.7)$) -- node [left] {$f_{[k-1]}$} (conl-3);
+\draw [->] ($(conr-3) + (0, 1.7)$) -- node {$g_{[k-1]}$} (conr-3);
+
+\def\yshift{-.4mm}
+    \foreach \i in {1, 2}
+    {
+      \draw node at (conl-\i |- f-\i) [bullet]{\textbullet} ;
+      \draw node at (conr-\i |- g-\i) [bullet]{\textbullet} ;
+  }
+\draw node [input] (x) at (0,-6) {}
+     node [xshift = -0.5cm] at (x) {\Large $\mathsf x$}
+     node [xshift = -0.7mm] at (x) {\Large $\circ$};
+        
+     \draw node [input] (y) at (16,-6) {}
+     node [xshift = 0.5cm] at (y){\Large $\mathsf y$} 
+     node [xshift = 0.7mm] at (y) {\Large $\circ$} ;
+
+
+  \foreach \i [count = \y] in {1, ..., 4}
+  {
+    \draw [->] (x) -- + (\dx, 0) node [bullet] {\textbullet} |- (f-\i);
+    \draw [->] (y) -- + (-\dx, 0) node [bullet] {\textbullet} |- (g-\i);
+  }
+
+  \draw node at ($(x) + (\dx, \dy)$ ) [bullet]{\textbullet}
+  node at ($(y) + (-\dx, \dy)$ ) [bullet]{\textbullet};
+  
+        % Boxing and labelling H-score
+  \draw [color=gray,opacity = .8, dashed, thick](6.8,-1) rectangle (9.2,-11);
+  %\draw node at (8,-11) [yshift=-.6cm, right=0mm, scale = 1.2] {$\ds    \Hnest(f, g) = \sum_{i = 1}^k  \Hs(f_{[i]}, g_{[i]})$};
+     
+\end{tikzpicture}
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../mFEXT"
+%%% End:
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
