@@ -30,10 +30,18 @@ $$
 
 The resulting optimal choice $\underline{f}^\ast, \underline{g}^\ast$ are promised to be a good set of feature functions. They are the solutions of the **approximated** and **unconstrained** version of the [modal decomposition](https://gilearning.github.io/ModalDecomposition/) problem, which has connection to a number of theoretical problems, and, in a short sentence, picks "informative" features.  
 
-## The Constraints
-The H-Score network is an approximation of modal decomposition because of the imperfect convergence and the limited expressive power of the neural networks, the randomness in the empirical averages due to the finite batch of samples, and the local approximation we used when formulating the [modal decomposition](https://gilearning.github.io/ModalDecomposition/).
+The H-Score network is an approximation of modal decomposition because of the imperfect convergence and the limited expressive power of the neural networks, the randomness in the empirical averages due to the finite batch of samples, and the [local approximation](http://localhost:4000/ModalDecomposition/#properties-of-modal-decomposition) we used when formulating the [modal decomposition](https://gilearning.github.io/ModalDecomposition/). For the rest of this page, we will take the local approximation for granted. For example, we will not distinguish between the function 
+$$
+\mathrm{PMI}_{\mathsf {xy}} = \log \frac{P_{\mathsf {xy}}}{P_\mathsf x\cdot P_\mathsf y} \; \in \; \mathcal {F_{X\times Y}}
+$$
+and its approximation 
+$$
+\widetilde{\mathrm{PMI}}_{\mathsf {xy}} = \frac{P_{\mathsf {xy}} - P_{\mathsf x}\cdot P_{\mathsf y}}{P_\mathsf x\cdot P_{\mathsf y}} \; \in \; \mathcal {F_{X\times Y}}
+$$
 
-More importantly, the H-Score network generates unconstrained features. In the definition of modal decomposition, the ideal modes $(\underline{f}^\ast, \underline{g}^\ast) = \{(f^\ast_i, g^\ast_i), i=1, \ldots k \}$ satisfy: 
+## The Constraints
+
+In practice, it is more problematic that the H-Score network, as well as other neural network based approaches, generates unconstrained features. In the definition of modal decomposition, the ideal modes $(\underline{f}^\ast, \underline{g}^\ast) = \{(f^\ast_i, g^\ast_i), i=1, \ldots k \}$ satisfy: 
 
 * normalized: $\mathrm{var}[f_i^\ast (\mathsf x)] = \mathrm{var}[g_i^\ast(\mathsf y)] = 1, \; i=1, \ldots, k$;
 * orthogonal: $\mathbb E[f_i^\ast(\mathsf x)f_j^\ast(\mathsf x)] = \mathbb E[g_i^\ast(\mathsf y)g_j^\ast(\mathsf y)] =0 , \; \forall i \neq j$
