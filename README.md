@@ -4,7 +4,6 @@ permalink: "/about/"
 layout: page
 ---
 
-## About
 This blog introduces a geometric framework for learning algorithm designs. 
 
 Feel free to try demos on your own data and tasks!
@@ -15,7 +14,7 @@ Contributors: [Lizhong Zheng](http://lizhongzheng.mit.edu/) and [Xiangxiang Xu](
 [Contact Us](mailto:xuxx@mit.edu)
 
 
-##
+---
 The site is made with the [Contrast Jekyll theme](https://github.com/niklasbuschmann/contrast). 
 
 <!---
