@@ -9,7 +9,7 @@ layout: post
 {:toc}
 
 > ### The Key Points
-> In our previous posts, we developed a geometric view of the feature selection problem. We started with the geometry of functional spaces by defining inner products and distances, and then relating the task of finding information carrying features to these geometric quantities. Based on this approach, we proposed the H-Score networks as one method to learn the informative feature functions from data using neural networks. Here, we describe a new architecture, the _nested H-Score network_, which is used to make projections in the functional space with neural networks. Projections are perhaps the most fundamental geometric operations, which are now made possible, and efficient, through the training of neural networks. We will show by some examples how to use this method to regulate the feature functions, incorporate external knowledge, prioritize or separate information sources, which are the critical step towards multi-variate and distributed learning problems. 
+> In our previous posts, we developed a geometric view of the feature extraction problem. We started with the geometry of functional spaces by defining inner products and distances, and then relating the task of finding information carrying features to these geometric quantities. Based on this approach, we proposed the H-Score networks as one method to learn the informative feature functions from data using neural networks. Here, we describe a new architecture, the _nested H-Score network_, which is used to make projections in the functional space with neural networks. Projections are perhaps the most fundamental geometric operations, which are now made possible, and efficient, through the training of neural networks. We will show by some examples how to use this method to regulate the feature functions, incorporate external knowledge, prioritize or separate information sources, which are the critical step towards multi-variate and distributed learning problems. 
 
 
 |![test image](/assets/Hscorenetwork.png){: width="250" }|
@@ -118,7 +118,7 @@ A few remarks are in order now.
 
 ## Example: Ordered Modal Decomposition
 
-We now go back to the problem that we started this page with: we would like to use the nested H-Score network to compute the modal decomposition, but wish the resulting modes to be in the standard form. That is, we want the selected feature functions to be orthonormal, and the modes to be in a descending order of strengths. 
+We now go back to the problem that we started this page with: we would like to use the nested H-Score network to compute the modal decomposition, but wish the resulting modes to be in the standard form. That is, we want the extracted feature functions to be orthonormal, and the modes to be in a descending order of strengths. 
 
 As we will use the nested structure repeatedly, to avoid having too many lines in our figures, we will adopt a new _concatenation_ symbol, "$+\!\!\!+$", where simply takes all the inputs to form a vector output. In some drawings such an operation to merge data is simply denoted by a dot in the graph, but here we use the special symbol to emphasize the change of dimensionality. For example, the concatenation operation in the nest H-Score network is replaced with a new figure as follows. 
 
