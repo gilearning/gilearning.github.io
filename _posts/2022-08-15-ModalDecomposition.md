@@ -256,6 +256,8 @@ This is probably the cleanest way to understand the modal decomposition: it brea
 
 ## An Example of Numerical Computation of Modal Decomposition
 
-To wrap up this introduction page, we will show one simple example, where we have a small synthesized dataset to train a small neural network. When the training procedure converges, we demonstrate that the learned features match with the result of the $\zeta$ operation. The purpose of this numerical example is to show that in some cases, with a simple dataset and a carefully chosen neural network, the learning in the neural network is indeed finding a low rank approximation to the true model, which is consistent with the modal decomposition operation defined in this page. 
+To wrap up this introduction page, we will show one simple example, where we have a small synthesized dataset to train a simple neural network. When the training procedure converges, we demonstrate that the learned features match with the result of the $\zeta$ operation. The purpose of this numerical example is to show that, with a simple dataset and a carefully chosen neural network, the learning in the **neural network** is indeed finding a low rank approximation to the true model, which is consistent with the **modal decomposition** operation defined in this page. 
 
-Here is the [code](https://colab.research.google.com/drive/1n4qk69shPL0LvGcaUJ4WIeJJRdyp2zA-?usp=sharing)
+
+Here is a [colab demo](https://colab.research.google.com/drive/1n4qk69shPL0LvGcaUJ4WIeJJRdyp2zA-?usp=sharing) for illustrating the connection. A more theoretical discussion can be found in [this paper](https://doi.org/10.3390/e24010135).
+
