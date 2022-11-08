@@ -2,32 +2,52 @@
 layout: default
 ---
 <head>
-  <script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    
-    extensions: [
-      "tex2jax.js",  // HERE
-      "MathMenu.js",
-      "MathZoom.js",
-      "AssistiveMML.js",
-      "a11y/accessibility-menu.js"
-    ],
-    
-    jax: ["input/TeX","output/HTML-CSS"],
-    
-    displayAlign: "left",
-    
-    tex2jax: {
-      inlineMath: [ ['$','$'] ],
-      processEscapes: true,
-    },
+    <script type="text/x-mathjax-config">
+     MathJax.Hub.Config({
+	 
+	 extensions: [
+	     "tex2jax.js",  // HERE
+	     "MathMenu.js",
+	     "MathZoom.js",
+	     "AssistiveMML.js",
+	     "a11y/accessibility-menu.js"
+	 ],
+	 
+	 jax: ["input/TeX","output/HTML-CSS"],
+	 
+	 displayAlign: "left",
+	 
+	 tex2jax: {
+	     inlineMath: [ ['$','$'] ],
+	     processEscapes: true,
+	 },
 
-  });
-</script>
+     });
+    </script>
     
-<script type="text/javascript"
-        src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-</script>
+    <script type="text/javascript"
+            src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script>
+    
+    <style>
+	.PageNavigation {
+	font-size: 15px;
+	display: block;
+	width: auto;
+	overflow: hidden;
+	}
+
+	.PageNavigation a {
+	display: block;
+	width: 50%;
+	float: left;
+	margin: 1em 0;
+	}
+
+	.PageNavigation .next {
+	text-align: right;
+	}
+    </style>
 </head>  
 <article>
   {% include meta.html post=page %}
@@ -39,3 +59,12 @@ layout: default
     <noscript>Please enable JavaScript to view comments.</noscript>
   {% endif %}
 </article>
+
+<div class="PageNavigation">
+    {% if page.previous.url %}
+	<a class="prev" href="{{page.previous.url}}">&laquo; {{page.previous.title}}</a>
+    {% endif %}
+    {% if page.next.url %}
+	<a class="next" href="{{page.next.url}}">{{page.next.title}} &raquo;</a>
+    {% endif %}
+</div>
