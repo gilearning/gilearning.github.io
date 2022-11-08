@@ -132,7 +132,7 @@ Now the nested H-Score network that would generate orthogonal modes in descendin
 
 In the figure, we used the notation $f_{[k]} = [f_1, \ldots, f_k]$. Again, it is easier to understand the operation from sequential training. We can first train the $f_1, g_1$ block with the top H-Score box, and this finds the first mode $f^\ast_1, g^\ast_1 = \zeta_1(P_{\mathsf {xy}})$. After that, we train $f_2, g_2$ with the first mode freezed. The nested network ensures that the resulting mode to be orthogonal to the first mode, which by definition is the second mode $\zeta_2(P_{\mathsf {xy}})$. Following this sequence we can get the $k^{th}$ mode that is orthogonal to all the previous $k-1$ ones. It takes a proof to state that we can indeed simultaneously train all sub-networks, which we omit from this page. 
 
-### Pytorch Implementation 
+### $\blacktriangle$ Pytorch Implementation 
 Here is a [colab demo](https://colab.research.google.com/drive/1C9mdtDZ7GFvyiYxEboemJ3Ed18sUMkVB?usp=sharing) of how to implement this in pytorch. 
 
 ## Going Forward
