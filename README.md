@@ -4,9 +4,9 @@ permalink: "/about/"
 layout: page
 ---
 
-This blog introduces a geometric framework for learning algorithm designs. 
+This blog introduces a geometric framework for machine learning tasks. With an attempt to illustrate how we design algorithm from a geometric and information-theoretic viewpoint, we also provide demos of these algorithms implemented with pytorch.
 
-Feel free to try demos on your own data and tasks!
+Feel free to try these demos on your own data and tasks!
 
 ---
 Contributors: [Lizhong Zheng](http://lizhongzheng.mit.edu/) and [Xiangxiang Xu](https://xiangxiangxu.mit.edu/). 

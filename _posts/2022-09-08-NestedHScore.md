@@ -120,7 +120,7 @@ A few remarks are in order now.
 
 We now go back to the problem that we started this page with: we would like to use the nested H-Score network to compute the modal decomposition, but wish the resulting modes to be in the standard form. That is, we want the extracted feature functions to be orthonormal, and the modes to be in a descending order of strengths. 
 
-As we will use the nested structure repeatedly, to avoid having too many lines in our figures, we will adopt a new _concatenation_ symbol, "$+\!\!\!+$", where simply takes all the inputs to form a vector output. In some drawings such an operation to merge data is simply denoted by a dot in the graph, but here we use the special symbol to emphasize the change of dimensionality. For example, the concatenation operation in the nest H-Score network is replaced with a new figure as follows. 
+As we will use the nested structure repeatedly, to avoid having too many lines in our figures, we will adopt a new _concatenation_ symbol, "$\,+\hspace{-.7em}+\,$", where simply takes all the inputs to form a vector output. In some drawings such an operation to merge data is simply denoted by a dot in the graph, but here we use the special symbol to emphasize the change of dimensionality. For example, the concatenation operation in the nest H-Score network is replaced with a new figure as follows. 
 
 |![test image](/assets/concatenation.png){: width="250" }|
 |<b> The Concatenation Symbol </b>|
@@ -132,7 +132,8 @@ Now the nested H-Score network that would generate orthogonal modes in descendin
 
 In the figure, we used the notation $f_{[k]} = [f_1, \ldots, f_k]$. Again, it is easier to understand the operation from sequential training. We can first train the $f_1, g_1$ block with the top H-Score box, and this finds the first mode $f^\ast_1, g^\ast_1 = \zeta_1(P_{\mathsf {xy}})$. After that, we train $f_2, g_2$ with the first mode freezed. The nested network ensures that the resulting mode to be orthogonal to the first mode, which by definition is the second mode $\zeta_2(P_{\mathsf {xy}})$. Following this sequence we can get the $k^{th}$ mode that is orthogonal to all the previous $k-1$ ones. It takes a proof to state that we can indeed simultaneously train all sub-networks, which we omit from this page. 
 
-Here is a [demo](https://colab.research.google.com/drive/1C9mdtDZ7GFvyiYxEboemJ3Ed18sUMkVB?usp=sharing) of how this works. 
+### Pytorch Implementation 
+Here is a [colab demo](https://colab.research.google.com/drive/1C9mdtDZ7GFvyiYxEboemJ3Ed18sUMkVB?usp=sharing) of how to implement this in pytorch. 
 
 ## Going Forward
 Nested H-Score Networks is our way to make projections in the space of feature functions, using interconnected neural networks. This is a fundamental operation in the functional space. In fact, in many learning problems, especially when the problem is more complex, such as with multi-modal data, multiple tasks, distributed learning constraints, time-varying models, privacy/security/fairness requirements, or when there is external knowledge that needs to be incorporated in the learning, such projection operations become critical. In our next post, we will give one of such examples with a multi-terminal learning problem. 
