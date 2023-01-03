@@ -132,8 +132,10 @@ Now the nested H-Score network that would generate orthogonal modes in descendin
 
 In the figure, we used the notation $f_{[k]} = [f_1, \ldots, f_k]$. Again, it is easier to understand the operation from sequential training. We can first train the $f_1, g_1$ block with the top H-Score box, and this finds the first mode $f^\ast_1, g^\ast_1 = \zeta_1(P_{\mathsf {xy}})$. After that, we train $f_2, g_2$ with the first mode freezed. The nested network ensures that the resulting mode to be orthogonal to the first mode, which by definition is the second mode $\zeta_2(P_{\mathsf {xy}})$. Following this sequence we can get the $k^{th}$ mode that is orthogonal to all the previous $k-1$ ones. It takes a proof to state that we can indeed simultaneously train all sub-networks, which we omit from this page. 
 
-### $\blacktriangle$ Pytorch Implementation 
-Here is a [colab demo](https://colab.research.google.com/drive/1C9mdtDZ7GFvyiYxEboemJ3Ed18sUMkVB?usp=sharing) of how to implement this in pytorch. 
+### $\blacktriangle$ Pytorch Implementations 
+Here is a [colab demo](https://colab.research.google.com/drive/1C9mdtDZ7GFvyiYxEboemJ3Ed18sUMkVB?usp=sharing) of how to implement this in pytorch, where we compare the extracted modes with the theoretical results. 
+
+As in the previous post, we can also apply the nested H-score on sequential data. In [this demo](https://colab.research.google.com/drive/1JtjS1LfWpf0eWx3xWTKYlW1myCTE4vqb#scrollTo=mcfGopzulQsY), we compare the nested H-score with the vanilla H-score, which also demonstrates the impact of feature demensions.
 
 ## Going Forward
 Nested H-Score Networks is our way to make projections in the space of feature functions, using interconnected neural networks. This is a fundamental operation in the functional space. In fact, in many learning problems, especially when the problem is more complex, such as with multi-modal data, multiple tasks, distributed learning constraints, time-varying models, privacy/security/fairness requirements, or when there is external knowledge that needs to be incorporated in the learning, such projection operations become critical. In our next post, we will give one of such examples with a multi-terminal learning problem. 
