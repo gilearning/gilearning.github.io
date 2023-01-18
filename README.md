@@ -4,7 +4,7 @@ permalink: "/about/"
 layout: page
 ---
 
-This blog introduces a geometric framework for machine learning tasks. With an attempt to illustrate how we design algorithm from a geometric and information-theoretic viewpoint, we also provide demos of these algorithms implemented with pytorch.
+This blog introduces a geometric framework for machine learning algorithm design. With an attempt to introduce an information geometric approach for learning algorithm design, we also provide demos of these algorithms implemented in pytorch.
 
 Feel free to try these demos on your own data and tasks!
 
