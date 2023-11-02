@@ -4,12 +4,14 @@ permalink: "/about/"
 layout: page
 ---
 
-This blog introduces a geometric framework for machine learning algorithm design. With an attempt to illustrate the information geometric viewpoint for learning algorithm design, we also provide demos of these algorithms implemented in pytorch.
+This blog introduces a geometric framework for machine learning algorithm design. As an attempt to illustrate this geometric viewpoint for information decomposition and learning, we also provide demos of the algorithms implemented in PyTorch.
 
 Feel free to try these demos on your own data and tasks!
 
 ---
 Contributors: [Lizhong Zheng](http://lizhongzheng.mit.edu/) and [Xiangxiang Xu](https://xiangxiangxu.mit.edu/). 
+
+Learn More: Take a look at [this paper](https://arxiv.org/abs/2309.10140) on arXiv!
 
 [Contact Us](mailto:xuxx@mit.edu)
 
