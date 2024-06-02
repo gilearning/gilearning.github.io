@@ -11,7 +11,7 @@ Feel free to try these demos on your own data and tasks!
 ---
 Contributors: [Lizhong Zheng](http://lizhongzheng.mit.edu/) and [Xiangxiang Xu](https://xiangxiangxu.mit.edu/). 
 
-Learn More: Take a look at [this paper](https://arxiv.org/abs/2309.10140) on arXiv!
+Learn More: [Neural Feature Learning in Function Space](https://jmlr.org/papers/v25/23-1202.html)[this paper], JMLR, vol25(142), 2024.
 
 [Contact Us](mailto:xuxx@mit.edu)
 
