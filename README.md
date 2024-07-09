@@ -27,7 +27,7 @@ Learn More:
   
   <sub>The site is made with the [Contrast Jekyll theme](https://github.com/niklasbuschmann/contrast). </sub>
   
-  </div>
+</div>
 
 <!---
 
