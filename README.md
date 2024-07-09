@@ -13,7 +13,7 @@ Contributors: [Lizhong Zheng](http://lizhongzheng.mit.edu/) and [Xiangxiang Xu](
 
 Learn More: 
 
-[Neural Feature Learning in Function Space](https://jmlr.org/papers/v25/23-1202.html), JMLR, vol25(142), 2024. [Github](https://github.com/XiangxiangXu/NFE)
+[Neural Feature Learning in Function Space](https://jmlr.org/papers/v25/23-1202.html), JMLR, vol25(142), 2024. [[Github]](https://github.com/XiangxiangXu/NFE)
 
 
 
