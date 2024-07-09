@@ -11,13 +11,19 @@ Feel free to try these demos on your own data and tasks!
 ---
 Contributors: [Lizhong Zheng](http://lizhongzheng.mit.edu/) and [Xiangxiang Xu](https://xiangxiangxu.mit.edu/). 
 
-Learn More: [Neural Feature Learning in Function Space](https://jmlr.org/papers/v25/23-1202.html), JMLR, vol25(142), 2024.
+Learn More: 
 
-[Contact Us](mailto:xuxx@mit.edu)
+[Neural Feature Learning in Function Space](https://jmlr.org/papers/v25/23-1202.html), JMLR, vol25(142), 2024. [Github](https://github.com/XiangxiangXu/NFE)
+
+
+
 
 
 ---
-The site is made with the [Contrast Jekyll theme](https://github.com/niklasbuschmann/contrast). 
+
+[Contact Us](mailto:xuxx@mit.edu)
+
+<div align="right"><sub>The site is made with the [Contrast Jekyll theme](https://github.com/niklasbuschmann/contrast). </sub></div>
 
 <!---
 
