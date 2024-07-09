@@ -23,7 +23,11 @@ Learn More:
 
 [Contact Us](mailto:xuxx@mit.edu)
 
-<div align="right"><sub>The site is made with the [Contrast Jekyll theme](https://github.com/niklasbuschmann/contrast). </sub></div>
+<div align="right">
+  
+  <sub>The site is made with the [Contrast Jekyll theme](https://github.com/niklasbuschmann/contrast). </sub>
+  
+  </div>
 
 <!---
 
